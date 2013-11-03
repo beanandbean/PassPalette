@@ -8,15 +8,14 @@
 
 #import "CPAppContentManager.h"
 
-#import "CPPassContainerManager.h"
-
 #import "CPAppearanceManager.h"
+#import "CPPassCollectionViewManager.h"
 
 @interface CPAppContentManager ()
 
-@property (strong, nonatomic) CPPassContainerManager *passContainerManager;
-
 @property (strong, nonatomic) UIView *passContainerView;
+
+@property (strong, nonatomic) CPPassCollectionViewManager *passContainerManager;
 
 @end
 
@@ -38,9 +37,9 @@
     return _passContainerView;
 }
 
-- (CPPassContainerManager *)passContainerManager {
+- (CPPassCollectionViewManager *)passContainerManager {
     if (!_passContainerManager) {
-        _passContainerManager = [[CPPassContainerManager alloc] initWithSupermanager:self andSuperview:self.passContainerView];
+        _passContainerManager = [[CPPassCollectionViewManager alloc] initWithSupermanager:self andSuperview:self.passContainerView];
     }
     return _passContainerManager;
 }

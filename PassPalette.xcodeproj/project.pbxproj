@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FC78598F18253F87005B5B03 /* CPRectLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = FC78598E18253F87005B5B03 /* CPRectLayout.m */; };
 		FC8E7D591824ECC100B3BE52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC8E7D581824ECC100B3BE52 /* Foundation.framework */; };
 		FC8E7D5B1824ECC100B3BE52 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC8E7D5A1824ECC100B3BE52 /* CoreGraphics.framework */; };
 		FC8E7D5D1824ECC100B3BE52 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC8E7D5C1824ECC100B3BE52 /* UIKit.framework */; };
@@ -31,7 +32,7 @@
 		FC8E7DA11824F73B00B3BE52 /* CPAppContentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7D9F1824F73B00B3BE52 /* CPAppContentManager.m */; };
 		FC8E7DA41824F7F500B3BE52 /* CPAppearanceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7DA31824F7F500B3BE52 /* CPAppearanceManager.m */; };
 		FC8E7DA91824F84F00B3BE52 /* CPProcessManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7DA81824F84F00B3BE52 /* CPProcessManager.m */; };
-		FC8E7DAC1824F8D600B3BE52 /* CPPassContainerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7DAB1824F8D600B3BE52 /* CPPassContainerManager.m */; };
+		FC8E7DAC1824F8D600B3BE52 /* CPPassCollectionViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7DAB1824F8D600B3BE52 /* CPPassCollectionViewManager.m */; };
 		FC8E7DAF1824FC0F00B3BE52 /* CPPassPaletteConfig.c in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7DAD1824FC0F00B3BE52 /* CPPassPaletteConfig.c */; };
 		FC8E7DB21824FCA700B3BE52 /* CPPassDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7DB11824FCA700B3BE52 /* CPPassDataManager.m */; };
 		FC8E7DB81824FD1F00B3BE52 /* CPMemo.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7DB51824FD1F00B3BE52 /* CPMemo.m */; };
@@ -50,6 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FC78598D18253F87005B5B03 /* CPRectLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRectLayout.h; sourceTree = "<group>"; };
+		FC78598E18253F87005B5B03 /* CPRectLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRectLayout.m; sourceTree = "<group>"; };
 		FC8E7D551824ECC100B3BE52 /* PassPalette.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassPalette.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC8E7D581824ECC100B3BE52 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FC8E7D5A1824ECC100B3BE52 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -87,8 +90,8 @@
 		FC8E7DA61824F81C00B3BE52 /* CPHelpManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPHelpManager.h; sourceTree = "<group>"; };
 		FC8E7DA71824F84F00B3BE52 /* CPProcessManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPProcessManager.h; sourceTree = "<group>"; };
 		FC8E7DA81824F84F00B3BE52 /* CPProcessManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPProcessManager.m; sourceTree = "<group>"; };
-		FC8E7DAA1824F8D600B3BE52 /* CPPassContainerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPassContainerManager.h; sourceTree = "<group>"; };
-		FC8E7DAB1824F8D600B3BE52 /* CPPassContainerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPassContainerManager.m; sourceTree = "<group>"; };
+		FC8E7DAA1824F8D600B3BE52 /* CPPassCollectionViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPassCollectionViewManager.h; sourceTree = "<group>"; };
+		FC8E7DAB1824F8D600B3BE52 /* CPPassCollectionViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPassCollectionViewManager.m; sourceTree = "<group>"; };
 		FC8E7DAD1824FC0F00B3BE52 /* CPPassPaletteConfig.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CPPassPaletteConfig.c; sourceTree = "<group>"; };
 		FC8E7DAE1824FC0F00B3BE52 /* CPPassPaletteConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPassPaletteConfig.h; sourceTree = "<group>"; };
 		FC8E7DB01824FCA700B3BE52 /* CPPassDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPassDataManager.h; sourceTree = "<group>"; };
@@ -128,6 +131,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FC27701C1825F0A000BD69CB /* Pass Cell Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				FC78598D18253F87005B5B03 /* CPRectLayout.h */,
+				FC78598E18253F87005B5B03 /* CPRectLayout.m */,
+			);
+			name = "Pass Cell Layouts";
+			sourceTree = "<group>";
+		};
 		FC8E7D4C1824ECC100B3BE52 = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +195,7 @@
 				FC8E7D921824F4DA00B3BE52 /* CPViewManager.m */,
 				FC8E7D6F1824ECC100B3BE52 /* Images.xcassets */,
 				FC8E7DB31824FCFE00B3BE52 /* Managed Objects */,
+				FC27701C1825F0A000BD69CB /* Pass Cell Layouts */,
 				FC8E7D8D1824EE4000B3BE52 /* PassPalette.storyboard */,
 				FC8E7D6C1824ECC100B3BE52 /* PassPalette.xcdatamodeld */,
 				FC8E7D611824ECC100B3BE52 /* Supporting Files */,
@@ -229,8 +242,8 @@
 				FC8E7D9F1824F73B00B3BE52 /* CPAppContentManager.m */,
 				FC8E7D991824F6E700B3BE52 /* CPHomeViewManager.h */,
 				FC8E7D9A1824F6E700B3BE52 /* CPHomeViewManager.m */,
-				FC8E7DAA1824F8D600B3BE52 /* CPPassContainerManager.h */,
-				FC8E7DAB1824F8D600B3BE52 /* CPPassContainerManager.m */,
+				FC8E7DAA1824F8D600B3BE52 /* CPPassCollectionViewManager.h */,
+				FC8E7DAB1824F8D600B3BE52 /* CPPassCollectionViewManager.m */,
 				FC8E7D961824F68000B3BE52 /* CPRootManager.h */,
 				FC8E7D971824F68000B3BE52 /* CPRootManager.m */,
 			);
@@ -354,6 +367,7 @@
 				FC8E7DB81824FD1F00B3BE52 /* CPMemo.m in Sources */,
 				FC8E7D6E1824ECC100B3BE52 /* PassPalette.xcdatamodeld in Sources */,
 				FC8E7DA01824F73B00B3BE52 /* CPAdManager.m in Sources */,
+				FC78598F18253F87005B5B03 /* CPRectLayout.m in Sources */,
 				FC8E7DBD1824FED300B3BE52 /* CPApplicationProcess.m in Sources */,
 				FC8E7DB21824FCA700B3BE52 /* CPPassDataManager.m in Sources */,
 				FC8E7D671824ECC100B3BE52 /* main.m in Sources */,
@@ -364,7 +378,7 @@
 				FC8E7D6B1824ECC100B3BE52 /* CPAppDelegate.m in Sources */,
 				FC8E7DB91824FD1F00B3BE52 /* CPPassword.m in Sources */,
 				FC8E7D9B1824F6E700B3BE52 /* CPHomeViewManager.m in Sources */,
-				FC8E7DAC1824F8D600B3BE52 /* CPPassContainerManager.m in Sources */,
+				FC8E7DAC1824F8D600B3BE52 /* CPPassCollectionViewManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,6 +583,7 @@
 				FC8E7D891824ECC100B3BE52 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FC8E7D8A1824ECC100B3BE52 /* Build configuration list for PBXNativeTarget "PassPaletteTests" */ = {
 			isa = XCConfigurationList;
@@ -577,6 +592,7 @@
 				FC8E7D8C1824ECC100B3BE52 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
