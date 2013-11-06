@@ -1,5 +1,5 @@
 //
-//  CPAppContentManager.h
+//  CPPassContainerManager.h
 //  Passtars
 //
 //  Created by wangsw on 9/22/13.
@@ -8,6 +8,6 @@
 
 #import "CPViewManager.h"
 
-@interface CPAppContentManager : CPViewManager
+@interface CPPassContainerManager : CPViewManager <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @end

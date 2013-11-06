@@ -9,13 +9,13 @@
 #import "CPHomeViewManager.h"
 
 #import "CPAdManager.h"
-#import "CPAppContentManager.h"
 #import "CPAppearanceManager.h"
+#import "CPPassContainerManager.h"
 
 @interface CPHomeViewManager ()
 
-@property (strong, nonatomic) UIView *appContentView;
-@property (strong, nonatomic) CPAppContentManager *appContentManager;
+@property (strong, nonatomic) UIView *passView;
+@property (strong, nonatomic) CPPassContainerManager *passCollectionViewManager;
 
 @property (strong, nonatomic) UIView *adView;
 @property (strong, nonatomic) CPAdManager *adManager;
@@ -25,33 +25,32 @@
 @implementation CPHomeViewManager
 
 - (void)loadAnimated:(BOOL)animated {
-    [self.superview addSubview:self.appContentView];
-    [self.superview addConstraints:[CPAppearanceManager constraintsWithView:self.appContentView alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeTop, NSLayoutAttributeRight, ATTR_END]];
+    [self.superview addSubview:self.passView];
+    [self.superview addConstraints:[CPAppearanceManager constraintsWithView:self.passView alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeTop, NSLayoutAttributeRight, ATTR_END]];
     
     [self.superview addSubview:self.adView];
     [self.superview addConstraints:[CPAppearanceManager constraintsWithView:self.adView alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeBottom, NSLayoutAttributeRight, ATTR_END]];
-    [self.superview addConstraint:[CPAppearanceManager constraintWithView:self.appContentView attribute:NSLayoutAttributeBottom alignToView:self.adView attribute:NSLayoutAttributeTop]];
+    [self.superview addConstraint:[CPAppearanceManager constraintWithView:self.passView attribute:NSLayoutAttributeBottom alignToView:self.adView attribute:NSLayoutAttributeTop]];
     
-    [self.appContentManager loadAnimated:NO];
+    [self.passCollectionViewManager loadAnimated:NO];
     [self.adManager loadAnimated:NO];
 }
 
 #pragma mark - lazy init
 
-- (UIView *)appContentView {
-    if (!_appContentView) {
-        _appContentView = [[UIView alloc] init];
-        _appContentView.clipsToBounds = YES;
-        _appContentView.translatesAutoresizingMaskIntoConstraints = NO;
+- (UIView *)passView {
+    if (!_passView) {
+        _passView = [[UIView alloc] init];
+        _passView.translatesAutoresizingMaskIntoConstraints = NO;
     }
-    return _appContentView;
+    return _passView;
 }
 
-- (CPAppContentManager *)appContentManager {
-    if (!_appContentManager) {
-        _appContentManager = [[CPAppContentManager alloc] initWithSupermanager:self andSuperview:self.appContentView];
+- (CPPassContainerManager *)passCollectionViewManager {
+    if (!_passCollectionViewManager) {
+        _passCollectionViewManager = [[CPPassContainerManager alloc] initWithSupermanager:self andSuperview:self.passView];
     }
-    return _appContentManager;
+    return _passCollectionViewManager;
 }
 
 - (UIView *)adView {
