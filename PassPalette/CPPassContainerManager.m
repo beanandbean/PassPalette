@@ -33,16 +33,10 @@
     [self.superview addSubview:self.passCollectionView];
     [self.superview addConstraints:[CPAppearanceManager constraintsWithView:self.passCollectionView edgesAlignToView:self.superview]];
     
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
-    [self.passCollectionView addGestureRecognizer:pan];
+    [self.passCollectionView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)]];
 }
 
 - (void)loadSettingView {
-    NSAssert(!self.settingView, @"");
-    NSAssert(!self.settingViewBottomLayout, @"");
-    NSAssert(!self.settingManager, @"");
-    NSAssert(!self.snapshotTopLayout, @"");
-    
     self.settingView = [[UIView alloc] init];
     self.settingView.clipsToBounds = YES;
     self.settingView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -62,14 +56,11 @@
     
     self.settingManager = [[CPSettingManager alloc] initWithSupermanager:self andSuperview:self.settingView];
     [self.settingManager loadAnimated:YES];
+
+    [self.settingView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)]];
 }
 
 - (void)unloadSettingView {
-    NSAssert(self.settingView, @"");
-    NSAssert(self.settingViewBottomLayout, @"");
-    NSAssert(self.settingManager, @"");
-    NSAssert(self.snapshotTopLayout, @"");
-
     [self.settingView removeFromSuperview];
     self.settingView = nil;
     self.settingViewBottomLayout = nil;
@@ -77,36 +68,39 @@
     self.snapshotTopLayout = nil;
 }
 
-- (void)handlePanGesture:(UIPanGestureRecognizer *)gesture {
-    if (gesture.state == UIGestureRecognizerStateBegan) {
+- (void)moveSettingViewByTranslation:(CGPoint)translation {
+    self.lastTranslation = translation;
+    self.settingViewBottomLayout.constant += self.lastTranslation.y;
+    self.snapshotTopLayout.constant -= self.lastTranslation.y;
+}
 
-        [self loadSettingView];
-        
-    } else if (gesture.state == UIGestureRecognizerStateChanged) {
-        
-        self.lastTranslation = [gesture translationInView:self.settingView];
-        self.settingViewBottomLayout.constant += self.lastTranslation.y;
-        self.snapshotTopLayout.constant -= self.lastTranslation.y;
-        [gesture setTranslation:CGPointZero inView:self.settingView];
-        
-    } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled || gesture.state == UIGestureRecognizerStateFailed) {
-
-        if (self.lastTranslation.y >= 0.0) {
-            self.settingViewBottomLayout.constant = self.superview.bounds.size.height;
-            self.snapshotTopLayout.constant = -self.superview.bounds.size.height;
-        } else {
-            self.settingViewBottomLayout.constant = 0;
-            self.snapshotTopLayout.constant = 0;
+- (void)animateSettingViewToEnd {
+    if (self.lastTranslation.y >= 0.0) {
+        self.settingViewBottomLayout.constant = self.superview.bounds.size.height;
+        self.snapshotTopLayout.constant = -self.superview.bounds.size.height;
+    } else {
+        self.settingViewBottomLayout.constant = 0;
+        self.snapshotTopLayout.constant = 0;
+    }
+    
+    [CPAppearanceManager animateWithDuration:0.5 animations:^{
+        [self.superview layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        if (self.lastTranslation.y < 0) {
+            [self unloadSettingView];
         }
-        
-        [CPAppearanceManager animateWithDuration:0.5 animations:^{
-            [self.superview layoutIfNeeded];
-        } completion:^(BOOL finished) {
-            if (self.lastTranslation.y < 0) {
-                [self unloadSettingView];
-            }
-        }];
-        
+    }];
+}
+
+- (void)handlePanGesture:(UIPanGestureRecognizer *)gesture {
+    if (gesture.state == UIGestureRecognizerStateChanged) {
+        if (!self.settingView) {
+            [self loadSettingView];
+        }
+        [self moveSettingViewByTranslation:[gesture translationInView:self.settingView]];
+        [gesture setTranslation:CGPointZero inView:self.settingView];
+    } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled || gesture.state == UIGestureRecognizerStateFailed) {
+        [self animateSettingViewToEnd];
     }
 }
 
