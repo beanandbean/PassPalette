@@ -12,13 +12,12 @@
 
 @interface CPPassword : NSManagedObject
 
+@property (strong, nonatomic) NSNumber *entropy;
 @property (strong, nonatomic) NSNumber *index;
 @property (strong, nonatomic) NSString *text;
 @property (strong, nonatomic) NSSet *memos;
 
-@property (strong, readonly, nonatomic) UIColor *color;
-
-+ (UIColor *)colorOfPassword:(NSString *)password;
++ (UIColor *)colorOfEntropy:(NSNumber *)entropy;
 
 @end
 

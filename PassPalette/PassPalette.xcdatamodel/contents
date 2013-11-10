@@ -5,12 +5,13 @@
         <relationship name="password" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Password" inverseName="memos" inverseEntity="Password" syncable="YES"/>
     </entity>
     <entity name="Password" syncable="YES">
+        <attribute name="entropy" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="memos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Memo" inverseName="password" inverseEntity="Memo" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Memo" positionX="45" positionY="-225" width="128" height="73"/>
-        <element name="Password" positionX="54" positionY="-216" width="128" height="88"/>
+        <element name="Memo" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Password" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

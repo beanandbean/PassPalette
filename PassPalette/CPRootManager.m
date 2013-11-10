@@ -9,12 +9,12 @@
 #import "CPRootManager.h"
 
 #import "CPAppearanceManager.h"
-#import "CPHomeViewManager.h"
+#import "CPHomeManager.h"
 
 @interface CPRootManager ()
 
 @property (strong, nonatomic) UIView *mainView;
-@property (strong, nonatomic) CPHomeViewManager *mainViewManager;
+@property (strong, nonatomic) CPHomeManager *mainViewManager;
 
 @end
 
@@ -51,9 +51,9 @@
     return _mainView;
 }
 
-- (CPHomeViewManager *)mainViewManager {
+- (CPHomeManager *)mainViewManager {
     if (!_mainViewManager) {
-        _mainViewManager = [[CPHomeViewManager alloc] initWithSupermanager:self andSuperview:self.mainView];
+        _mainViewManager = [[CPHomeManager alloc] initWithSupermanager:self andSuperview:self.mainView];
     }
     return _mainViewManager;
 }

@@ -1,18 +1,18 @@
 //
-//  CPMainViewManager.m
+//  CPHomeManager.m
 //  Passtars
 //
 //  Created by wangsw on 9/22/13.
 //  Copyright (c) 2013 codingpotato. All rights reserved.
 //
 
-#import "CPHomeViewManager.h"
+#import "CPHomeManager.h"
 
 #import "CPAdManager.h"
 #import "CPAppearanceManager.h"
 #import "CPPassContainerManager.h"
 
-@interface CPHomeViewManager ()
+@interface CPHomeManager ()
 
 @property (strong, nonatomic) UIView *passView;
 @property (strong, nonatomic) CPPassContainerManager *passCollectionViewManager;
@@ -22,7 +22,7 @@
 
 @end
 
-@implementation CPHomeViewManager
+@implementation CPHomeManager
 
 - (void)loadAnimated:(BOOL)animated {
     [self.superview addSubview:self.passView];

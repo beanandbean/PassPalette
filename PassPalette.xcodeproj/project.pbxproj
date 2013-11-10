@@ -23,6 +23,7 @@
 		FC2828A8182F381B0030B1AE /* BBEntropyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FC2828A7182F381B0030B1AE /* BBEntropyCenter.m */; };
 		FC2828AB182F48C40030B1AE /* adjacency_graphs.json in Resources */ = {isa = PBXBuildFile; fileRef = FC2828A9182F48C40030B1AE /* adjacency_graphs.json */; };
 		FC2828AC182F48C40030B1AE /* frequency_lists.json in Resources */ = {isa = PBXBuildFile; fileRef = FC2828AA182F48C40030B1AE /* frequency_lists.json */; };
+		FC64C61C182F95F800AB6C5C /* CPPassEditorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC64C61B182F95F800AB6C5C /* CPPassEditorManager.m */; };
 		FC78598F18253F87005B5B03 /* CPRectLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = FC78598E18253F87005B5B03 /* CPRectLayout.m */; };
 		FC8E7D591824ECC100B3BE52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC8E7D581824ECC100B3BE52 /* Foundation.framework */; };
 		FC8E7D5B1824ECC100B3BE52 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC8E7D5A1824ECC100B3BE52 /* CoreGraphics.framework */; };
@@ -31,7 +32,6 @@
 		FC8E7D651824ECC100B3BE52 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FC8E7D631824ECC100B3BE52 /* InfoPlist.strings */; };
 		FC8E7D671824ECC100B3BE52 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7D661824ECC100B3BE52 /* main.m */; };
 		FC8E7D6B1824ECC100B3BE52 /* CPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7D6A1824ECC100B3BE52 /* CPAppDelegate.m */; };
-		FC8E7D6E1824ECC100B3BE52 /* PassPalette.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7D6C1824ECC100B3BE52 /* PassPalette.xcdatamodeld */; };
 		FC8E7D701824ECC100B3BE52 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC8E7D6F1824ECC100B3BE52 /* Images.xcassets */; };
 		FC8E7D771824ECC100B3BE52 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC8E7D761824ECC100B3BE52 /* XCTest.framework */; };
 		FC8E7D781824ECC100B3BE52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC8E7D581824ECC100B3BE52 /* Foundation.framework */; };
@@ -43,7 +43,7 @@
 		FC8E7D931824F4DA00B3BE52 /* CPMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7D901824F4DA00B3BE52 /* CPMainViewController.m */; };
 		FC8E7D941824F4DA00B3BE52 /* CPViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7D921824F4DA00B3BE52 /* CPViewManager.m */; };
 		FC8E7D981824F68000B3BE52 /* CPRootManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7D971824F68000B3BE52 /* CPRootManager.m */; };
-		FC8E7D9B1824F6E700B3BE52 /* CPHomeViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7D9A1824F6E700B3BE52 /* CPHomeViewManager.m */; };
+		FC8E7D9B1824F6E700B3BE52 /* CPHomeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7D9A1824F6E700B3BE52 /* CPHomeManager.m */; };
 		FC8E7DA01824F73B00B3BE52 /* CPAdManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7D9D1824F73B00B3BE52 /* CPAdManager.m */; };
 		FC8E7DA41824F7F500B3BE52 /* CPAppearanceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7DA31824F7F500B3BE52 /* CPAppearanceManager.m */; };
 		FC8E7DA91824F84F00B3BE52 /* CPProcessManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7DA81824F84F00B3BE52 /* CPProcessManager.m */; };
@@ -54,6 +54,7 @@
 		FC8E7DB91824FD1F00B3BE52 /* CPPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7DB71824FD1F00B3BE52 /* CPPassword.m */; };
 		FC8E7DBD1824FED300B3BE52 /* CPApplicationProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7DBC1824FED300B3BE52 /* CPApplicationProcess.m */; };
 		FC9A571218263FC800A3A0B7 /* CPSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC9A571118263FC800A3A0B7 /* CPSettingManager.m */; };
+		FCDF1FF2182FDA9C00D7BEF2 /* PassPalette.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = FCDF1FF1182FDA9C00D7BEF2 /* PassPalette.xcdatamodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,8 @@
 		FC2828A7182F381B0030B1AE /* BBEntropyCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBEntropyCenter.m; sourceTree = "<group>"; };
 		FC2828A9182F48C40030B1AE /* adjacency_graphs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = adjacency_graphs.json; sourceTree = "<group>"; };
 		FC2828AA182F48C40030B1AE /* frequency_lists.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = frequency_lists.json; sourceTree = "<group>"; };
+		FC64C61A182F95F800AB6C5C /* CPPassEditorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPassEditorManager.h; sourceTree = "<group>"; };
+		FC64C61B182F95F800AB6C5C /* CPPassEditorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPassEditorManager.m; sourceTree = "<group>"; };
 		FC78598D18253F87005B5B03 /* CPRectLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRectLayout.h; sourceTree = "<group>"; };
 		FC78598E18253F87005B5B03 /* CPRectLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRectLayout.m; sourceTree = "<group>"; };
 		FC8E7D551824ECC100B3BE52 /* PassPalette.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassPalette.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,7 +114,6 @@
 		FC8E7D681824ECC100B3BE52 /* PassPalette-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PassPalette-Prefix.pch"; sourceTree = "<group>"; };
 		FC8E7D691824ECC100B3BE52 /* CPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPAppDelegate.h; sourceTree = "<group>"; };
 		FC8E7D6A1824ECC100B3BE52 /* CPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CPAppDelegate.m; sourceTree = "<group>"; };
-		FC8E7D6D1824ECC100B3BE52 /* PassPalette.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PassPalette.xcdatamodel; sourceTree = "<group>"; };
 		FC8E7D6F1824ECC100B3BE52 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FC8E7D751824ECC100B3BE52 /* PassPaletteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PassPaletteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC8E7D761824ECC100B3BE52 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -125,8 +127,8 @@
 		FC8E7D921824F4DA00B3BE52 /* CPViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPViewManager.m; sourceTree = "<group>"; };
 		FC8E7D961824F68000B3BE52 /* CPRootManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRootManager.h; sourceTree = "<group>"; };
 		FC8E7D971824F68000B3BE52 /* CPRootManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRootManager.m; sourceTree = "<group>"; };
-		FC8E7D991824F6E700B3BE52 /* CPHomeViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPHomeViewManager.h; sourceTree = "<group>"; };
-		FC8E7D9A1824F6E700B3BE52 /* CPHomeViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPHomeViewManager.m; sourceTree = "<group>"; };
+		FC8E7D991824F6E700B3BE52 /* CPHomeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPHomeManager.h; sourceTree = "<group>"; };
+		FC8E7D9A1824F6E700B3BE52 /* CPHomeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPHomeManager.m; sourceTree = "<group>"; };
 		FC8E7D9C1824F73B00B3BE52 /* CPAdManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAdManager.h; sourceTree = "<group>"; };
 		FC8E7D9D1824F73B00B3BE52 /* CPAdManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAdManager.m; sourceTree = "<group>"; };
 		FC8E7DA21824F7F500B3BE52 /* CPAppearanceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAppearanceManager.h; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 		FC8E7DBC1824FED300B3BE52 /* CPApplicationProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPApplicationProcess.m; sourceTree = "<group>"; };
 		FC9A571018263FC800A3A0B7 /* CPSettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPSettingManager.h; sourceTree = "<group>"; };
 		FC9A571118263FC800A3A0B7 /* CPSettingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPSettingManager.m; sourceTree = "<group>"; };
+		FCDF1FF1182FDA9C00D7BEF2 /* PassPalette.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PassPalette.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,7 +290,7 @@
 				FC8E7DB31824FCFE00B3BE52 /* Managed Objects */,
 				FC27701C1825F0A000BD69CB /* Pass Cell Layouts */,
 				FC8E7D8D1824EE4000B3BE52 /* PassPalette.storyboard */,
-				FC8E7D6C1824ECC100B3BE52 /* PassPalette.xcdatamodeld */,
+				FCDF1FF1182FDA9C00D7BEF2 /* PassPalette.xcdatamodel */,
 				FC8E7D611824ECC100B3BE52 /* Supporting Files */,
 				FC28287C182F37800030B1AE /* UIImage+ImageEffects */,
 				FC8E7D951824F65100B3BE52 /* View Managers */,
@@ -332,10 +335,12 @@
 			children = (
 				FC8E7D9C1824F73B00B3BE52 /* CPAdManager.h */,
 				FC8E7D9D1824F73B00B3BE52 /* CPAdManager.m */,
-				FC8E7D991824F6E700B3BE52 /* CPHomeViewManager.h */,
-				FC8E7D9A1824F6E700B3BE52 /* CPHomeViewManager.m */,
+				FC8E7D991824F6E700B3BE52 /* CPHomeManager.h */,
+				FC8E7D9A1824F6E700B3BE52 /* CPHomeManager.m */,
 				FC8E7DAA1824F8D600B3BE52 /* CPPassContainerManager.h */,
 				FC8E7DAB1824F8D600B3BE52 /* CPPassContainerManager.m */,
+				FC64C61A182F95F800AB6C5C /* CPPassEditorManager.h */,
+				FC64C61B182F95F800AB6C5C /* CPPassEditorManager.m */,
 				FC8E7D961824F68000B3BE52 /* CPRootManager.h */,
 				FC8E7D971824F68000B3BE52 /* CPRootManager.m */,
 				FC9A571018263FC800A3A0B7 /* CPSettingManager.h */,
@@ -468,8 +473,8 @@
 				FC8E7DA41824F7F500B3BE52 /* CPAppearanceManager.m in Sources */,
 				FC8E7DB81824FD1F00B3BE52 /* CPMemo.m in Sources */,
 				FC2828A5182F37800030B1AE /* BBYearMatcher.m in Sources */,
-				FC8E7D6E1824ECC100B3BE52 /* PassPalette.xcdatamodeld in Sources */,
 				FC8E7DA01824F73B00B3BE52 /* CPAdManager.m in Sources */,
+				FC64C61C182F95F800AB6C5C /* CPPassEditorManager.m in Sources */,
 				FC78598F18253F87005B5B03 /* CPRectLayout.m in Sources */,
 				FC8E7DBD1824FED300B3BE52 /* CPApplicationProcess.m in Sources */,
 				FC8E7DB21824FCA700B3BE52 /* CPPassDataManager.m in Sources */,
@@ -487,8 +492,9 @@
 				FC9A571218263FC800A3A0B7 /* CPSettingManager.m in Sources */,
 				FC8E7D6B1824ECC100B3BE52 /* CPAppDelegate.m in Sources */,
 				FC8E7DB91824FD1F00B3BE52 /* CPPassword.m in Sources */,
-				FC8E7D9B1824F6E700B3BE52 /* CPHomeViewManager.m in Sources */,
+				FC8E7D9B1824F6E700B3BE52 /* CPHomeManager.m in Sources */,
 				FC8E7DAC1824F8D600B3BE52 /* CPPassContainerManager.m in Sources */,
+				FCDF1FF2182FDA9C00D7BEF2 /* PassPalette.xcdatamodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,19 +711,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		FC8E7D6C1824ECC100B3BE52 /* PassPalette.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				FC8E7D6D1824ECC100B3BE52 /* PassPalette.xcdatamodel */,
-			);
-			currentVersion = FC8E7D6D1824ECC100B3BE52 /* PassPalette.xcdatamodel */;
-			path = PassPalette.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = FC8E7D4D1824ECC100B3BE52 /* Project object */;
 }

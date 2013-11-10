@@ -8,6 +8,8 @@
 
 #import "CPPassDataManager.h"
 
+#import "BBPasswordStrength.h"
+
 #import "CPHelperMacros.h"
 #import "CPPassPaletteConfig.h"
 
@@ -55,6 +57,8 @@ static NSArray *g_defaultPassword = nil;
                 CPPassword *password = [NSEntityDescription insertNewObjectForEntityForName:@"Password" inManagedObjectContext:self.managedObjectContext];
                 password.index = [NSNumber numberWithUnsignedInteger:index];
                 password.text = [[CPPassDataManager defaultPassword] objectAtIndex:index];
+                BBPasswordStrength *passwordStrength = [[BBPasswordStrength alloc] initWithPassword:password.text];
+                password.entropy = [NSNumber numberWithDouble:passwordStrength.entropy];
             }
             [self saveContext];
             [_passwordsController performFetch:nil];
@@ -68,10 +72,12 @@ static NSArray *g_defaultPassword = nil;
     NSAssert1(password, @"No password corresponding to password index %d!", (int)index);
     
     if ([text isEqualToString:@""]) {
-        text = [[CPPassDataManager defaultPassword] objectAtIndex:index];
+        password.text = [[CPPassDataManager defaultPassword] objectAtIndex:index];
     } else {
         password.text = text;
     }
+    BBPasswordStrength *passwordStrength = [[BBPasswordStrength alloc] initWithPassword:password.text];
+    password.entropy = [NSNumber numberWithDouble:passwordStrength.entropy];
     
     [self saveContext];
 }
@@ -160,10 +166,12 @@ static NSArray *g_defaultPassword = nil;
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
     if (!_persistentStoreCoordinator) {
         NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"PassPalette.sqlite"];
-        
+        NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
+                                 [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
         NSError *error = nil;
         _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
-        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
             /*
              TODO: MAY ABORT! Handle the error appropriately when initializing persistent store coordinator.
              

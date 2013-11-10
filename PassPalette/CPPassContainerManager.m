@@ -12,6 +12,7 @@
 
 #import "CPAppearanceManager.h"
 #import "CPRectLayout.h"
+#import "CPPassEditorManager.h"
 #import "CPSettingManager.h"
 
 #import "CPPassDataManager.h"
@@ -27,6 +28,9 @@
 @property (nonatomic) CGPoint lastTranslation;
 
 @property (strong, nonatomic) NSLayoutConstraint *snapshotTopLayout;
+
+@property (strong, nonatomic) UIView *passEditorView;
+@property (strong, nonatomic) CPPassEditorManager *passEditorManager;
 
 @end
 
@@ -126,8 +130,51 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PassCollectionViewCell" forIndexPath:indexPath];
     CPPassword *password = [[CPPassDataManager defaultManager].passwordsController.fetchedObjects objectAtIndex:indexPath.row];
-    cell.contentView.backgroundColor = [CPPassword colorOfPassword:password.text];
+    cell.contentView.backgroundColor = [CPPassword colorOfEntropy:password.entropy];
     return cell;
+}
+
+#pragma mark - UICollectionViewDelegate implement
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    UIGraphicsBeginImageContextWithOptions(self.superview.bounds.size, NO, self.superview.window.screen.scale);
+    [self.superview drawViewHierarchyInRect:self.superview.frame afterScreenUpdates:NO];
+    UIImageView *passEditorBackgroundImageView = [[UIImageView alloc] initWithImage:UIGraphicsGetImageFromCurrentImageContext()];
+    UIGraphicsEndImageContext();
+    
+    passEditorBackgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.superview addSubview:passEditorBackgroundImageView];
+    NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:passEditorBackgroundImageView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0.0];
+    NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:passEditorBackgroundImageView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeRight multiplier:1.0 constant:0.0];
+    NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:passEditorBackgroundImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0];
+    NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:passEditorBackgroundImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0];
+    [self.superview addConstraints:@[leftConstraint, rightConstraint, topConstraint, bottomConstraint]];
+    [self.superview layoutIfNeeded];
+    
+    CGRect cellFrame = [collectionView layoutAttributesForItemAtIndexPath:indexPath].frame;
+    CGRect destFrame = self.superview.bounds;
+    CGFloat xScale = destFrame.size.width / cellFrame.size.width;
+    CGFloat yScale = destFrame.size.height / cellFrame.size.height;
+    leftConstraint.constant = - cellFrame.origin.x * xScale - 1;
+    rightConstraint.constant = (destFrame.size.width - cellFrame.origin.x - cellFrame.size.width) * xScale + 1;
+    topConstraint.constant = - cellFrame.origin.y * yScale - 1;
+    bottomConstraint.constant = (destFrame.size.height - cellFrame.origin.y - cellFrame.size.height) * yScale + 1;
+    
+    [CPAppearanceManager animateWithDuration:0.5 animations:^{
+        [self.superview layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        [passEditorBackgroundImageView removeFromSuperview];
+        
+        self.passEditorView = [[UIView alloc] init];
+        self.passEditorView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.superview addSubview:self.passEditorView];
+        [self.superview addConstraints:[CPAppearanceManager constraintsWithView:self.passEditorView edgesAlignToView:self.superview]];
+        
+        self.passEditorManager = [[CPPassEditorManager alloc] initWithSupermanager:self andSuperview:self.passEditorView];
+        self.passEditorManager.index = indexPath.row;
+        [self.passEditorManager loadAnimated:YES];
+    }];
+    
 }
 
 #pragma mark - lazy init

@@ -1,5 +1,5 @@
 //
-//  CPMainViewManager.h
+//  CPHomeManager.h
 //  Passtars
 //
 //  Created by wangsw on 9/22/13.
@@ -8,6 +8,6 @@
 
 #import "CPViewManager.h"
 
-@interface CPHomeViewManager : CPViewManager
+@interface CPHomeManager : CPViewManager
 
 @end
