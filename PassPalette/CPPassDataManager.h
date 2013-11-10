@@ -21,12 +21,6 @@
 - (CPMemo *)newMemoText:(NSString *)text inIndex:(NSUInteger)index;
 - (void)removeMemo:(CPMemo *)memo;
 
-- (BOOL)canRemovePasswordAtIndex:(NSUInteger)index;
-- (void)removePasswordAtIndex:(NSUInteger)index;
-
-- (BOOL)canRecoverPasswordAtIndex:(NSUInteger)index;
-- (void)recoverPasswordAtIndex:(NSUInteger)index;
-
 - (void)exchangePasswordBetweenIndex1:(NSUInteger)index1 andIndex2:(NSUInteger)index2;
 
 - (NSArray *)memosContainText:(NSString *)text;

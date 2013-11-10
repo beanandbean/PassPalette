@@ -8,11 +8,14 @@
 
 #import "CPPassContainerManager.h"
 
+#import "UIImage+ImageEffects.h"
+
 #import "CPAppearanceManager.h"
 #import "CPRectLayout.h"
 #import "CPSettingManager.h"
 
-#import "UIImage+ImageEffects.h"
+#import "CPPassDataManager.h"
+#import "CPPassword.h"
 
 @interface CPPassContainerManager ()
 
@@ -121,8 +124,9 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CELL" forIndexPath:indexPath];
-    cell.contentView.backgroundColor = [UIColor colorWithHue:0.1 * indexPath.row saturation:1.0 brightness:1.0 alpha:1.0];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PassCollectionViewCell" forIndexPath:indexPath];
+    CPPassword *password = [[CPPassDataManager defaultManager].passwordsController.fetchedObjects objectAtIndex:indexPath.row];
+    cell.contentView.backgroundColor = [CPPassword colorOfPassword:password.text];
     return cell;
 }
 
@@ -135,7 +139,7 @@
         _passCollectionView.delegate = self;
         _passCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
 
-        [_passCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"CELL"];
+        [_passCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"PassCollectionViewCell"];
     }
     return _passCollectionView;
 }

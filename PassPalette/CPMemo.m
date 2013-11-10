@@ -8,8 +8,6 @@
 
 #import "CPMemo.h"
 
-#import "CPPassword.h"
-
 @implementation CPMemo
 
 @dynamic text;

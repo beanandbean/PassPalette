@@ -8,28 +8,29 @@
 
 #import "CPPassword.h"
 
-#import "CPHelperMacros.h"
-#import "CPPassPaletteConfig.h"
+#import "BBPasswordStrength.h"
 
 @implementation CPPassword
 
 @dynamic index;
 @dynamic text;
-@dynamic isUsed;
-@dynamic colorIndex;
-@dynamic icon;
 @dynamic memos;
 
+@synthesize color = _color;
+
++ (UIColor *)colorOfPassword:(NSString *)password {
+    BBPasswordStrength *strength = [[BBPasswordStrength alloc] initWithPassword:password];
+    double entropyperchar = strength.entropy / password.length;
+    entropyperchar = round(entropyperchar * 1000) / 1000;
+    
+    return [UIColor colorWithHue:0.667 - strength.entropy / 75 saturation:1.0 brightness:1.0 alpha:1.0];
+}
+
 - (UIColor *)color {
-    return [[UIColor alloc] initWithRed:PASSWORD_COLORS[self.colorIndex.intValue * 3] green:PASSWORD_COLORS[self.colorIndex.intValue * 3 + 1] blue:PASSWORD_COLORS[self.colorIndex.intValue * 3 + 2] alpha:1.0];
-}
-
-- (NSString *)displayIcon {
-    return self.isUsed.boolValue ? self.icon : PASSWORD_DEFAULT_ICON;
-}
-
-- (NSString *)reversedIcon {
-    return self.isUsed.boolValue ? PASSWORD_DEFAULT_ICON : self.icon;
+    if (!_color) {
+        _color = [CPPassword colorOfPassword:self.text];
+    }
+    return _color;
 }
 
 @end

@@ -7,6 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FC282899182F37800030B1AE /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = FC28287E182F37800030B1AE /* UIImage+ImageEffects.m */; };
+		FC28289A182F37800030B1AE /* BBDateMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = FC282881182F37800030B1AE /* BBDateMatcher.m */; };
+		FC28289B182F37800030B1AE /* BBDictionaryMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = FC282883182F37800030B1AE /* BBDictionaryMatcher.m */; };
+		FC28289C182F37800030B1AE /* BBDigitsMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = FC282885182F37800030B1AE /* BBDigitsMatcher.m */; };
+		FC28289D182F37800030B1AE /* BBL33tMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = FC282887182F37800030B1AE /* BBL33tMatcher.m */; };
+		FC28289E182F37800030B1AE /* BBPasswordStrength.m in Sources */ = {isa = PBXBuildFile; fileRef = FC282889182F37800030B1AE /* BBPasswordStrength.m */; };
+		FC28289F182F37800030B1AE /* BBPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = FC28288B182F37800030B1AE /* BBPattern.m */; };
+		FC2828A0182F37800030B1AE /* BBPatternCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FC28288D182F37800030B1AE /* BBPatternCenter.m */; };
+		FC2828A1182F37800030B1AE /* BBRegularExpressionMatchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FC282890182F37800030B1AE /* BBRegularExpressionMatchHelper.m */; };
+		FC2828A2182F37800030B1AE /* BBRepeatMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = FC282892182F37800030B1AE /* BBRepeatMatcher.m */; };
+		FC2828A3182F37800030B1AE /* BBSequenceMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = FC282894182F37800030B1AE /* BBSequenceMatcher.m */; };
+		FC2828A4182F37800030B1AE /* BBSpatialMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = FC282896182F37800030B1AE /* BBSpatialMatcher.m */; };
+		FC2828A5182F37800030B1AE /* BBYearMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = FC282898182F37800030B1AE /* BBYearMatcher.m */; };
+		FC2828A8182F381B0030B1AE /* BBEntropyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FC2828A7182F381B0030B1AE /* BBEntropyCenter.m */; };
+		FC2828AB182F48C40030B1AE /* adjacency_graphs.json in Resources */ = {isa = PBXBuildFile; fileRef = FC2828A9182F48C40030B1AE /* adjacency_graphs.json */; };
+		FC2828AC182F48C40030B1AE /* frequency_lists.json in Resources */ = {isa = PBXBuildFile; fileRef = FC2828AA182F48C40030B1AE /* frequency_lists.json */; };
 		FC78598F18253F87005B5B03 /* CPRectLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = FC78598E18253F87005B5B03 /* CPRectLayout.m */; };
 		FC8E7D591824ECC100B3BE52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC8E7D581824ECC100B3BE52 /* Foundation.framework */; };
 		FC8E7D5B1824ECC100B3BE52 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC8E7D5A1824ECC100B3BE52 /* CoreGraphics.framework */; };
@@ -38,7 +54,6 @@
 		FC8E7DB91824FD1F00B3BE52 /* CPPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7DB71824FD1F00B3BE52 /* CPPassword.m */; };
 		FC8E7DBD1824FED300B3BE52 /* CPApplicationProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7DBC1824FED300B3BE52 /* CPApplicationProcess.m */; };
 		FC9A571218263FC800A3A0B7 /* CPSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC9A571118263FC800A3A0B7 /* CPSettingManager.m */; };
-		FCBF44DC182A849800F3F0BD /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = FCBF44DB182A849800F3F0BD /* UIImage+ImageEffects.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +67,37 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FC28287D182F37800030B1AE /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		FC28287E182F37800030B1AE /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		FC282880182F37800030B1AE /* BBDateMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBDateMatcher.h; sourceTree = "<group>"; };
+		FC282881182F37800030B1AE /* BBDateMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBDateMatcher.m; sourceTree = "<group>"; };
+		FC282882182F37800030B1AE /* BBDictionaryMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBDictionaryMatcher.h; sourceTree = "<group>"; };
+		FC282883182F37800030B1AE /* BBDictionaryMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBDictionaryMatcher.m; sourceTree = "<group>"; };
+		FC282884182F37800030B1AE /* BBDigitsMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBDigitsMatcher.h; sourceTree = "<group>"; };
+		FC282885182F37800030B1AE /* BBDigitsMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBDigitsMatcher.m; sourceTree = "<group>"; };
+		FC282886182F37800030B1AE /* BBL33tMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBL33tMatcher.h; sourceTree = "<group>"; };
+		FC282887182F37800030B1AE /* BBL33tMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBL33tMatcher.m; sourceTree = "<group>"; };
+		FC282888182F37800030B1AE /* BBPasswordStrength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBPasswordStrength.h; sourceTree = "<group>"; };
+		FC282889182F37800030B1AE /* BBPasswordStrength.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBPasswordStrength.m; sourceTree = "<group>"; };
+		FC28288A182F37800030B1AE /* BBPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBPattern.h; sourceTree = "<group>"; };
+		FC28288B182F37800030B1AE /* BBPattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBPattern.m; sourceTree = "<group>"; };
+		FC28288C182F37800030B1AE /* BBPatternCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBPatternCenter.h; sourceTree = "<group>"; };
+		FC28288D182F37800030B1AE /* BBPatternCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBPatternCenter.m; sourceTree = "<group>"; };
+		FC28288E182F37800030B1AE /* BBPatternMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBPatternMatcher.h; sourceTree = "<group>"; };
+		FC28288F182F37800030B1AE /* BBRegularExpressionMatchHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBRegularExpressionMatchHelper.h; sourceTree = "<group>"; };
+		FC282890182F37800030B1AE /* BBRegularExpressionMatchHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBRegularExpressionMatchHelper.m; sourceTree = "<group>"; };
+		FC282891182F37800030B1AE /* BBRepeatMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBRepeatMatcher.h; sourceTree = "<group>"; };
+		FC282892182F37800030B1AE /* BBRepeatMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBRepeatMatcher.m; sourceTree = "<group>"; };
+		FC282893182F37800030B1AE /* BBSequenceMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSequenceMatcher.h; sourceTree = "<group>"; };
+		FC282894182F37800030B1AE /* BBSequenceMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSequenceMatcher.m; sourceTree = "<group>"; };
+		FC282895182F37800030B1AE /* BBSpatialMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSpatialMatcher.h; sourceTree = "<group>"; };
+		FC282896182F37800030B1AE /* BBSpatialMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSpatialMatcher.m; sourceTree = "<group>"; };
+		FC282897182F37800030B1AE /* BBYearMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBYearMatcher.h; sourceTree = "<group>"; };
+		FC282898182F37800030B1AE /* BBYearMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBYearMatcher.m; sourceTree = "<group>"; };
+		FC2828A6182F381B0030B1AE /* BBEntropyCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBEntropyCenter.h; sourceTree = "<group>"; };
+		FC2828A7182F381B0030B1AE /* BBEntropyCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBEntropyCenter.m; sourceTree = "<group>"; };
+		FC2828A9182F48C40030B1AE /* adjacency_graphs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = adjacency_graphs.json; sourceTree = "<group>"; };
+		FC2828AA182F48C40030B1AE /* frequency_lists.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = frequency_lists.json; sourceTree = "<group>"; };
 		FC78598D18253F87005B5B03 /* CPRectLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRectLayout.h; sourceTree = "<group>"; };
 		FC78598E18253F87005B5B03 /* CPRectLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRectLayout.m; sourceTree = "<group>"; };
 		FC8E7D551824ECC100B3BE52 /* PassPalette.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassPalette.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,8 +150,6 @@
 		FC8E7DBC1824FED300B3BE52 /* CPApplicationProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPApplicationProcess.m; sourceTree = "<group>"; };
 		FC9A571018263FC800A3A0B7 /* CPSettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPSettingManager.h; sourceTree = "<group>"; };
 		FC9A571118263FC800A3A0B7 /* CPSettingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPSettingManager.m; sourceTree = "<group>"; };
-		FCBF44DA182A849800F3F0BD /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
-		FCBF44DB182A849800F3F0BD /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +185,49 @@
 				FC78598E18253F87005B5B03 /* CPRectLayout.m */,
 			);
 			name = "Pass Cell Layouts";
+			sourceTree = "<group>";
+		};
+		FC28287C182F37800030B1AE /* UIImage+ImageEffects */ = {
+			isa = PBXGroup;
+			children = (
+				FC28287D182F37800030B1AE /* UIImage+ImageEffects.h */,
+				FC28287E182F37800030B1AE /* UIImage+ImageEffects.m */,
+			);
+			path = "UIImage+ImageEffects";
+			sourceTree = "<group>";
+		};
+		FC28287F182F37800030B1AE /* ZXCVBN */ = {
+			isa = PBXGroup;
+			children = (
+				FC282880182F37800030B1AE /* BBDateMatcher.h */,
+				FC282881182F37800030B1AE /* BBDateMatcher.m */,
+				FC282882182F37800030B1AE /* BBDictionaryMatcher.h */,
+				FC282883182F37800030B1AE /* BBDictionaryMatcher.m */,
+				FC282884182F37800030B1AE /* BBDigitsMatcher.h */,
+				FC282885182F37800030B1AE /* BBDigitsMatcher.m */,
+				FC2828A6182F381B0030B1AE /* BBEntropyCenter.h */,
+				FC2828A7182F381B0030B1AE /* BBEntropyCenter.m */,
+				FC282886182F37800030B1AE /* BBL33tMatcher.h */,
+				FC282887182F37800030B1AE /* BBL33tMatcher.m */,
+				FC282888182F37800030B1AE /* BBPasswordStrength.h */,
+				FC282889182F37800030B1AE /* BBPasswordStrength.m */,
+				FC28288A182F37800030B1AE /* BBPattern.h */,
+				FC28288B182F37800030B1AE /* BBPattern.m */,
+				FC28288C182F37800030B1AE /* BBPatternCenter.h */,
+				FC28288D182F37800030B1AE /* BBPatternCenter.m */,
+				FC28288E182F37800030B1AE /* BBPatternMatcher.h */,
+				FC28288F182F37800030B1AE /* BBRegularExpressionMatchHelper.h */,
+				FC282890182F37800030B1AE /* BBRegularExpressionMatchHelper.m */,
+				FC282891182F37800030B1AE /* BBRepeatMatcher.h */,
+				FC282892182F37800030B1AE /* BBRepeatMatcher.m */,
+				FC282893182F37800030B1AE /* BBSequenceMatcher.h */,
+				FC282894182F37800030B1AE /* BBSequenceMatcher.m */,
+				FC282895182F37800030B1AE /* BBSpatialMatcher.h */,
+				FC282896182F37800030B1AE /* BBSpatialMatcher.m */,
+				FC282897182F37800030B1AE /* BBYearMatcher.h */,
+				FC282898182F37800030B1AE /* BBYearMatcher.m */,
+			);
+			path = ZXCVBN;
 			sourceTree = "<group>";
 		};
 		FC8E7D4C1824ECC100B3BE52 = {
@@ -202,8 +289,9 @@
 				FC8E7D8D1824EE4000B3BE52 /* PassPalette.storyboard */,
 				FC8E7D6C1824ECC100B3BE52 /* PassPalette.xcdatamodeld */,
 				FC8E7D611824ECC100B3BE52 /* Supporting Files */,
-				FCBF44D9182A83F200F3F0BD /* UIImage+ImageEffects */,
+				FC28287C182F37800030B1AE /* UIImage+ImageEffects */,
 				FC8E7D951824F65100B3BE52 /* View Managers */,
+				FC28287F182F37800030B1AE /* ZXCVBN */,
 			);
 			path = PassPalette;
 			sourceTree = "<group>";
@@ -211,9 +299,11 @@
 		FC8E7D611824ECC100B3BE52 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				FC8E7D621824ECC100B3BE52 /* PassPalette-Info.plist */,
+				FC2828A9182F48C40030B1AE /* adjacency_graphs.json */,
+				FC2828AA182F48C40030B1AE /* frequency_lists.json */,
 				FC8E7D631824ECC100B3BE52 /* InfoPlist.strings */,
 				FC8E7D661824ECC100B3BE52 /* main.m */,
+				FC8E7D621824ECC100B3BE52 /* PassPalette-Info.plist */,
 				FC8E7D681824ECC100B3BE52 /* PassPalette-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -263,15 +353,6 @@
 				FC8E7DB71824FD1F00B3BE52 /* CPPassword.m */,
 			);
 			name = "Managed Objects";
-			sourceTree = "<group>";
-		};
-		FCBF44D9182A83F200F3F0BD /* UIImage+ImageEffects */ = {
-			isa = PBXGroup;
-			children = (
-				FCBF44DA182A849800F3F0BD /* UIImage+ImageEffects.h */,
-				FCBF44DB182A849800F3F0BD /* UIImage+ImageEffects.m */,
-			);
-			name = "UIImage+ImageEffects";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -355,7 +436,9 @@
 			files = (
 				FC8E7D651824ECC100B3BE52 /* InfoPlist.strings in Resources */,
 				FC8E7D701824ECC100B3BE52 /* Images.xcassets in Resources */,
+				FC2828AC182F48C40030B1AE /* frequency_lists.json in Resources */,
 				FC8E7D8E1824EE4000B3BE52 /* PassPalette.storyboard in Resources */,
+				FC2828AB182F48C40030B1AE /* adjacency_graphs.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,17 +459,30 @@
 			files = (
 				FC8E7D941824F4DA00B3BE52 /* CPViewManager.m in Sources */,
 				FC8E7D931824F4DA00B3BE52 /* CPMainViewController.m in Sources */,
-				FCBF44DC182A849800F3F0BD /* UIImage+ImageEffects.m in Sources */,
+				FC2828A8182F381B0030B1AE /* BBEntropyCenter.m in Sources */,
+				FC282899182F37800030B1AE /* UIImage+ImageEffects.m in Sources */,
+				FC2828A4182F37800030B1AE /* BBSpatialMatcher.m in Sources */,
+				FC28289B182F37800030B1AE /* BBDictionaryMatcher.m in Sources */,
+				FC28289D182F37800030B1AE /* BBL33tMatcher.m in Sources */,
+				FC28289C182F37800030B1AE /* BBDigitsMatcher.m in Sources */,
 				FC8E7DA41824F7F500B3BE52 /* CPAppearanceManager.m in Sources */,
 				FC8E7DB81824FD1F00B3BE52 /* CPMemo.m in Sources */,
+				FC2828A5182F37800030B1AE /* BBYearMatcher.m in Sources */,
 				FC8E7D6E1824ECC100B3BE52 /* PassPalette.xcdatamodeld in Sources */,
 				FC8E7DA01824F73B00B3BE52 /* CPAdManager.m in Sources */,
 				FC78598F18253F87005B5B03 /* CPRectLayout.m in Sources */,
 				FC8E7DBD1824FED300B3BE52 /* CPApplicationProcess.m in Sources */,
 				FC8E7DB21824FCA700B3BE52 /* CPPassDataManager.m in Sources */,
+				FC2828A1182F37800030B1AE /* BBRegularExpressionMatchHelper.m in Sources */,
+				FC28289E182F37800030B1AE /* BBPasswordStrength.m in Sources */,
 				FC8E7D671824ECC100B3BE52 /* main.m in Sources */,
+				FC2828A0182F37800030B1AE /* BBPatternCenter.m in Sources */,
+				FC2828A2182F37800030B1AE /* BBRepeatMatcher.m in Sources */,
 				FC8E7DAF1824FC0F00B3BE52 /* CPPassPaletteConfig.c in Sources */,
+				FC28289A182F37800030B1AE /* BBDateMatcher.m in Sources */,
+				FC2828A3182F37800030B1AE /* BBSequenceMatcher.m in Sources */,
 				FC8E7D981824F68000B3BE52 /* CPRootManager.m in Sources */,
+				FC28289F182F37800030B1AE /* BBPattern.m in Sources */,
 				FC8E7DA91824F84F00B3BE52 /* CPProcessManager.m in Sources */,
 				FC9A571218263FC800A3A0B7 /* CPSettingManager.m in Sources */,
 				FC8E7D6B1824ECC100B3BE52 /* CPAppDelegate.m in Sources */,

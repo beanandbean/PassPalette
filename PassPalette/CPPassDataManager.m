@@ -14,36 +14,32 @@
 #import "CPMemo.h"
 #import "CPPassword.h"
 
-//#define AUTO_ADD_NEW_MEMOS
-
-static NSString *const PASSWORD_CACHE_NAME = @"PasswordCache";
-
 @interface CPPassDataManager ()
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-
 @property (strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-
 @property (strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 @end
 
 @implementation CPPassDataManager
 
-static CPPassDataManager *defaultManager = nil;
+static CPPassDataManager *g_defaultManager = nil;
 
 + (CPPassDataManager *)defaultManager {
-    if (!defaultManager) {
-        defaultManager = [[CPPassDataManager alloc] init];
-        
-#ifdef AUTO_ADD_NEW_MEMOS
-        for (NSUInteger index = 0; index < PASSWORD_MAX_COUNT; index++) {
-            [defaultManager newMemoText:@"Hello" inIndex:index];
-        }
-#endif
-        
+    if (!g_defaultManager) {
+        g_defaultManager = [[CPPassDataManager alloc] init];
     }
-    return defaultManager;
+    return g_defaultManager;
+}
+
+static NSArray *g_defaultPassword = nil;
+
++ (NSArray *)defaultPassword {
+    if (!g_defaultPassword) {
+        g_defaultPassword = @[@"qwER43@!", @"Tr0ub4dour&3", @"correcthorsebatterystaple", @"kitty", @"1Kitty", @"1Ki77y", @"mypuppy1likes2cheese", @"i@love1mypiano"];
+    }
+    return g_defaultPassword;
 }
 
 - (NSFetchedResultsController *)passwordsController {
@@ -51,19 +47,16 @@ static CPPassDataManager *defaultManager = nil;
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         request.entity = [NSEntityDescription entityForName:@"Password" inManagedObjectContext:self.managedObjectContext];
         request.sortDescriptors = [[NSArray alloc] initWithObjects:[[NSSortDescriptor alloc] initWithKey:@"index" ascending:YES], nil];
-        _passwordsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:PASSWORD_CACHE_NAME];
+        _passwordsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"PasswordCache"];
         [_passwordsController performFetch:nil];
         
         if (!_passwordsController.fetchedObjects.count) {
             for (NSUInteger index = 0; index < PASSWORD_MAX_COUNT; index++) {
                 CPPassword *password = [NSEntityDescription insertNewObjectForEntityForName:@"Password" inManagedObjectContext:self.managedObjectContext];
                 password.index = [NSNumber numberWithUnsignedInteger:index];
-                /* debug code, remove later (should be 'password.isUsed = NO;') */
-                password.isUsed = [NSNumber numberWithBool:index % 2 ? YES : NO];
-                password.text = @"";
-                password.colorIndex = [NSNumber numberWithInt:index];
-                password.icon = cstrToObjc(PASSWORD_ICON_NAMES[index]);
+                password.text = [[CPPassDataManager defaultPassword] objectAtIndex:index];
             }
+            [self saveContext];
             [_passwordsController performFetch:nil];
         }
     }
@@ -75,18 +68,9 @@ static CPPassDataManager *defaultManager = nil;
     NSAssert1(password, @"No password corresponding to password index %d!", (int)index);
     
     if ([text isEqualToString:@""]) {
-        if ([self canRemovePasswordAtIndex:index]) {
-            [self removePasswordAtIndex:index];
-        }
+        text = [[CPPassDataManager defaultPassword] objectAtIndex:index];
     } else {
-        if (!password.isUsed.boolValue) {
-            for (CPMemo *memo in password.memos) {
-                [self.managedObjectContext deleteObject:memo];
-            }
-            [password removeMemos:password.memos];
-        }
         password.text = text;
-        password.isUsed = [NSNumber numberWithBool:YES];
     }
     
     [self saveContext];
@@ -108,40 +92,6 @@ static CPPassDataManager *defaultManager = nil;
 - (void)removeMemo:(CPMemo *)memo {
     [memo.password removeMemosObject:memo];
     [self.managedObjectContext deleteObject:memo];
-    [self saveContext];
-}
-
-- (BOOL)canRemovePasswordAtIndex:(NSUInteger)index {
-    CPPassword *password = [self.passwordsController.fetchedObjects objectAtIndex:index];
-    NSAssert1(password, @"No password corresponding to password index %d!", (int)index);
-    
-    return password.isUsed.boolValue;
-}
-
-- (void)removePasswordAtIndex:(NSUInteger)index {
-    NSAssert1([self canRemovePasswordAtIndex:index], @"Can't remove password index %d!", (int)index);
-    
-    CPPassword *password = [self.passwordsController.fetchedObjects objectAtIndex:index];
-    NSAssert1(password, @"No password corresponding to password index %d!", (int)index);
-    
-    password.isUsed = [NSNumber numberWithBool:NO];
-    [self saveContext];
-}
-
-- (BOOL)canRecoverPasswordAtIndex:(NSUInteger)index {
-    CPPassword *password = [self.passwordsController.fetchedObjects objectAtIndex:index];
-    NSAssert1(password, @"No password corresponding to password index %d!", (int)index);
-    
-    return !password.isUsed.boolValue && password.text && ![password.text isEqualToString:@""];
-}
-
-- (void)recoverPasswordAtIndex:(NSUInteger)index {
-    NSAssert1([self canRecoverPasswordAtIndex:index], @"Can't recover password index %d!", (int)index);
-    
-    CPPassword *password = [self.passwordsController.fetchedObjects objectAtIndex:index];
-    NSAssert1(password, @"No password corresponding to password index %d!", (int)index);
-    
-    password.isUsed = [NSNumber numberWithBool:YES];
     [self saveContext];
 }
 
@@ -201,7 +151,7 @@ static CPPassDataManager *defaultManager = nil;
 
 - (NSManagedObjectModel *)managedObjectModel {
     if (!_managedObjectModel) {
-        NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Passtars" withExtension:@"momd"];
+        NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"PassPalette" withExtension:@"momd"];
         _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     }
     return _managedObjectModel;
@@ -209,7 +159,7 @@ static CPPassDataManager *defaultManager = nil;
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
     if (!_persistentStoreCoordinator) {
-        NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Passtars.sqlite"];
+        NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"PassPalette.sqlite"];
         
         NSError *error = nil;
         _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];

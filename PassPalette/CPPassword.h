@@ -12,17 +12,13 @@
 
 @interface CPPassword : NSManagedObject
 
-@property (nonatomic, retain) NSNumber *index;
-@property (nonatomic, retain) NSString *text;
-@property (nonatomic, retain) NSNumber *isUsed;
-@property (nonatomic, retain) NSNumber *colorIndex;
-@property (nonatomic, retain) NSString *icon;
-@property (nonatomic, retain) NSSet *memos;
+@property (strong, nonatomic) NSNumber *index;
+@property (strong, nonatomic) NSString *text;
+@property (strong, nonatomic) NSSet *memos;
 
-- (UIColor *)color;
+@property (strong, readonly, nonatomic) UIColor *color;
 
-- (NSString *)displayIcon;
-- (NSString *)reversedIcon;
++ (UIColor *)colorOfPassword:(NSString *)password;
 
 @end
 

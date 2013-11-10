@@ -12,7 +12,7 @@
 
 @interface CPMemo : NSManagedObject
 
-@property (nonatomic, retain) NSString *text;
-@property (nonatomic, retain) CPPassword *password;
+@property (strong, nonatomic) NSString *text;
+@property (strong, nonatomic) CPPassword *password;
 
 @end
