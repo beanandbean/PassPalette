@@ -8,7 +8,7 @@
 
 #import "CPViewManager.h"
 
-@interface CPPassEditorManager : CPViewManager
+@interface CPPassEditorManager : CPViewManager <UITextFieldDelegate>
 
 @property (nonatomic) NSUInteger index;
 

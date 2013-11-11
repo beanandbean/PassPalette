@@ -134,7 +134,6 @@
 		FC8E7DA21824F7F500B3BE52 /* CPAppearanceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAppearanceManager.h; sourceTree = "<group>"; };
 		FC8E7DA31824F7F500B3BE52 /* CPAppearanceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAppearanceManager.m; sourceTree = "<group>"; };
 		FC8E7DA51824F81C00B3BE52 /* CPHelperMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPHelperMacros.h; sourceTree = "<group>"; };
-		FC8E7DA61824F81C00B3BE52 /* CPHelpManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPHelpManager.h; sourceTree = "<group>"; };
 		FC8E7DA71824F84F00B3BE52 /* CPProcessManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPProcessManager.h; sourceTree = "<group>"; };
 		FC8E7DA81824F84F00B3BE52 /* CPProcessManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPProcessManager.m; sourceTree = "<group>"; };
 		FC8E7DAA1824F8D600B3BE52 /* CPPassContainerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPassContainerManager.h; sourceTree = "<group>"; };
@@ -274,7 +273,6 @@
 				FC8E7DBB1824FED300B3BE52 /* CPApplicationProcess.h */,
 				FC8E7DBC1824FED300B3BE52 /* CPApplicationProcess.m */,
 				FC8E7DA51824F81C00B3BE52 /* CPHelperMacros.h */,
-				FC8E7DA61824F81C00B3BE52 /* CPHelpManager.h */,
 				FC8E7D8F1824F4DA00B3BE52 /* CPMainViewController.h */,
 				FC8E7D901824F4DA00B3BE52 /* CPMainViewController.m */,
 				FC8E7DB01824FCA700B3BE52 /* CPPassDataManager.h */,

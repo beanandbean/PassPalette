@@ -22,10 +22,8 @@ static int g_deviceOrientationWillChangeNotifierRequestCount = 0;
 
 @implementation CPMainViewController
 
-CPMainViewController *g_mainViewController = nil;
-
 + (CPMainViewController *)mainViewController {
-    return g_mainViewController;
+    return (CPMainViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
 }
 
 + (void)startDeviceOrientationWillChangeNotifier {
@@ -40,8 +38,6 @@ CPMainViewController *g_mainViewController = nil;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    g_mainViewController = self;
     
     self.view.backgroundColor = [UIColor blackColor];
     [self.rootManager loadAnimated:NO];
