@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FC1BD77A1834FE6100E348F4 /* CPMemoCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1BD7791834FE6100E348F4 /* CPMemoCollectionView.m */; };
+		FC1BD77D183507D500E348F4 /* CPMemoCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1BD77C183507D500E348F4 /* CPMemoCollectionViewLayout.m */; };
 		FC282899182F37800030B1AE /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = FC28287E182F37800030B1AE /* UIImage+ImageEffects.m */; };
 		FC28289A182F37800030B1AE /* BBDateMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = FC282881182F37800030B1AE /* BBDateMatcher.m */; };
 		FC28289B182F37800030B1AE /* BBDictionaryMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = FC282883182F37800030B1AE /* BBDictionaryMatcher.m */; };
@@ -68,6 +70,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FC1BD7781834FE6100E348F4 /* CPMemoCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPMemoCollectionView.h; sourceTree = "<group>"; };
+		FC1BD7791834FE6100E348F4 /* CPMemoCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPMemoCollectionView.m; sourceTree = "<group>"; };
+		FC1BD77B183507D500E348F4 /* CPMemoCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPMemoCollectionViewLayout.h; sourceTree = "<group>"; };
+		FC1BD77C183507D500E348F4 /* CPMemoCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPMemoCollectionViewLayout.m; sourceTree = "<group>"; };
 		FC28287D182F37800030B1AE /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		FC28287E182F37800030B1AE /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		FC282880182F37800030B1AE /* BBDateMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBDateMatcher.h; sourceTree = "<group>"; };
@@ -180,13 +186,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		FC27701C1825F0A000BD69CB /* Pass Cell Layouts */ = {
+		FC1BD7771834FD8B00E348F4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FC1BD7781834FE6100E348F4 /* CPMemoCollectionView.h */,
+				FC1BD7791834FE6100E348F4 /* CPMemoCollectionView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		FC27701C1825F0A000BD69CB /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				FC1BD77B183507D500E348F4 /* CPMemoCollectionViewLayout.h */,
+				FC1BD77C183507D500E348F4 /* CPMemoCollectionViewLayout.m */,
 				FC78598D18253F87005B5B03 /* CPRectLayout.h */,
 				FC78598E18253F87005B5B03 /* CPRectLayout.m */,
 			);
-			name = "Pass Cell Layouts";
+			name = Layouts;
 			sourceTree = "<group>";
 		};
 		FC28287C182F37800030B1AE /* UIImage+ImageEffects */ = {
@@ -285,13 +302,14 @@
 				FC8E7D911824F4DA00B3BE52 /* CPViewManager.h */,
 				FC8E7D921824F4DA00B3BE52 /* CPViewManager.m */,
 				FC8E7D6F1824ECC100B3BE52 /* Images.xcassets */,
+				FC27701C1825F0A000BD69CB /* Layouts */,
 				FC8E7DB31824FCFE00B3BE52 /* Managed Objects */,
-				FC27701C1825F0A000BD69CB /* Pass Cell Layouts */,
 				FC8E7D8D1824EE4000B3BE52 /* PassPalette.storyboard */,
 				FCDF1FF1182FDA9C00D7BEF2 /* PassPalette.xcdatamodel */,
 				FC8E7D611824ECC100B3BE52 /* Supporting Files */,
 				FC28287C182F37800030B1AE /* UIImage+ImageEffects */,
 				FC8E7D951824F65100B3BE52 /* View Managers */,
+				FC1BD7771834FD8B00E348F4 /* Views */,
 				FC28287F182F37800030B1AE /* ZXCVBN */,
 			);
 			path = PassPalette;
@@ -469,6 +487,7 @@
 				FC28289D182F37800030B1AE /* BBL33tMatcher.m in Sources */,
 				FC28289C182F37800030B1AE /* BBDigitsMatcher.m in Sources */,
 				FC8E7DA41824F7F500B3BE52 /* CPAppearanceManager.m in Sources */,
+				FC1BD77A1834FE6100E348F4 /* CPMemoCollectionView.m in Sources */,
 				FC8E7DB81824FD1F00B3BE52 /* CPMemo.m in Sources */,
 				FC2828A5182F37800030B1AE /* BBYearMatcher.m in Sources */,
 				FC8E7DA01824F73B00B3BE52 /* CPAdManager.m in Sources */,
@@ -478,6 +497,7 @@
 				FC8E7DB21824FCA700B3BE52 /* CPPassDataManager.m in Sources */,
 				FC2828A1182F37800030B1AE /* BBRegularExpressionMatchHelper.m in Sources */,
 				FC28289E182F37800030B1AE /* BBPasswordStrength.m in Sources */,
+				FC1BD77D183507D500E348F4 /* CPMemoCollectionViewLayout.m in Sources */,
 				FC8E7D671824ECC100B3BE52 /* main.m in Sources */,
 				FC2828A0182F37800030B1AE /* BBPatternCenter.m in Sources */,
 				FC2828A2182F37800030B1AE /* BBRepeatMatcher.m in Sources */,

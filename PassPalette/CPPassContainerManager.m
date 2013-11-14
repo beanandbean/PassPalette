@@ -121,6 +121,13 @@
     return [[UIImageView alloc] initWithImage:blurredSnapshotImage];
 }
 
+- (void)unloadPassEditor {
+    [self.passEditorManager unloadAnimated:YES];
+    [self.passEditorView removeFromSuperview];
+    self.passEditorManager = nil;
+    self.passEditorView = nil;
+}
+
 #pragma mark - UICollectionViewDataSource implement
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
