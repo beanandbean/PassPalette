@@ -1,6 +1,6 @@
 //
 //  CPPassDataManager.m
-//  Passtars
+//  PassPalette
 //
 //  Created by wangyw on 6/13/13.
 //  Copyright (c) 2013 codingpotato. All rights reserved.

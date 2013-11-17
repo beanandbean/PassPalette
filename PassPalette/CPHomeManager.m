@@ -1,6 +1,6 @@
 //
 //  CPHomeManager.m
-//  Passtars
+//  PassPalette
 //
 //  Created by wangsw on 9/22/13.
 //  Copyright (c) 2013 codingpotato. All rights reserved.
@@ -11,6 +11,7 @@
 #import "CPAdManager.h"
 #import "CPAppearanceManager.h"
 #import "CPPassContainerManager.h"
+#import "CPProcessManager.h"
 
 @interface CPHomeManager ()
 

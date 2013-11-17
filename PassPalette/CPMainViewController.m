@@ -1,6 +1,6 @@
 //
 //  CPMainViewController.m
-//  Passtars
+//  PassPalette
 //
 //  Created by wangyw on 9/22/13.
 //  Copyright (c) 2013 codingpotato. All rights reserved.
@@ -8,7 +8,8 @@
 
 #import "CPMainViewController.h"
 
-#import "CPRootManager.h"
+#import "CPHomeManager.h"
+#import "CPProcessManager.h"
 
 NSString *const CPDeviceOrientationWillChangeNotification = @"DEVICE_ROTATION_NOTIFICATION";
 
@@ -16,7 +17,7 @@ static int g_deviceOrientationWillChangeNotifierRequestCount = 0;
 
 @interface CPMainViewController ()
 
-@property (strong, nonatomic) CPRootManager *rootManager;
+@property (strong, nonatomic) CPHomeManager *homeManager;
 
 @end
 
@@ -40,7 +41,7 @@ static int g_deviceOrientationWillChangeNotifierRequestCount = 0;
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor blackColor];
-    [self.rootManager loadAnimated:NO];
+    [self.homeManager loadAnimated:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,11 +60,11 @@ static int g_deviceOrientationWillChangeNotifierRequestCount = 0;
 
 #pragma mark - lazy init
 
-- (CPRootManager *)rootManager {
-    if (!_rootManager) {
-        _rootManager = [[CPRootManager alloc] initWithSupermanager:nil andSuperview:self.view];
+- (CPHomeManager *)homeManager {
+    if (!_homeManager) {
+        _homeManager = [[CPHomeManager alloc] initWithSupermanager:nil andSuperview:self.view];
     }
-    return _rootManager;
+    return _homeManager;
 }
 
 @end

@@ -1,6 +1,6 @@
 //
 //  CPMemo.h
-//  Passtars
+//  PassPalette
 //
 //  Created by wangyw on 6/25/13.
 //  Copyright (c) 2013 codingpotato. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  CPPassContainerManager.m
-//  Passtars
+//  PassPalette
 //
 //  Created by wangsw on 9/22/13.
 //  Copyright (c) 2013 codingpotato. All rights reserved.
@@ -11,9 +11,14 @@
 #import "UIImage+ImageEffects.h"
 
 #import "CPAppearanceManager.h"
-#import "CPRectLayout.h"
 #import "CPPassEditorManager.h"
-#import "CPSettingManager.h"
+#import "CPProcessManager.h"
+#import "CPSettingsManager.h"
+
+#import "CPDraggingPassCellProcess.h"
+#import "CPSettingsProcess.h"
+
+#import "CPRectLayout.h"
 
 #import "CPPassDataManager.h"
 #import "CPPassword.h"
@@ -24,13 +29,22 @@
 
 @property (strong, nonatomic) UIView *settingView;
 @property (strong, nonatomic) NSLayoutConstraint *settingViewBottomLayout;
-@property (strong, nonatomic) CPSettingManager *settingManager;
+@property (strong, nonatomic) CPSettingsManager *settingsManager;
 @property (nonatomic) CGPoint lastTranslation;
 
-@property (strong, nonatomic) NSLayoutConstraint *snapshotTopLayout;
+@property (strong, nonatomic) NSLayoutConstraint *settingBackgroundTopLayoutConstraint;
 
 @property (strong, nonatomic) UIView *passEditorView;
 @property (strong, nonatomic) CPPassEditorManager *passEditorManager;
+
+@property (weak, nonatomic) UICollectionViewCell *draggingSourceCell;
+@property (weak, nonatomic) UICollectionViewCell *draggingDestinationCell;
+@property (strong, nonatomic) UIImageView *draggingImageView;
+@property (strong, nonatomic) NSLayoutConstraint *draggingImageViewLeftLayoutConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *draggingImageViewTopLayoutConstraint;
+@property (strong, nonatomic) UIImageView *destinationImageView;
+@property (strong, nonatomic) NSLayoutConstraint *destinationImageViewLeftLayoutConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *destinationImageViewTopLayoutConstraint;
 
 @end
 
@@ -40,7 +54,12 @@
     [self.superview addSubview:self.passCollectionView];
     [self.superview addConstraints:[CPAppearanceManager constraintsWithView:self.passCollectionView edgesAlignToView:self.superview]];
     
-    [self.passCollectionView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)]];
+    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGesture:)];
+    longPressGesture.delegate = self;
+    [self.passCollectionView addGestureRecognizer:longPressGesture];
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
+    panGesture.delegate = self;
+    [self.passCollectionView addGestureRecognizer:panGesture];
 }
 
 - (void)loadSettingView {
@@ -53,41 +72,44 @@
     [self.superview addConstraint:self.settingViewBottomLayout];
     [self.superview addConstraints:[CPAppearanceManager constraintsWithView:self.settingView alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, NSLayoutAttributeHeight, ATTR_END]];
     
-    UIImageView *snapshot = [self createSnapshot];
-    snapshot.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.settingView addSubview:snapshot];
+    UIImageView *background = [self createSnapshot];
+    background.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.settingView addSubview:background];
     
-    self.snapshotTopLayout = [NSLayoutConstraint constraintWithItem:snapshot attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.settingView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0];
-    [self.settingView addConstraint:self.snapshotTopLayout];
-    [self.settingView addConstraints:[CPAppearanceManager constraintsWithView:snapshot alignToView:self.settingView attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, NSLayoutAttributeHeight, ATTR_END]];
+    self.settingBackgroundTopLayoutConstraint = [NSLayoutConstraint constraintWithItem:background attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.settingView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0];
+    [self.settingView addConstraint:self.settingBackgroundTopLayoutConstraint];
+    [self.settingView addConstraints:[CPAppearanceManager constraintsWithView:background alignToView:self.settingView attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, NSLayoutAttributeHeight, ATTR_END]];
     
-    self.settingManager = [[CPSettingManager alloc] initWithSupermanager:self andSuperview:self.settingView];
-    [self.settingManager loadAnimated:YES];
+    self.settingsManager = [[CPSettingsManager alloc] initWithSupermanager:self andSuperview:self.settingView];
+    [self.settingsManager loadAnimated:YES];
 
     [self.settingView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)]];
 }
 
 - (void)unloadSettingView {
-    [self.settingView removeFromSuperview];
-    self.settingView = nil;
-    self.settingViewBottomLayout = nil;
-    self.settingManager = nil;
-    self.snapshotTopLayout = nil;
+    if (STOP_PROCESS(SETTINGS_PROCESS)) {
+        [self.settingsManager unloadAnimated:YES];
+        [self.settingView removeFromSuperview];
+        self.settingView = nil;
+        self.settingViewBottomLayout = nil;
+        self.settingsManager = nil;
+        self.settingBackgroundTopLayoutConstraint = nil;
+    }
 }
 
 - (void)moveSettingViewByTranslation:(CGPoint)translation {
     self.lastTranslation = translation;
     self.settingViewBottomLayout.constant += self.lastTranslation.y;
-    self.snapshotTopLayout.constant -= self.lastTranslation.y;
+    self.settingBackgroundTopLayoutConstraint.constant -= self.lastTranslation.y;
 }
 
 - (void)animateSettingViewToEnd {
     if (self.lastTranslation.y >= 0.0) {
         self.settingViewBottomLayout.constant = self.superview.bounds.size.height;
-        self.snapshotTopLayout.constant = -self.superview.bounds.size.height;
+        self.settingBackgroundTopLayoutConstraint.constant = -self.superview.bounds.size.height;
     } else {
         self.settingViewBottomLayout.constant = 0;
-        self.snapshotTopLayout.constant = 0;
+        self.settingBackgroundTopLayoutConstraint.constant = 0;
     }
     
     [CPAppearanceManager animateWithDuration:0.5 animations:^{
@@ -99,21 +121,41 @@
     }];
 }
 
+- (void)handleLongPressGesture:(UILongPressGestureRecognizer *)gesture {
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        if (START_PROCESS(DRAGGING_PASS_CELL_PROCESS)) {
+            [self startDraggingPassCellAtPoint:[gesture locationInView:self.passCollectionView]];
+        }
+    }
+}
+
 - (void)handlePanGesture:(UIPanGestureRecognizer *)gesture {
     if (gesture.state == UIGestureRecognizerStateChanged) {
-        if (!self.settingView) {
-            [self loadSettingView];
+        CGPoint tranlation = [gesture translationInView:self.passCollectionView];
+        if (IS_IN_PROCESS(DRAGGING_PASS_CELL_PROCESS)) {
+            [self dragPassCellByTranslation:tranlation];
+        } else if (IS_IN_PROCESS(SETTINGS_PROCESS)) {
+            [self moveSettingViewByTranslation:tranlation];
+        } else {
+            if (START_PROCESS(SETTINGS_PROCESS)) {
+                if (!self.settingView) {
+                    [self loadSettingView];
+                }
+            }
         }
-        [self moveSettingViewByTranslation:[gesture translationInView:self.settingView]];
         [gesture setTranslation:CGPointZero inView:self.settingView];
     } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled || gesture.state == UIGestureRecognizerStateFailed) {
-        [self animateSettingViewToEnd];
+        if (IS_IN_PROCESS(DRAGGING_PASS_CELL_PROCESS)) {
+            [self stopDraggingPassCell];
+        } else if (IS_IN_PROCESS(SETTINGS_PROCESS)) {
+            [self animateSettingViewToEnd];
+        }
     }
 }
 
 - (UIImageView *)createSnapshot {
     UIGraphicsBeginImageContextWithOptions(self.superview.bounds.size, NO, self.superview.window.screen.scale);
-    [self.superview drawViewHierarchyInRect:self.superview.frame afterScreenUpdates:NO];
+    [self.superview drawViewHierarchyInRect:self.superview.bounds afterScreenUpdates:NO];
     UIImage *snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
     UIImage *blurredSnapshotImage = [snapshotImage applyLightEffect];
     UIGraphicsEndImageContext();
@@ -126,6 +168,97 @@
     [self.passEditorView removeFromSuperview];
     self.passEditorManager = nil;
     self.passEditorView = nil;
+}
+
+#pragma mark - dragging pass cell
+
+- (void)startDraggingPassCellAtPoint:(CGPoint)point {
+    self.draggingSourceCell = [self passCellAtPoint:point];
+    
+    UIGraphicsBeginImageContextWithOptions(self.draggingSourceCell.bounds.size, NO, self.superview.window.screen.scale);
+    [self.draggingSourceCell drawViewHierarchyInRect:self.draggingSourceCell.bounds afterScreenUpdates:NO];
+    self.draggingImageView = [[UIImageView alloc] initWithImage:UIGraphicsGetImageFromCurrentImageContext()];
+    UIGraphicsEndImageContext();
+    self.draggingImageView.alpha = 0.8;
+    self.draggingImageView.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.draggingImageView.layer.shadowOffset = CGSizeMake(5.0, 5.0);
+    self.draggingImageView.layer.shadowOpacity = 0.8;
+    self.draggingImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [self.superview addSubview:self.draggingImageView];
+    self.draggingImageViewLeftLayoutConstraint = [NSLayoutConstraint constraintWithItem:self.draggingImageView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeLeft multiplier:1.0 constant:self.draggingSourceCell.frame.origin.x];
+    [self.superview addConstraint:self.draggingImageViewLeftLayoutConstraint];
+    self.draggingImageViewTopLayoutConstraint = [NSLayoutConstraint constraintWithItem:self.draggingImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeTop multiplier:1.0 constant:self.draggingSourceCell.frame.origin.y];
+    [self.superview addConstraint:self.draggingImageViewTopLayoutConstraint];
+    
+    self.draggingSourceCell.hidden = YES;
+}
+
+- (void)dragPassCellByTranslation:(CGPoint)translation {
+    self.draggingImageViewLeftLayoutConstraint.constant += translation.x;
+    self.draggingImageViewTopLayoutConstraint.constant += translation.y;
+    UICollectionViewCell *draggingDestinationCell = [self passCellAtPoint:self.draggingImageView.center];
+    if (draggingDestinationCell == self.draggingSourceCell) {
+        draggingDestinationCell = nil;
+    }
+    if (self.draggingDestinationCell != draggingDestinationCell) {
+        self.draggingDestinationCell.alpha = 1.0;
+        self.draggingDestinationCell = draggingDestinationCell;
+        self.draggingDestinationCell.alpha = 0.8;
+    }
+}
+
+- (void)stopDraggingPassCell {
+    if (self.draggingDestinationCell) {
+        UIGraphicsBeginImageContextWithOptions(self.draggingDestinationCell.bounds.size, NO, self.superview.window.screen.scale);
+        [self.draggingDestinationCell drawViewHierarchyInRect:self.draggingDestinationCell.bounds afterScreenUpdates:NO];
+        self.destinationImageView = [[UIImageView alloc] initWithImage:UIGraphicsGetImageFromCurrentImageContext()];
+        UIGraphicsEndImageContext();
+        self.destinationImageView.alpha = 0.8;
+        self.destinationImageView.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.destinationImageView.layer.shadowOffset = CGSizeMake(5.0, 5.0);
+        self.destinationImageView.layer.shadowOpacity = 0.8;
+        self.destinationImageView.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        [self.superview addSubview:self.destinationImageView];
+        self.destinationImageViewLeftLayoutConstraint = [NSLayoutConstraint constraintWithItem:self.destinationImageView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeLeft multiplier:1.0 constant:self.draggingDestinationCell.frame.origin.x];
+        [self.superview addConstraint:self.destinationImageViewLeftLayoutConstraint];
+        self.destinationImageViewTopLayoutConstraint = [NSLayoutConstraint constraintWithItem:self.destinationImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeTop multiplier:1.0 constant:self.draggingDestinationCell.frame.origin.y];
+        [self.superview addConstraint:self.destinationImageViewTopLayoutConstraint];
+
+        self.draggingDestinationCell.hidden = YES;
+        
+        [self.superview layoutIfNeeded];
+        
+        self.draggingImageViewLeftLayoutConstraint.constant = self.draggingDestinationCell.frame.origin.x;
+        self.draggingImageViewTopLayoutConstraint.constant = self.draggingDestinationCell.frame.origin.y;
+        self.destinationImageViewLeftLayoutConstraint.constant = self.draggingSourceCell.frame.origin.x;
+        self.destinationImageViewTopLayoutConstraint.constant = self.draggingSourceCell.frame.origin.y;
+        
+        [CPAppearanceManager animateWithDuration:0.5 animations:^{
+            [self.superview layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            if (STOP_PROCESS(DRAGGING_PASS_CELL_PROCESS)) {
+                [self.draggingImageView removeFromSuperview];
+                [self.destinationImageView removeFromSuperview];
+                self.draggingImageView = nil;
+                self.destinationImageView = nil;
+                self.draggingImageViewLeftLayoutConstraint = nil;
+                self.draggingImageViewTopLayoutConstraint = nil;
+                self.destinationImageViewLeftLayoutConstraint = nil;
+                self.destinationImageViewTopLayoutConstraint = nil;
+                self.draggingSourceCell.hidden = NO;
+                self.draggingDestinationCell.hidden = NO;
+            }
+        }];
+    }
+    
+}
+
+#pragma mark - utility
+
+- (UICollectionViewCell *)passCellAtPoint:(CGPoint)point {
+    return [self.passCollectionView cellForItemAtIndexPath:[self.passCollectionView indexPathForItemAtPoint:point]];
 }
 
 #pragma mark - UICollectionViewDataSource implement
@@ -184,6 +317,16 @@
     
 }
 
+#pragma mark - UIGestureRecognizerDelegate implement
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    if (([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]] && [otherGestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) || ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]] && [otherGestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]])) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 #pragma mark - lazy init
 
 - (UICollectionView *)passCollectionView {
@@ -191,6 +334,7 @@
         _passCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[[CPRectLayout alloc] init]];
         _passCollectionView.dataSource = self;
         _passCollectionView.delegate = self;
+        _passCollectionView.scrollEnabled = NO;
         _passCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
 
         [_passCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"PassCollectionViewCell"];

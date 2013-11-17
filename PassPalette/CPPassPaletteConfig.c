@@ -1,6 +1,6 @@
 //
 //  CPPassPaletteConfig.c
-//  Passtars
+//  PassPalette
 //
 //  Created by wangsw on 9/25/13.
 //  Copyright (c) 2013 codingpotato. All rights reserved.

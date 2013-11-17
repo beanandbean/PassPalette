@@ -1,5 +1,5 @@
 //
-//  CPApplicationProcess.h
+//  CPSettingsProcess.h
 //  PassPalette
 //
 //  Created by wangyw on 11/17/13.
@@ -8,8 +8,8 @@
 
 #import "CPProcess.h"
 
-#define APPLICATION_PROCESS [CPApplicationProcess process]
+#define SETTINGS_PROCESS [CPSettingsProcess process]
 
-@interface CPApplicationProcess : NSObject  <CPProcess>
+@interface CPSettingsProcess : NSObject <CPProcess>
 
 @end

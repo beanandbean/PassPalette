@@ -1,5 +1,5 @@
 //
-//  CPSettingManager.h
+//  CPSettingsManager.h
 //  PassPalette
 //
 //  Created by wangyw on 11/3/13.
@@ -8,6 +8,6 @@
 
 #import "CPViewManager.h"
 
-@interface CPSettingManager : CPViewManager
+@interface CPSettingsManager : CPViewManager
 
 @end

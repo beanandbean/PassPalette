@@ -1,6 +1,6 @@
 //
 //  CPProcessManager.m
-//  Passtars
+//  PassPalette
 //
 //  Created by wangsw on 7/5/13.
 //  Copyright (c) 2013 codingpotato. All rights reserved.
@@ -10,14 +10,14 @@
 
 #import "CPApplicationProcess.h"
 
-#define NO_PROCESS_LOG
+// #define NO_PROCESS_LOG
 
 #define PROCESS_ARRAY [CPProcessManager processArray]
 
+@implementation CPProcessManager
+
 static NSMutableArray *g_processArray;
 static int g_forbiddenCount = 0;
-
-@implementation CPProcessManager
 
 + (NSMutableArray *)processArray {
     if (!g_processArray) {
@@ -33,23 +33,6 @@ static int g_forbiddenCount = 0;
 + (bool)startProcess:(id<CPProcess>)process {
     if (!g_forbiddenCount && [[PROCESS_ARRAY lastObject] allowSubprocess:process]) {
         [PROCESS_ARRAY addObject:process];
-        return YES;
-    } else {
-        
-#ifndef NO_PROCESS_LOG
-        NSLog(@"Try to start process \"%@\" not succeed.\nCurrent stack: %@", NSStringFromClass([process class]), PROCESS_ARRAY);
-#endif
-        
-        return NO;
-    }
-}
-
-+ (bool)startProcess:(id<CPProcess>)process withPreparation:(void (^)(void))preparation {
-    if (START_PROCESS(process)) {
-        // Preparation process provides not REQUIRED protect, so there's no need to check if it is started successfully.
-        INCREASE_FORBIDDEN_COUNT;
-        preparation();
-        DECREASE_FORBIDDEN_COUNT;
         return YES;
     } else {
         
@@ -78,22 +61,6 @@ static int g_forbiddenCount = 0;
 #endif
     
     return NO;
-}
-
-+ (bool)stopProcess:(id<CPProcess>)process withPreparation:(void (^)(void))preparation {
-    if (STOP_PROCESS(process)) {
-        INCREASE_FORBIDDEN_COUNT;
-        preparation();
-        DECREASE_FORBIDDEN_COUNT;
-        return YES;
-    } else {
-    
-#ifndef NO_PROCESS_LOG
-        NSLog(@"Try to stop process \"%@\" not succeed.\nCurrent stack: %@", NSStringFromClass([process class]), PROCESS_ARRAY);
-#endif
-    
-        return NO;
-    }
 }
 
 + (void)increaseForbiddenCount {

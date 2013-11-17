@@ -1,22 +1,24 @@
 //
-//  CPSettingManager.m
+//  CPSettingsManager.m
 //  PassPalette
 //
 //  Created by wangyw on 11/3/13.
 //  Copyright (c) 2013 codingpotato. All rights reserved.
 //
 
-#import "CPSettingManager.h"
+#import "CPSettingsManager.h"
 
 #import "CPAppearanceManager.h"
+#import "CPProcessManager.h"
+#import "CPSettingsProcess.h"
 
-@interface CPSettingManager ()
+@interface CPSettingsManager ()
 
 @property (strong, nonatomic) UISearchBar *searchBar;
 
 @end
 
-@implementation CPSettingManager
+@implementation CPSettingsManager
 
 - (void)loadAnimated:(BOOL)animated {
     [self.superview addSubview:self.searchBar];

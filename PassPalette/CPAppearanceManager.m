@@ -1,6 +1,6 @@
 //
 //  CPAppearanceManager.m
-//  Passtars
+//  PassPalette
 //
 //  Created by wangsw on 7/7/13.
 //  Copyright (c) 2013 codingpotato. All rights reserved.
@@ -26,10 +26,10 @@ const NSLayoutAttribute ATTR_END = -1;
 + (void)animateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations completion:(void (^)(BOOL))completion {
     INCREASE_FORBIDDEN_COUNT;
     [UIView animateWithDuration:duration animations:animations completion:^(BOOL finished) {
+        DECREASE_FORBIDDEN_COUNT;
         if (completion) {
             completion(finished);
         }
-        DECREASE_FORBIDDEN_COUNT;
     }];
 }
 
@@ -37,10 +37,10 @@ const NSLayoutAttribute ATTR_END = -1;
     delayBlock(delay, ^{
         INCREASE_FORBIDDEN_COUNT;
         [UIView animateWithDuration:duration delay:0.0 options:options animations:animations completion:^(BOOL finished) {
+            DECREASE_FORBIDDEN_COUNT;
             if (completion) {
                 completion(finished);
             }
-            DECREASE_FORBIDDEN_COUNT;
         }];
     });
 }
