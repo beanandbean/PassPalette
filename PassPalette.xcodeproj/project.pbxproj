@@ -26,6 +26,10 @@
 		FC2828AB182F48C40030B1AE /* adjacency_graphs.json in Resources */ = {isa = PBXBuildFile; fileRef = FC2828A9182F48C40030B1AE /* adjacency_graphs.json */; };
 		FC2828AC182F48C40030B1AE /* frequency_lists.json in Resources */ = {isa = PBXBuildFile; fileRef = FC2828AA182F48C40030B1AE /* frequency_lists.json */; };
 		FC553FDE1838AFE100065628 /* CPDraggingPassCellProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC553FDD1838AFE100065628 /* CPDraggingPassCellProcess.m */; };
+		FC553FE11838C90100065628 /* CPEditingPassCellProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC553FE01838C90100065628 /* CPEditingPassCellProcess.m */; };
+		FC553FE41838C93400065628 /* CPEditingMemoCellProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC553FE31838C93400065628 /* CPEditingMemoCellProcess.m */; };
+		FC553FE71838C95D00065628 /* CPRemovingMemoCellProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC553FE61838C95D00065628 /* CPRemovingMemoCellProcess.m */; };
+		FC553FEA1838C97200065628 /* CPScrollingCollectionViewProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC553FE91838C97200065628 /* CPScrollingCollectionViewProcess.m */; };
 		FC64C61C182F95F800AB6C5C /* CPPassEditorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC64C61B182F95F800AB6C5C /* CPPassEditorManager.m */; };
 		FC78598F18253F87005B5B03 /* CPRectLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = FC78598E18253F87005B5B03 /* CPRectLayout.m */; };
 		FC8130DD1838571900D345E3 /* CPApplicationProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8130DC1838571900D345E3 /* CPApplicationProcess.m */; };
@@ -108,6 +112,14 @@
 		FC2828AA182F48C40030B1AE /* frequency_lists.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = frequency_lists.json; sourceTree = "<group>"; };
 		FC553FDC1838AFE100065628 /* CPDraggingPassCellProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDraggingPassCellProcess.h; sourceTree = "<group>"; };
 		FC553FDD1838AFE100065628 /* CPDraggingPassCellProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDraggingPassCellProcess.m; sourceTree = "<group>"; };
+		FC553FDF1838C90100065628 /* CPEditingPassCellProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPEditingPassCellProcess.h; sourceTree = "<group>"; };
+		FC553FE01838C90100065628 /* CPEditingPassCellProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPEditingPassCellProcess.m; sourceTree = "<group>"; };
+		FC553FE21838C93400065628 /* CPEditingMemoCellProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPEditingMemoCellProcess.h; sourceTree = "<group>"; };
+		FC553FE31838C93400065628 /* CPEditingMemoCellProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPEditingMemoCellProcess.m; sourceTree = "<group>"; };
+		FC553FE51838C95D00065628 /* CPRemovingMemoCellProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRemovingMemoCellProcess.h; sourceTree = "<group>"; };
+		FC553FE61838C95D00065628 /* CPRemovingMemoCellProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRemovingMemoCellProcess.m; sourceTree = "<group>"; };
+		FC553FE81838C97200065628 /* CPScrollingCollectionViewProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPScrollingCollectionViewProcess.h; sourceTree = "<group>"; };
+		FC553FE91838C97200065628 /* CPScrollingCollectionViewProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPScrollingCollectionViewProcess.m; sourceTree = "<group>"; };
 		FC64C61A182F95F800AB6C5C /* CPPassEditorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPassEditorManager.h; sourceTree = "<group>"; };
 		FC64C61B182F95F800AB6C5C /* CPPassEditorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPassEditorManager.m; sourceTree = "<group>"; };
 		FC78598D18253F87005B5B03 /* CPRectLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRectLayout.h; sourceTree = "<group>"; };
@@ -383,6 +395,14 @@
 				FC8130DC1838571900D345E3 /* CPApplicationProcess.m */,
 				FC553FDC1838AFE100065628 /* CPDraggingPassCellProcess.h */,
 				FC553FDD1838AFE100065628 /* CPDraggingPassCellProcess.m */,
+				FC553FE21838C93400065628 /* CPEditingMemoCellProcess.h */,
+				FC553FE31838C93400065628 /* CPEditingMemoCellProcess.m */,
+				FC553FDF1838C90100065628 /* CPEditingPassCellProcess.h */,
+				FC553FE01838C90100065628 /* CPEditingPassCellProcess.m */,
+				FC553FE51838C95D00065628 /* CPRemovingMemoCellProcess.h */,
+				FC553FE61838C95D00065628 /* CPRemovingMemoCellProcess.m */,
+				FC553FE81838C97200065628 /* CPScrollingCollectionViewProcess.h */,
+				FC553FE91838C97200065628 /* CPScrollingCollectionViewProcess.m */,
 				FC8130DE183858BA00D345E3 /* CPSettingsProcess.h */,
 				FC8130DF183858BA00D345E3 /* CPSettingsProcess.m */,
 			);
@@ -493,6 +513,7 @@
 			files = (
 				FC8E7D941824F4DA00B3BE52 /* CPViewManager.m in Sources */,
 				FC8E7D931824F4DA00B3BE52 /* CPMainViewController.m in Sources */,
+				FC553FE71838C95D00065628 /* CPRemovingMemoCellProcess.m in Sources */,
 				FC2828A8182F381B0030B1AE /* BBEntropyCenter.m in Sources */,
 				FC282899182F37800030B1AE /* UIImage+ImageEffects.m in Sources */,
 				FC2828A4182F37800030B1AE /* BBSpatialMatcher.m in Sources */,
@@ -516,14 +537,17 @@
 				FC553FDE1838AFE100065628 /* CPDraggingPassCellProcess.m in Sources */,
 				FC2828A0182F37800030B1AE /* BBPatternCenter.m in Sources */,
 				FC2828A2182F37800030B1AE /* BBRepeatMatcher.m in Sources */,
+				FC553FE41838C93400065628 /* CPEditingMemoCellProcess.m in Sources */,
 				FC8E7DAF1824FC0F00B3BE52 /* CPPassPaletteConfig.c in Sources */,
 				FC28289A182F37800030B1AE /* BBDateMatcher.m in Sources */,
 				FC2828A3182F37800030B1AE /* BBSequenceMatcher.m in Sources */,
 				FC28289F182F37800030B1AE /* BBPattern.m in Sources */,
+				FC553FEA1838C97200065628 /* CPScrollingCollectionViewProcess.m in Sources */,
 				FC8E7DA91824F84F00B3BE52 /* CPProcessManager.m in Sources */,
 				FC9A571218263FC800A3A0B7 /* CPSettingsManager.m in Sources */,
 				FC8E7D6B1824ECC100B3BE52 /* CPAppDelegate.m in Sources */,
 				FC8E7DB91824FD1F00B3BE52 /* CPPassword.m in Sources */,
+				FC553FE11838C90100065628 /* CPEditingPassCellProcess.m in Sources */,
 				FC8E7D9B1824F6E700B3BE52 /* CPHomeManager.m in Sources */,
 				FC8E7DAC1824F8D600B3BE52 /* CPPassContainerManager.m in Sources */,
 				FCDF1FF2182FDA9C00D7BEF2 /* PassPalette.xcdatamodel in Sources */,

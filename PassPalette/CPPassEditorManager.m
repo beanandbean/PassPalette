@@ -18,6 +18,9 @@
 #import "CPPassDataManager.h"
 #import "CPPassword.h"
 
+#import "CPEditingPassCellProcess.h"
+#import "CPProcessManager.h"
+
 @interface CPPassEditorManager ()
 
 @property (strong, nonatomic) UIView *passwordBackground;
@@ -65,8 +68,10 @@
 }
 
 - (void)doneButtonPressed:(id)sender {
-    CPPassContainerManager *passContainerManager = (CPPassContainerManager *)self.supermanager;
-    [passContainerManager unloadPassEditor];
+    if (STOP_PROCESS(EDITING_PASS_CELL_PROCESS)) {
+        CPPassContainerManager *passContainerManager = (CPPassContainerManager *)self.supermanager;
+        [passContainerManager unloadPassEditor];
+    }
 }
 
 #pragma mark - UICollectionViewDataSource implement
