@@ -8,8 +8,10 @@
 
 #import "CPViewManager.h"
 
+#import "CPPassword.h"
+
 @interface CPPassEditorManager : CPViewManager <UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate>
 
-@property (nonatomic) NSUInteger index;
+- (id)initWithPassword:(CPPassword *)password supermanager:(CPViewManager *)supermanager andSuperview:(UIView *)superview;
 
 @end

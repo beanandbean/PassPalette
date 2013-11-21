@@ -25,6 +25,7 @@
 		FC2828A8182F381B0030B1AE /* BBEntropyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FC2828A7182F381B0030B1AE /* BBEntropyCenter.m */; };
 		FC2828AB182F48C40030B1AE /* adjacency_graphs.json in Resources */ = {isa = PBXBuildFile; fileRef = FC2828A9182F48C40030B1AE /* adjacency_graphs.json */; };
 		FC2828AC182F48C40030B1AE /* frequency_lists.json in Resources */ = {isa = PBXBuildFile; fileRef = FC2828AA182F48C40030B1AE /* frequency_lists.json */; };
+		FC48FCB61839028000172B35 /* CPMemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC48FCB51839028000172B35 /* CPMemCell.m */; };
 		FC553FDE1838AFE100065628 /* CPDraggingPassCellProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC553FDD1838AFE100065628 /* CPDraggingPassCellProcess.m */; };
 		FC553FE11838C90100065628 /* CPEditingPassCellProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC553FE01838C90100065628 /* CPEditingPassCellProcess.m */; };
 		FC553FE41838C93400065628 /* CPEditingMemoCellProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC553FE31838C93400065628 /* CPEditingMemoCellProcess.m */; };
@@ -110,6 +111,8 @@
 		FC2828A7182F381B0030B1AE /* BBEntropyCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBEntropyCenter.m; sourceTree = "<group>"; };
 		FC2828A9182F48C40030B1AE /* adjacency_graphs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = adjacency_graphs.json; sourceTree = "<group>"; };
 		FC2828AA182F48C40030B1AE /* frequency_lists.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = frequency_lists.json; sourceTree = "<group>"; };
+		FC48FCB41839028000172B35 /* CPMemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPMemCell.h; sourceTree = "<group>"; };
+		FC48FCB51839028000172B35 /* CPMemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPMemCell.m; sourceTree = "<group>"; };
 		FC553FDC1838AFE100065628 /* CPDraggingPassCellProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDraggingPassCellProcess.h; sourceTree = "<group>"; };
 		FC553FDD1838AFE100065628 /* CPDraggingPassCellProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDraggingPassCellProcess.m; sourceTree = "<group>"; };
 		FC553FDF1838C90100065628 /* CPEditingPassCellProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPEditingPassCellProcess.h; sourceTree = "<group>"; };
@@ -206,6 +209,8 @@
 			children = (
 				FC1BD7781834FE6100E348F4 /* CPMemoCollectionView.h */,
 				FC1BD7791834FE6100E348F4 /* CPMemoCollectionView.m */,
+				FC48FCB41839028000172B35 /* CPMemCell.h */,
+				FC48FCB51839028000172B35 /* CPMemCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -546,6 +551,7 @@
 				FC8E7DA91824F84F00B3BE52 /* CPProcessManager.m in Sources */,
 				FC9A571218263FC800A3A0B7 /* CPSettingsManager.m in Sources */,
 				FC8E7D6B1824ECC100B3BE52 /* CPAppDelegate.m in Sources */,
+				FC48FCB61839028000172B35 /* CPMemCell.m in Sources */,
 				FC8E7DB91824FD1F00B3BE52 /* CPPassword.m in Sources */,
 				FC553FE11838C90100065628 /* CPEditingPassCellProcess.m in Sources */,
 				FC8E7D9B1824F6E700B3BE52 /* CPHomeManager.m in Sources */,

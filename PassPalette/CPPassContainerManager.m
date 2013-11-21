@@ -122,17 +122,17 @@
     }];
 }
 
-- (void)handleLongPressGesture:(UILongPressGestureRecognizer *)gesture {
-    if (gesture.state == UIGestureRecognizerStateBegan) {
+- (void)handleLongPressGesture:(UILongPressGestureRecognizer *)longPressGesture {
+    if (longPressGesture.state == UIGestureRecognizerStateBegan) {
         if (START_PROCESS(DRAGGING_PASS_CELL_PROCESS)) {
-            [self startDraggingPassCellAtPoint:[gesture locationInView:self.passCollectionView]];
+            [self startDraggingPassCellAtPoint:[longPressGesture locationInView:longPressGesture.view]];
         }
     }
 }
 
-- (void)handlePanGesture:(UIPanGestureRecognizer *)gesture {
-    if (gesture.state == UIGestureRecognizerStateChanged) {
-        CGPoint tranlation = [gesture translationInView:self.passCollectionView];
+- (void)handlePanGesture:(UIPanGestureRecognizer *)panGesture {
+    if (panGesture.state == UIGestureRecognizerStateChanged) {
+        CGPoint tranlation = [panGesture translationInView:panGesture.view];
         if (IS_IN_PROCESS(DRAGGING_PASS_CELL_PROCESS)) {
             [self dragPassCellByTranslation:tranlation];
         } else if (IS_IN_PROCESS(SETTINGS_PROCESS)) {
@@ -144,8 +144,8 @@
                 }
             }
         }
-        [gesture setTranslation:CGPointZero inView:self.settingView];
-    } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled || gesture.state == UIGestureRecognizerStateFailed) {
+        [panGesture setTranslation:CGPointZero inView:panGesture.view];
+    } else if (panGesture.state == UIGestureRecognizerStateEnded || panGesture.state == UIGestureRecognizerStateCancelled || panGesture.state == UIGestureRecognizerStateFailed) {
         if (IS_IN_PROCESS(DRAGGING_PASS_CELL_PROCESS)) {
             [self stopDraggingPassCell];
         } else if (IS_IN_PROCESS(SETTINGS_PROCESS)) {
@@ -312,8 +312,7 @@
             [self.superview addSubview:self.passEditorView];
             [self.superview addConstraints:[CPAppearanceManager constraintsWithView:self.passEditorView edgesAlignToView:self.superview]];
             
-            self.passEditorManager = [[CPPassEditorManager alloc] initWithSupermanager:self andSuperview:self.passEditorView];
-            self.passEditorManager.index = indexPath.row;
+            self.passEditorManager = [[CPPassEditorManager alloc] initWithPassword:[[CPPassDataManager defaultManager].passwordsController.fetchedObjects objectAtIndex:indexPath.row] supermanager:self andSuperview:self.passEditorView];
             [self.passEditorManager loadAnimated:YES];
         }];
     }
