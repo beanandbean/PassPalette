@@ -16,7 +16,7 @@
 @interface CPHomeManager ()
 
 @property (strong, nonatomic) UIView *passView;
-@property (strong, nonatomic) CPPassContainerManager *passCollectionViewManager;
+@property (strong, nonatomic) CPPassContainerManager *passContainerManager;
 
 @property (strong, nonatomic) UIView *adView;
 @property (strong, nonatomic) CPAdManager *adManager;
@@ -33,7 +33,7 @@
     [self.superview addConstraints:[CPAppearanceManager constraintsWithView:self.adView alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeBottom, NSLayoutAttributeRight, ATTR_END]];
     [self.superview addConstraint:[CPAppearanceManager constraintWithView:self.passView attribute:NSLayoutAttributeBottom alignToView:self.adView attribute:NSLayoutAttributeTop]];
     
-    [self.passCollectionViewManager loadAnimated:NO];
+    [self.passContainerManager loadAnimated:NO];
     [self.adManager loadAnimated:NO];
 }
 
@@ -47,11 +47,11 @@
     return _passView;
 }
 
-- (CPPassContainerManager *)passCollectionViewManager {
-    if (!_passCollectionViewManager) {
-        _passCollectionViewManager = [[CPPassContainerManager alloc] initWithSupermanager:self andSuperview:self.passView];
+- (CPPassContainerManager *)passContainerManager {
+    if (!_passContainerManager) {
+        _passContainerManager = [[CPPassContainerManager alloc] initWithSupermanager:self andSuperview:self.passView];
     }
-    return _passCollectionViewManager;
+    return _passContainerManager;
 }
 
 - (UIView *)adView {

@@ -26,6 +26,8 @@
 		FC2828AB182F48C40030B1AE /* adjacency_graphs.json in Resources */ = {isa = PBXBuildFile; fileRef = FC2828A9182F48C40030B1AE /* adjacency_graphs.json */; };
 		FC2828AC182F48C40030B1AE /* frequency_lists.json in Resources */ = {isa = PBXBuildFile; fileRef = FC2828AA182F48C40030B1AE /* frequency_lists.json */; };
 		FC48FCB61839028000172B35 /* CPMemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC48FCB51839028000172B35 /* CPMemCell.m */; };
+		FC4DF5C918667B830049BE46 /* CPColorBar.m in Sources */ = {isa = PBXBuildFile; fileRef = FC4DF5C818667B830049BE46 /* CPColorBar.m */; };
+		FC4DF5CB18667EE20049BE46 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC4DF5CA18667EE20049BE46 /* QuartzCore.framework */; };
 		FC553FDE1838AFE100065628 /* CPDraggingPassCellProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC553FDD1838AFE100065628 /* CPDraggingPassCellProcess.m */; };
 		FC553FE11838C90100065628 /* CPEditingPassCellProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC553FE01838C90100065628 /* CPEditingPassCellProcess.m */; };
 		FC553FE41838C93400065628 /* CPEditingMemoCellProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC553FE31838C93400065628 /* CPEditingMemoCellProcess.m */; };
@@ -113,6 +115,9 @@
 		FC2828AA182F48C40030B1AE /* frequency_lists.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = frequency_lists.json; sourceTree = "<group>"; };
 		FC48FCB41839028000172B35 /* CPMemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPMemCell.h; sourceTree = "<group>"; };
 		FC48FCB51839028000172B35 /* CPMemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPMemCell.m; sourceTree = "<group>"; };
+		FC4DF5C718667B830049BE46 /* CPColorBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPColorBar.h; sourceTree = "<group>"; };
+		FC4DF5C818667B830049BE46 /* CPColorBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPColorBar.m; sourceTree = "<group>"; };
+		FC4DF5CA18667EE20049BE46 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FC553FDC1838AFE100065628 /* CPDraggingPassCellProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDraggingPassCellProcess.h; sourceTree = "<group>"; };
 		FC553FDD1838AFE100065628 /* CPDraggingPassCellProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDraggingPassCellProcess.m; sourceTree = "<group>"; };
 		FC553FDF1838C90100065628 /* CPEditingPassCellProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPEditingPassCellProcess.h; sourceTree = "<group>"; };
@@ -183,6 +188,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC4DF5CB18667EE20049BE46 /* QuartzCore.framework in Frameworks */,
 				FC8E7D5B1824ECC100B3BE52 /* CoreGraphics.framework in Frameworks */,
 				FC8E7D5F1824ECC100B3BE52 /* CoreData.framework in Frameworks */,
 				FC8E7D5D1824ECC100B3BE52 /* UIKit.framework in Frameworks */,
@@ -207,10 +213,12 @@
 		FC1BD7771834FD8B00E348F4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				FC1BD7781834FE6100E348F4 /* CPMemoCollectionView.h */,
-				FC1BD7791834FE6100E348F4 /* CPMemoCollectionView.m */,
+				FC4DF5C718667B830049BE46 /* CPColorBar.h */,
+				FC4DF5C818667B830049BE46 /* CPColorBar.m */,
 				FC48FCB41839028000172B35 /* CPMemCell.h */,
 				FC48FCB51839028000172B35 /* CPMemCell.m */,
+				FC1BD7781834FE6100E348F4 /* CPMemoCollectionView.h */,
+				FC1BD7791834FE6100E348F4 /* CPMemoCollectionView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -291,10 +299,11 @@
 		FC8E7D571824ECC100B3BE52 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FC8E7D581824ECC100B3BE52 /* Foundation.framework */,
-				FC8E7D5A1824ECC100B3BE52 /* CoreGraphics.framework */,
-				FC8E7D5C1824ECC100B3BE52 /* UIKit.framework */,
 				FC8E7D5E1824ECC100B3BE52 /* CoreData.framework */,
+				FC8E7D5A1824ECC100B3BE52 /* CoreGraphics.framework */,
+				FC8E7D581824ECC100B3BE52 /* Foundation.framework */,
+				FC4DF5CA18667EE20049BE46 /* QuartzCore.framework */,
+				FC8E7D5C1824ECC100B3BE52 /* UIKit.framework */,
 				FC8E7D761824ECC100B3BE52 /* XCTest.framework */,
 			);
 			name = Frameworks;
@@ -516,6 +525,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC4DF5C918667B830049BE46 /* CPColorBar.m in Sources */,
 				FC8E7D941824F4DA00B3BE52 /* CPViewManager.m in Sources */,
 				FC8E7D931824F4DA00B3BE52 /* CPMainViewController.m in Sources */,
 				FC553FE71838C95D00065628 /* CPRemovingMemoCellProcess.m in Sources */,
