@@ -12,8 +12,6 @@
 #import "CPColorBar.h"
 #import "CPMainViewController.h"
 #import "CPMemCell.h"
-#import "CPMemoCollectionView.h"
-#import "CPMemoCollectionViewLayout.h"
 #import "CPPassContainerManager.h"
 
 #import "BBPasswordStrength.h"
@@ -28,13 +26,14 @@
 
 @property (weak, nonatomic) CPPassword *password;
 
-@property (strong, nonatomic) UIView *background;
+@property (strong, nonatomic) UIView *passwordBackground;
+@property (strong, nonatomic) UIView *passwordPanel;
 
 @property (strong, nonatomic) UITextField *passwordTextField;
 @property (strong, nonatomic) UIButton *doneButton;
 @property (strong, nonatomic) CPColorBar *colorBar;
 
-@property (strong, nonatomic) CPMemoCollectionView *memoCollectionView;
+@property (strong, nonatomic) UICollectionView *memoCollectionView;
 
 @end
 
@@ -51,37 +50,59 @@
 - (void)loadAnimated:(BOOL)animated {
     self.superview.backgroundColor = [CPPassword colorOfEntropy:self.password.entropy];
     
-    [self.superview addSubview:self.background];
-    [self.superview addConstraints:[CPAppearanceManager constraintsWithView:self.background alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, ATTR_END]];
-    [[CPMainViewController mainViewController].view addConstraint:[NSLayoutConstraint constraintWithItem:self.background attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:[CPMainViewController mainViewController].topLayoutGuide attribute:NSLayoutAttributeBaseline multiplier:1.0 constant:0.0]];
-    [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:self.background attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-8.0]];
-    
-    self.passwordTextField.text = self.password.text;
-    self.passwordTextField.secureTextEntry = YES;
-    [self.superview addSubview:self.passwordTextField];
-    [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:self.passwordTextField attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.background attribute:NSLayoutAttributeLeft multiplier:1.0 constant:10.0]];
-    [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:self.passwordTextField attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.background attribute:NSLayoutAttributeTop multiplier:1.0 constant:10.0]];
-    
-    [self.superview addSubview:self.doneButton];
-    [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:self.doneButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.background attribute:NSLayoutAttributeRight multiplier:1.0 constant:-10.0]];
-    [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:self.doneButton attribute:NSLayoutAttributeBaseline relatedBy:NSLayoutRelationEqual toItem:self.passwordTextField attribute:NSLayoutAttributeBaseline multiplier:1.0 constant:0.0]];
-    [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:self.passwordTextField attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.doneButton attribute:NSLayoutAttributeLeft multiplier:1.0 constant:-10.0]];
-    
-    [self.superview addSubview:self.colorBar];
-    [self.superview addConstraint:[CPAppearanceManager constraintWithView:self.colorBar alignToView:self.passwordTextField attribute:NSLayoutAttributeLeft]];
-    [self.superview addConstraint:[CPAppearanceManager constraintWithView:self.colorBar attribute:NSLayoutAttributeTop alignToView:self.passwordTextField attribute:NSLayoutAttributeBottom]];
-    [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:self.colorBar attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.passwordTextField attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0]];
-    [self.colorBar addConstraint:[CPAppearanceManager constraintWithView:self.colorBar height:3.0]];
-    self.colorBar.color = 1.0;
-    
+    [self loadPasswordViews];
     [self createMemoCollectionView];
 }
 
+- (void)loadPasswordViews {
+    UIView *a = [[UIView alloc] init];
+    a.backgroundColor = [UIColor blackColor];
+    a.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.superview addSubview:a];
+    [self.superview addConstraints:[CPAppearanceManager constraintsWithView:a alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeTop, NSLayoutAttributeRight, ATTR_END]];
+    [a addConstraint:[CPAppearanceManager constraintWithView:a height:20.0]];
+    
+    [self.superview addSubview:self.passwordBackground];
+    [self.superview addConstraints:[CPAppearanceManager constraintsWithView:self.passwordBackground alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, ATTR_END]];
+    [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:self.passwordBackground attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeTop multiplier:1.0 constant:20.0]];
+    [self.passwordBackground addConstraint:[CPAppearanceManager constraintWithView:self.passwordBackground height:44.0]];
+    [self.superview addSubview:self.passwordPanel];
+    [self.superview addConstraints:[CPAppearanceManager constraintsWithView:self.passwordPanel edgesAlignToView:self.passwordBackground]];
+    
+    UIView *b = [[UIView alloc] init];
+    b.backgroundColor = [UIColor whiteColor];
+    b.alpha = 0.7;
+    b.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.superview addSubview:b];
+    [self.superview addConstraints:[CPAppearanceManager constraintsWithView:b alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, ATTR_END]];
+    [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:b attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.passwordPanel attribute:NSLayoutAttributeBottom multiplier:1.0 constant:2.0]];
+    [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:b attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-2.0]];
+
+    self.passwordTextField.text = self.password.text;
+    self.passwordTextField.secureTextEntry = YES;
+    [self.passwordPanel addSubview:self.passwordTextField];
+    [self.passwordPanel addConstraint:[NSLayoutConstraint constraintWithItem:self.passwordTextField attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.passwordPanel attribute:NSLayoutAttributeLeft multiplier:1.0 constant:10.0]];
+    [self.passwordPanel addConstraint:[NSLayoutConstraint constraintWithItem:self.passwordTextField attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.passwordPanel attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0]];
+    
+    [self.passwordPanel addSubview:self.doneButton];
+    [self.passwordPanel addConstraint:[NSLayoutConstraint constraintWithItem:self.doneButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.passwordPanel attribute:NSLayoutAttributeRight multiplier:1.0 constant:-10.0]];
+    [self.passwordPanel addConstraint:[NSLayoutConstraint constraintWithItem:self.doneButton attribute:NSLayoutAttributeBaseline relatedBy:NSLayoutRelationEqual toItem:self.passwordTextField attribute:NSLayoutAttributeBaseline multiplier:1.0 constant:0.0]];
+    [self.passwordPanel addConstraint:[NSLayoutConstraint constraintWithItem:self.passwordTextField attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.doneButton attribute:NSLayoutAttributeLeft multiplier:1.0 constant:-10.0]];
+    
+    [self.passwordPanel addSubview:self.colorBar];
+    [self.passwordPanel addConstraint:[CPAppearanceManager constraintWithView:self.colorBar alignToView:self.passwordTextField attribute:NSLayoutAttributeLeft]];
+    [self.passwordPanel addConstraint:[CPAppearanceManager constraintWithView:self.colorBar attribute:NSLayoutAttributeTop alignToView:self.passwordTextField attribute:NSLayoutAttributeBottom]];
+    [self.passwordPanel addConstraint:[NSLayoutConstraint constraintWithItem:self.colorBar attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.passwordTextField attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0]];
+    [self.colorBar addConstraint:[CPAppearanceManager constraintWithView:self.colorBar height:3.0]];
+    self.colorBar.color = 1.0;
+    
+}
+
 - (void)createMemoCollectionView {
-    [self.superview addSubview:self.memoCollectionView];
+    /*[self.superview addSubview:self.memoCollectionView];
     [self.superview addConstraints:[CPAppearanceManager constraintsWithView:self.memoCollectionView alignToView:self.background attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, ATTR_END]];
-    [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:self.memoCollectionView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.passwordTextField attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0]];
-    [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:self.memoCollectionView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.background attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-8.0]];
+    [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:self.memoCollectionView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.colorBar attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0]];
+    [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:self.memoCollectionView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.background attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-8.0]];*/
 }
 
 - (void)doneButtonPressed:(id)sender {
@@ -107,9 +128,33 @@
     return cell;
 }
 
-#pragma mark - UICollectionViewDelegate implement
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"123456" forIndexPath:indexPath];
+    UILabel *label = [[UILabel alloc] init];
+    label.translatesAutoresizingMaskIntoConstraints = NO;
+    label.text = @"Memos";
+    [label sizeToFit];
+    [view addSubview:label];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    [button setTitle:@"Add" forState:UIControlStateNormal];
+    button.translatesAutoresizingMaskIntoConstraints = NO;
+    [view addSubview:button];
+    [view addConstraints:[CPAppearanceManager constraintsWithView:label edgesAlignToView:view]];
+    [view addConstraints:[CPAppearanceManager constraintsWithView:button edgesAlignToView:view]];
+    return view;
+}
+
+#pragma mark - UICollectionViewDelegateFlowLayout implement
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    return CGSizeMake(collectionView.bounds.size.width, 44.0);
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(collectionView.bounds.size.width, 44.0);
 }
 
 #pragma mark - UITextFieldDelegate implement
@@ -141,15 +186,23 @@
 
 #pragma mark - lazy init
 
-- (UIView *)background {
-    if (!_background) {
-        _background = [[UIView alloc] init];
-        _background.backgroundColor = [UIColor whiteColor];
-        _background.alpha = 0.8;
-        _background.layer.cornerRadius = 10.0;
-        _background.translatesAutoresizingMaskIntoConstraints = NO;
+- (UIView *)passwordBackground {
+    if (!_passwordBackground) {
+        _passwordBackground = [[UIView alloc] init];
+        _passwordBackground.backgroundColor = [UIColor whiteColor];
+        _passwordBackground.alpha = 0.7;
+        _passwordBackground.translatesAutoresizingMaskIntoConstraints = NO;
     }
-    return _background;
+    return _passwordBackground;
+}
+
+- (UIView *)passwordPanel {
+    if (!_passwordPanel) {
+        _passwordPanel = [[UIView alloc] init];
+        _passwordPanel.backgroundColor = [UIColor clearColor];
+        _passwordPanel.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _passwordPanel;
 }
 
 - (UITextField *)passwordTextField {
@@ -182,11 +235,16 @@
     return _colorBar;
 }
 
-- (CPMemoCollectionView *)memoCollectionView {
+- (UICollectionView *)memoCollectionView {
     if (!_memoCollectionView) {
-        _memoCollectionView = [[CPMemoCollectionView alloc] init];
+        _memoCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
         _memoCollectionView.dataSource = self;
         _memoCollectionView.delegate = self;
+        _memoCollectionView.backgroundColor = [UIColor clearColor];
+        _memoCollectionView.showsHorizontalScrollIndicator = NO;
+        _memoCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
+        [_memoCollectionView registerClass:[CPMemCell class] forCellWithReuseIdentifier:[CPMemCell reuseIdentifier]];
+        [_memoCollectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"123456"];
     }
     return _memoCollectionView;
 }

@@ -55,30 +55,26 @@
         _gradient = [CAGradientLayer layer];
         _gradient.startPoint = CGPointMake(0.0, 0.0);
         _gradient.endPoint = CGPointMake(1.0, 0.0);
-        _gradient.locations = [NSArray arrayWithObjects:
-                               [NSNumber numberWithFloat:0.0],
-                               [NSNumber numberWithFloat:0.2],
-                               [NSNumber numberWithFloat:0.2],
-                               [NSNumber numberWithFloat:0.4],
-                               [NSNumber numberWithFloat:0.4],
-                               [NSNumber numberWithFloat:0.58],
-                               [NSNumber numberWithFloat:0.62],
-                               [NSNumber numberWithFloat:0.8],
-                               [NSNumber numberWithFloat:0.8],
-                               [NSNumber numberWithFloat:1.0],
-                               nil];
-        _gradient.colors = [NSArray arrayWithObjects:
-                            (id)[UIColor colorWithHue:300.0 / 360.0 saturation:1.0 brightness:1.0 alpha:1.0].CGColor,
-                            (id)[UIColor colorWithHue:360.0 / 360.0 saturation:1.0 brightness:1.0 alpha:1.0].CGColor,
-                            (id)[UIColor colorWithHue:0.0 / 360 saturation:1.0 brightness:1.0 alpha:1.0].CGColor,
-                            (id)[UIColor colorWithHue:30.0 / 360.0 saturation:1.0 brightness:1.0 alpha:1.0].CGColor,
-                            (id)[UIColor colorWithHue:30.0 / 360.0 saturation:1.0 brightness:1.0 alpha:1.0].CGColor,
-                            (id)[UIColor colorWithHue:60.0 / 360.0 saturation:1.0 brightness:1.0 alpha:1.0].CGColor,
-                            (id)[UIColor colorWithHue:240.0 / 360.0 saturation:1.0 brightness:1.0 alpha:1.0].CGColor,
-                            (id)[UIColor colorWithHue:180.0 / 360.0 saturation:1.0 brightness:1.0 alpha:1.0].CGColor,
-                            (id)[UIColor colorWithHue:180.0 / 360.0 saturation:1.0 brightness:1.0 alpha:1.0].CGColor,
-                            (id)[UIColor colorWithHue:120.0 / 360.0 saturation:1.0 brightness:1.0 alpha:1.0].CGColor,
-                            nil];
+        _gradient.locations = @[[NSNumber numberWithFloat:0.0],
+                                [NSNumber numberWithFloat:0.2],
+                                [NSNumber numberWithFloat:0.2],
+                                [NSNumber numberWithFloat:0.4],
+                                [NSNumber numberWithFloat:0.4],
+                                [NSNumber numberWithFloat:0.58],
+                                [NSNumber numberWithFloat:0.62],
+                                [NSNumber numberWithFloat:0.8],
+                                [NSNumber numberWithFloat:0.8],
+                                [NSNumber numberWithFloat:1.0]];
+        _gradient.colors = @[(id)[UIColor colorWithHue:300.0 / 360.0 saturation:1.0 brightness:1.0 alpha:1.0].CGColor,
+                             (id)[UIColor colorWithHue:360.0 / 360.0 saturation:1.0 brightness:1.0 alpha:1.0].CGColor,
+                             (id)[UIColor colorWithHue:0.0 / 360 saturation:1.0 brightness:1.0 alpha:1.0].CGColor,
+                             (id)[UIColor colorWithHue:30.0 / 360.0 saturation:1.0 brightness:1.0 alpha:1.0].CGColor,
+                             (id)[UIColor colorWithHue:30.0 / 360.0 saturation:1.0 brightness:1.0 alpha:1.0].CGColor,
+                             (id)[UIColor colorWithHue:60.0 / 360.0 saturation:1.0 brightness:1.0 alpha:1.0].CGColor,
+                             (id)[UIColor colorWithHue:240.0 / 360.0 saturation:1.0 brightness:1.0 alpha:1.0].CGColor,
+                             (id)[UIColor colorWithHue:180.0 / 360.0 saturation:1.0 brightness:1.0 alpha:1.0].CGColor,
+                             (id)[UIColor colorWithHue:180.0 / 360.0 saturation:1.0 brightness:1.0 alpha:1.0].CGColor,
+                             (id)[UIColor colorWithHue:120.0 / 360.0 saturation:1.0 brightness:1.0 alpha:1.0].CGColor];
     }
     return _gradient;
 }

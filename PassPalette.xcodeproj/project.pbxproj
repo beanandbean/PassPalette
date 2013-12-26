@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FC1BD77A1834FE6100E348F4 /* CPMemoCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1BD7791834FE6100E348F4 /* CPMemoCollectionView.m */; };
-		FC1BD77D183507D500E348F4 /* CPMemoCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1BD77C183507D500E348F4 /* CPMemoCollectionViewLayout.m */; };
 		FC282899182F37800030B1AE /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = FC28287E182F37800030B1AE /* UIImage+ImageEffects.m */; };
 		FC28289A182F37800030B1AE /* BBDateMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = FC282881182F37800030B1AE /* BBDateMatcher.m */; };
 		FC28289B182F37800030B1AE /* BBDictionaryMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = FC282883182F37800030B1AE /* BBDictionaryMatcher.m */; };
@@ -34,6 +32,9 @@
 		FC553FE71838C95D00065628 /* CPRemovingMemoCellProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC553FE61838C95D00065628 /* CPRemovingMemoCellProcess.m */; };
 		FC553FEA1838C97200065628 /* CPScrollingCollectionViewProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC553FE91838C97200065628 /* CPScrollingCollectionViewProcess.m */; };
 		FC64C61C182F95F800AB6C5C /* CPPassEditorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC64C61B182F95F800AB6C5C /* CPPassEditorManager.m */; };
+		FC69F5F4186B117E000DE63F /* CPPassContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC69F5F3186B117E000DE63F /* CPPassContainerViewController.m */; };
+		FC69F5F7186B1815000DE63F /* CPAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC69F5F6186B1815000DE63F /* CPAdViewController.m */; };
+		FC69F5F9186B1CCB000DE63F /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC69F5F8186B1CCB000DE63F /* iAd.framework */; };
 		FC78598F18253F87005B5B03 /* CPRectLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = FC78598E18253F87005B5B03 /* CPRectLayout.m */; };
 		FC8130DD1838571900D345E3 /* CPApplicationProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8130DC1838571900D345E3 /* CPApplicationProcess.m */; };
 		FC8130E0183858BA00D345E3 /* CPSettingsProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8130DF183858BA00D345E3 /* CPSettingsProcess.m */; };
@@ -78,10 +79,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		FC1BD7781834FE6100E348F4 /* CPMemoCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPMemoCollectionView.h; sourceTree = "<group>"; };
-		FC1BD7791834FE6100E348F4 /* CPMemoCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPMemoCollectionView.m; sourceTree = "<group>"; };
-		FC1BD77B183507D500E348F4 /* CPMemoCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPMemoCollectionViewLayout.h; sourceTree = "<group>"; };
-		FC1BD77C183507D500E348F4 /* CPMemoCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPMemoCollectionViewLayout.m; sourceTree = "<group>"; };
 		FC28287D182F37800030B1AE /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		FC28287E182F37800030B1AE /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		FC282880182F37800030B1AE /* BBDateMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBDateMatcher.h; sourceTree = "<group>"; };
@@ -130,6 +127,11 @@
 		FC553FE91838C97200065628 /* CPScrollingCollectionViewProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPScrollingCollectionViewProcess.m; sourceTree = "<group>"; };
 		FC64C61A182F95F800AB6C5C /* CPPassEditorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPassEditorManager.h; sourceTree = "<group>"; };
 		FC64C61B182F95F800AB6C5C /* CPPassEditorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPassEditorManager.m; sourceTree = "<group>"; };
+		FC69F5F2186B117E000DE63F /* CPPassContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPassContainerViewController.h; sourceTree = "<group>"; };
+		FC69F5F3186B117E000DE63F /* CPPassContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPassContainerViewController.m; sourceTree = "<group>"; };
+		FC69F5F5186B1815000DE63F /* CPAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAdViewController.h; sourceTree = "<group>"; };
+		FC69F5F6186B1815000DE63F /* CPAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAdViewController.m; sourceTree = "<group>"; };
+		FC69F5F8186B1CCB000DE63F /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		FC78598D18253F87005B5B03 /* CPRectLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRectLayout.h; sourceTree = "<group>"; };
 		FC78598E18253F87005B5B03 /* CPRectLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRectLayout.m; sourceTree = "<group>"; };
 		FC8130DB1838571900D345E3 /* CPApplicationProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPApplicationProcess.h; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC69F5F9186B1CCB000DE63F /* iAd.framework in Frameworks */,
 				FC4DF5CB18667EE20049BE46 /* QuartzCore.framework in Frameworks */,
 				FC8E7D5B1824ECC100B3BE52 /* CoreGraphics.framework in Frameworks */,
 				FC8E7D5F1824ECC100B3BE52 /* CoreData.framework in Frameworks */,
@@ -217,8 +220,6 @@
 				FC4DF5C818667B830049BE46 /* CPColorBar.m */,
 				FC48FCB41839028000172B35 /* CPMemCell.h */,
 				FC48FCB51839028000172B35 /* CPMemCell.m */,
-				FC1BD7781834FE6100E348F4 /* CPMemoCollectionView.h */,
-				FC1BD7791834FE6100E348F4 /* CPMemoCollectionView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -226,8 +227,6 @@
 		FC27701C1825F0A000BD69CB /* Layouts */ = {
 			isa = PBXGroup;
 			children = (
-				FC1BD77B183507D500E348F4 /* CPMemoCollectionViewLayout.h */,
-				FC1BD77C183507D500E348F4 /* CPMemoCollectionViewLayout.m */,
 				FC78598D18253F87005B5B03 /* CPRectLayout.h */,
 				FC78598E18253F87005B5B03 /* CPRectLayout.m */,
 			);
@@ -277,6 +276,17 @@
 			path = ZXCVBN;
 			sourceTree = "<group>";
 		};
+		FC69F5F1186B112D000DE63F /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FC69F5F5186B1815000DE63F /* CPAdViewController.h */,
+				FC69F5F6186B1815000DE63F /* CPAdViewController.m */,
+				FC69F5F2186B117E000DE63F /* CPPassContainerViewController.h */,
+				FC69F5F3186B117E000DE63F /* CPPassContainerViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		FC8E7D4C1824ECC100B3BE52 = {
 			isa = PBXGroup;
 			children = (
@@ -302,6 +312,7 @@
 				FC8E7D5E1824ECC100B3BE52 /* CoreData.framework */,
 				FC8E7D5A1824ECC100B3BE52 /* CoreGraphics.framework */,
 				FC8E7D581824ECC100B3BE52 /* Foundation.framework */,
+				FC69F5F8186B1CCB000DE63F /* iAd.framework */,
 				FC4DF5CA18667EE20049BE46 /* QuartzCore.framework */,
 				FC8E7D5C1824ECC100B3BE52 /* UIKit.framework */,
 				FC8E7D761824ECC100B3BE52 /* XCTest.framework */,
@@ -336,6 +347,7 @@
 				FCA3ADBF1836610D00759D1A /* Processes */,
 				FC8E7D611824ECC100B3BE52 /* Supporting Files */,
 				FC28287C182F37800030B1AE /* UIImage+ImageEffects */,
+				FC69F5F1186B112D000DE63F /* View Controllers */,
 				FC8E7D951824F65100B3BE52 /* View Managers */,
 				FC1BD7771834FD8B00E348F4 /* Views */,
 				FC28287F182F37800030B1AE /* ZXCVBN */,
@@ -537,16 +549,15 @@
 				FC28289C182F37800030B1AE /* BBDigitsMatcher.m in Sources */,
 				FC8E7DA41824F7F500B3BE52 /* CPAppearanceManager.m in Sources */,
 				FC8130DD1838571900D345E3 /* CPApplicationProcess.m in Sources */,
-				FC1BD77A1834FE6100E348F4 /* CPMemoCollectionView.m in Sources */,
 				FC8E7DB81824FD1F00B3BE52 /* CPMemo.m in Sources */,
 				FC2828A5182F37800030B1AE /* BBYearMatcher.m in Sources */,
 				FC8E7DA01824F73B00B3BE52 /* CPAdManager.m in Sources */,
 				FC64C61C182F95F800AB6C5C /* CPPassEditorManager.m in Sources */,
 				FC78598F18253F87005B5B03 /* CPRectLayout.m in Sources */,
 				FC8E7DB21824FCA700B3BE52 /* CPPassDataManager.m in Sources */,
+				FC69F5F7186B1815000DE63F /* CPAdViewController.m in Sources */,
 				FC2828A1182F37800030B1AE /* BBRegularExpressionMatchHelper.m in Sources */,
 				FC28289E182F37800030B1AE /* BBPasswordStrength.m in Sources */,
-				FC1BD77D183507D500E348F4 /* CPMemoCollectionViewLayout.m in Sources */,
 				FC8130E0183858BA00D345E3 /* CPSettingsProcess.m in Sources */,
 				FC8E7D671824ECC100B3BE52 /* main.m in Sources */,
 				FC553FDE1838AFE100065628 /* CPDraggingPassCellProcess.m in Sources */,
@@ -566,6 +577,7 @@
 				FC553FE11838C90100065628 /* CPEditingPassCellProcess.m in Sources */,
 				FC8E7D9B1824F6E700B3BE52 /* CPHomeManager.m in Sources */,
 				FC8E7DAC1824F8D600B3BE52 /* CPPassContainerManager.m in Sources */,
+				FC69F5F4186B117E000DE63F /* CPPassContainerViewController.m in Sources */,
 				FCDF1FF2182FDA9C00D7BEF2 /* PassPalette.xcdatamodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

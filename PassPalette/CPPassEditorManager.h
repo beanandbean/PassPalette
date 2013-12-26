@@ -10,7 +10,7 @@
 
 #import "CPPassword.h"
 
-@interface CPPassEditorManager : CPViewManager <UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate>
+@interface CPPassEditorManager : CPViewManager <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate>
 
 - (id)initWithPassword:(CPPassword *)password supermanager:(CPViewManager *)supermanager andSuperview:(UIView *)superview;
 

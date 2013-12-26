@@ -17,21 +17,22 @@
 @implementation CPRectLayout
 
 - (CGSize)collectionViewContentSize {
-    return self.collectionView.frame.size;
+    CGSize size = self.collectionView.bounds.size;
+    size.height -= 20.0;
+    return size;
 }
 
 - (void)prepareLayout {
     NSMutableArray *mutableLayoutAttribute = [NSMutableArray array];
     
     int count = [self.collectionView numberOfItemsInSection:0];
+    static const CGFloat topSeperator = 0.0;
+    static const CGFloat seperator = 4.0;
+    CGFloat width = (self.collectionViewContentSize.width - seperator) / 2;
+    CGFloat height = (self.collectionViewContentSize.height - topSeperator - seperator * 3) / 4;
     for (int i = 0; i < count; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
-        
-        static const CGFloat topSeperator = 20.0;
-        static const CGFloat seperator = 4.0;
-        CGFloat width = (self.collectionView.frame.size.width - seperator) / 2;
-        CGFloat height = (self.collectionView.frame.size.height - topSeperator - seperator * 4) / 4;
         int row = i / 2;
         int column = i % 2;
         attributes.frame = CGRectMake((width + seperator ) * column, topSeperator + (height + seperator) * row, width, height);
@@ -49,11 +50,7 @@
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
-    CGRect oldBounds = self.collectionView.bounds;
-    if (CGRectGetWidth(newBounds) != CGRectGetWidth(oldBounds)) {
-        return YES;
-    }
-    return NO;
+    return YES;
 }
 
 @end
