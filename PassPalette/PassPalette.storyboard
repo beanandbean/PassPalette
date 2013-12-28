@@ -13,12 +13,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <outlet property="delegate" destination="ek0-xo-blF" id="BaS-Dp-m5G"/>
                         <segue destination="S24-Un-Yud" kind="relationship" relationship="rootViewController" id="1nU-sM-DfC"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JDu-ki-3gp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="ek0-xo-blF" customClass="CPNavigationTransitionManager"/>
             </objects>
             <point key="canvasLocation" x="474" y="243"/>
         </scene>
@@ -29,6 +27,7 @@
                     <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="eBt-b9-2SE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <gestureRecognizers/>
                         <collectionViewLayout key="collectionViewLayout" id="klu-Yn-pu0" customClass="CPRectLayout"/>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CPPassCollectionViewCell" id="jB9-aw-Lbh">
@@ -44,6 +43,7 @@
                         <connections>
                             <outlet property="dataSource" destination="S24-Un-Yud" id="jLA-um-ve5"/>
                             <outlet property="delegate" destination="S24-Un-Yud" id="Myc-hU-yPI"/>
+                            <outletCollection property="gestureRecognizers" destination="lob-pH-gaF" appends="YES" id="17p-co-EAx"/>
                         </connections>
                     </collectionView>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -51,9 +51,16 @@
                     <connections>
                         <outlet property="passCollectionView" destination="eBt-b9-2SE" id="HHz-8O-292"/>
                         <segue destination="fjP-bJ-FNz" kind="push" identifier="CPPassEditorSegue" id="02V-u0-0qZ"/>
+                        <segue destination="9c0-Lr-5Ck" kind="push" identifier="CPSearchSegue" id="Mx0-6e-QFJ"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t4H-Td-xBg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="lob-pH-gaF">
+                    <connections>
+                        <action selector="handlePanGesture:" destination="S24-Un-Yud" id="Jbz-PV-L5c"/>
+                        <outlet property="delegate" destination="S24-Un-Yud" id="hHG-8A-qIl"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1001" y="243"/>
         </scene>
@@ -176,6 +183,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dH8-lD-GLL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1513" y="243"/>
+        </scene>
+        <!--Search View Controller-->
+        <scene sceneID="Jde-Yz-4bD">
+            <objects>
+                <viewController id="9c0-Lr-5Ck" customClass="CPSearchViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="AX1-kT-dOs"/>
+                        <viewControllerLayoutGuide type="bottom" id="dpe-0C-ZR2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vd5-tR-Mj1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="SVW-qH-hd8"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gps-G5-X5o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1513" y="931"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

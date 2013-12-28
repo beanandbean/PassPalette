@@ -8,4 +8,6 @@
 
 @interface CPPassEditorTransition : NSObject <UIViewControllerAnimatedTransitioning>
 
+- (id)initWithReversed:(BOOL)reversed;
+
 @end

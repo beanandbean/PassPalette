@@ -12,8 +12,9 @@
 #import "CPHeader.h"
 #import "CPMemoCell.h"
 #import "CPPassDataManager.h"
+#import "CPPassEditorTransition.h"
 
-@interface CPPassEditorViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate>
+@interface CPPassEditorViewController ()
 
 @property (strong, nonatomic) NSMutableArray *memos;
 
@@ -40,6 +41,16 @@
     self.view.backgroundColor = [CPPassword colorOfEntropy:self.password.entropy];;
     self.passTextField.text = self.password.text;
     self.passTextField.secureTextEntry = YES;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.navigationController.delegate = self;
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    self.navigationController.delegate = nil;
+    [super viewDidDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -75,6 +86,12 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeMake(collectionView.bounds.size.width, 30.0);
+}
+
+#pragma mark - UINavigationControllerDelegate implement
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
+    return [[CPPassEditorTransition alloc] initWithReversed:YES];
 }
 
 #pragma mark - UITextFieldDelegate implement

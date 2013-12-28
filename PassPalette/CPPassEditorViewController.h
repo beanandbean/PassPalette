@@ -8,7 +8,7 @@
 
 #import "CPPassword.h"
 
-@interface CPPassEditorViewController : UIViewController
+@interface CPPassEditorViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) CPPassword *password;
 

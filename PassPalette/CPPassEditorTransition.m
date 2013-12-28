@@ -12,10 +12,24 @@
 #import "CPPassContainerViewController.h"
 #import "CPPassEditorViewController.h"
 
+@interface CPPassEditorTransition ()
+
+@property (nonatomic) BOOL reversed;
+
+@end
+
 @implementation CPPassEditorTransition
 
+- (id)initWithReversed:(BOOL)reversed {
+    self = [super init];
+    if (self) {
+        self.reversed = reversed;
+    }
+    return self;
+}
+
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
-    return 0.5;
+    return 1.0;
 }
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
@@ -34,7 +48,7 @@
     
     //get a reference to the transtion context's container view (where the animation actually happens) **BOILERPLATE
     UIView *containerView = [transitionContext containerView];
-    if ([fromViewController isKindOfClass:[CPPassEditorViewController class]]) {
+    if (self.reversed) {
         [containerView addSubview:toViewController.view];
         [transitionContext completeTransition: ![transitionContext transitionWasCancelled]];
         return;
@@ -58,7 +72,7 @@
     topConstraint.constant = - cellFrame.origin.y * yScale - 5;
     bottomConstraint.constant = (destFrame.size.height - cellFrame.origin.y - cellFrame.size.height) * yScale + 5;
 
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:[self transitionDuration:transitionContext] / 2 animations:^{
         [containerView layoutIfNeeded];
     } completion:^(BOOL finished) {
         [snapshotView removeFromSuperview];
@@ -66,7 +80,7 @@
         CGRect startFram = finalFrame;
         startFram.origin.y = startFram.origin.y - startFram.size.height;
         toViewController.view.frame = startFram;
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] / 2 animations:^{
             toViewController.view.frame = finalFrame;
         } completion:^(BOOL finished) {
             [transitionContext completeTransition: ![transitionContext transitionWasCancelled]];
