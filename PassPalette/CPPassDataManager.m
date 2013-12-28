@@ -82,6 +82,15 @@ static NSArray *g_defaultPassword = nil;
     [self saveContext];
 }
 
+- (void)addMemoText:(NSString *)text inPassword:(CPPassword *)password {
+    CPMemo *memo = [NSEntityDescription insertNewObjectForEntityForName:@"Memo" inManagedObjectContext:self.managedObjectContext];
+    memo.text = text;
+    memo.password = password;
+    [password addMemosObject:memo];
+    
+    [self saveContext];
+}
+
 - (CPMemo *)newMemoText:(NSString *)text inIndex:(NSUInteger)index {
     CPPassword *password = [self.passwordsController.fetchedObjects objectAtIndex:index];
     NSAssert1(password, @"No password corresponding to password index %d!", (int)index);

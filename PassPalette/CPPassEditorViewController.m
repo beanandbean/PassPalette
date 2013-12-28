@@ -11,22 +11,33 @@
 #import "BBPasswordStrength.h"
 #import "CPHeader.h"
 #import "CPMemoCell.h"
+#import "CPPassDataManager.h"
 
-@interface CPPassEditorViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate>
+@interface CPPassEditorViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate>
+
+@property (strong, nonatomic) NSMutableArray *memos;
 
 @property (weak, nonatomic) IBOutlet UITextField *passTextField;
+@property (weak, nonatomic) IBOutlet UICollectionView *memosCollectionView;
+
+- (IBAction)exit:(id)sender;
+- (IBAction)addMemo:(id)sender;
 
 @end
 
 @implementation CPPassEditorViewController
 
+- (void)setPassword:(CPPassword *)password {
+    NSAssert(self.memos == nil, @"");
+    
+    _password = password;
+    self.memos = [[password.memos allObjects] mutableCopy];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.view.backgroundColor = [CPPassword colorOfEntropy:self.password.entropy];;
-    self.view.layer.borderColor = [UIColor redColor].CGColor;
-    self.view.layer.borderWidth = 1.0;
-    
     self.passTextField.text = self.password.text;
     self.passTextField.secureTextEntry = YES;
 }
@@ -35,16 +46,35 @@
     [super didReceiveMemoryWarning];
 }
 
+- (IBAction)exit:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)addMemo:(id)sender {
+    static NSInteger index = 0;
+    [self.memos addObject:[NSString stringWithFormat:@"Test memo: %d", index++]];
+    [self.memosCollectionView reloadData];
+}
+
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 20;
+    return self.memos.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CPMemoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CPMemoCell" forIndexPath:indexPath];
-    cell.label.text = @"1111111111";
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(30, cell.bounds.size.height - 1, cell.bounds.size.width, 1)];
+    line.backgroundColor = [UIColor lightTextColor];
+    [cell.contentView addSubview:line];
+    cell.label.text = [self.memos objectAtIndex:indexPath.row];
     return cell;
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(collectionView.bounds.size.width, 30.0);
 }
 
 #pragma mark - UITextFieldDelegate implement

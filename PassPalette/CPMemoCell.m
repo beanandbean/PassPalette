@@ -10,6 +10,10 @@
 
 #import "CPAppearanceManager.h"
 
+@interface CPMemoCell ()
+
+@end
+
 @implementation CPMemoCell
 
 + (NSString *)reuseIdentifier {

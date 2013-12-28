@@ -10,6 +10,7 @@
 
 #import "CPAppearanceManager.h"
 #import "CPPassContainerViewController.h"
+#import "CPPassEditorViewController.h"
 
 @implementation CPPassEditorTransition
 
@@ -33,6 +34,11 @@
     
     //get a reference to the transtion context's container view (where the animation actually happens) **BOILERPLATE
     UIView *containerView = [transitionContext containerView];
+    if ([fromViewController isKindOfClass:[CPPassEditorViewController class]]) {
+        [containerView addSubview:toViewController.view];
+        [transitionContext completeTransition: ![transitionContext transitionWasCancelled]];
+        return;
+    }
     
     snapshotView.translatesAutoresizingMaskIntoConstraints = NO;
     [containerView addSubview:snapshotView];
@@ -55,6 +61,7 @@
     [UIView animateWithDuration:0.5 animations:^{
         [containerView layoutIfNeeded];
     } completion:^(BOOL finished) {
+        [snapshotView removeFromSuperview];
         [containerView addSubview:toViewController.view];
         CGRect startFram = finalFrame;
         startFram.origin.y = startFram.origin.y - startFram.size.height;

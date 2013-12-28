@@ -9,6 +9,7 @@
 #import <CoreData/CoreData.h>
 
 @class CPMemo;
+@class CPPassword;
 
 @interface CPPassDataManager : NSObject
 
@@ -18,6 +19,7 @@
 
 - (void)setPasswordText:(NSString *)text atIndex:(NSUInteger)index;
 
+- (void)addMemoText:(NSString *)text inPassword:(CPPassword *)password;
 - (CPMemo *)newMemoText:(NSString *)text inIndex:(NSUInteger)index;
 - (void)removeMemo:(CPMemo *)memo;
 
