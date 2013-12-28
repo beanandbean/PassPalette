@@ -8,12 +8,16 @@
 
 #import "CPPassContainerViewController.h"
 
+#import "CPPassEditorViewController.h"
+
 #import "CPPassDataManager.h"
 #import "CPPassword.h"
 
 @interface CPPassContainerViewController ()
 
 @property (weak, nonatomic) IBOutlet UICollectionView *passCollectionView;
+
+@property (nonatomic) NSUInteger selectedPasswordIndex;
 
 @end
 
@@ -31,6 +35,15 @@
     return UIStatusBarStyleLightContent;
 }
 
+static NSString *g_passEditorSegueName = @"CPPassEditorSegue";
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:g_passEditorSegueName]) {
+        CPPassEditorViewController *passEditorViewController = segue.destinationViewController;
+        passEditorViewController.password = [[CPPassDataManager defaultManager].passwordsController.fetchedObjects objectAtIndex:self.selectedPasswordIndex];
+    }
+}
+
 #pragma mark - UICollectionViewDataSource implement
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -42,6 +55,14 @@
     CPPassword *password = [[CPPassDataManager defaultManager].passwordsController.fetchedObjects objectAtIndex:indexPath.row];
     cell.contentView.backgroundColor = [CPPassword colorOfEntropy:password.entropy];
     return cell;
+}
+
+#pragma mark - UICollectionViewDelegate implement
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    self.selectedPasswordIndex = indexPath.row;
+    self.selectedPasswordFrame = [collectionView layoutAttributesForItemAtIndexPath:indexPath].frame;
+    [self performSegueWithIdentifier:g_passEditorSegueName sender:self];
 }
 
 @end

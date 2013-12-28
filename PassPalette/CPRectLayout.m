@@ -22,11 +22,12 @@
     return size;
 }
 
+
 - (void)prepareLayout {
     NSMutableArray *mutableLayoutAttribute = [NSMutableArray array];
     
     int count = [self.collectionView numberOfItemsInSection:0];
-    static const CGFloat topSeperator = 0.0;
+    static const CGFloat topSeperator = 20.0;
     static const CGFloat seperator = 4.0;
     CGFloat width = (self.collectionViewContentSize.width - seperator) / 2;
     CGFloat height = (self.collectionViewContentSize.height - topSeperator - seperator * 3) / 4;

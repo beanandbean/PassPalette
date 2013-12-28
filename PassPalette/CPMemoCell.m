@@ -6,14 +6,14 @@
 //  Copyright (c) 2013 codingpotato. All rights reserved.
 //
 
-#import "CPMemCell.h"
+#import "CPMemoCell.h"
 
 #import "CPAppearanceManager.h"
 
-@implementation CPMemCell
+@implementation CPMemoCell
 
 + (NSString *)reuseIdentifier {
-    return @"MemoCollectionViewCell";
+    return @"CPMemoCell";
 }
 
 #pragma mark - editing
@@ -31,19 +31,6 @@ static UITextField *g_textField;
 
 - (void)stopEditing {
     
-}
-
-#pragma mark - lazy init
-
-- (UILabel *)label {
-    if (!_label) {
-        _label = [[UILabel alloc] init];
-        _label.translatesAutoresizingMaskIntoConstraints = NO;
-        
-        [self.contentView addSubview:_label];
-        [self.contentView addConstraints:[CPAppearanceManager constraintsWithView:_label edgesAlignToView:self.contentView]];
-    }
-    return _label;
 }
 
 @end

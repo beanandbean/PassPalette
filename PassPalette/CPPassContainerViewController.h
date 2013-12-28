@@ -8,4 +8,6 @@
 
 @interface CPPassContainerViewController : UICollectionViewController
 
+@property (nonatomic) CGRect selectedPasswordFrame;
+
 @end

@@ -11,7 +11,7 @@
 #import "CPAppearanceManager.h"
 #import "CPColorBar.h"
 #import "CPMainViewController.h"
-#import "CPMemCell.h"
+#import "CPMemoCell.h"
 #import "CPPassContainerManager.h"
 
 #import "BBPasswordStrength.h"
@@ -123,7 +123,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CPMemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[CPMemCell reuseIdentifier] forIndexPath:indexPath];
+    CPMemoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[CPMemoCell reuseIdentifier] forIndexPath:indexPath];
     cell.label.text = @"1111111";
     return cell;
 }
@@ -243,7 +243,7 @@
         _memoCollectionView.backgroundColor = [UIColor clearColor];
         _memoCollectionView.showsHorizontalScrollIndicator = NO;
         _memoCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
-        [_memoCollectionView registerClass:[CPMemCell class] forCellWithReuseIdentifier:[CPMemCell reuseIdentifier]];
+        [_memoCollectionView registerClass:[CPMemoCell class] forCellWithReuseIdentifier:[CPMemoCell reuseIdentifier]];
         [_memoCollectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"123456"];
     }
     return _memoCollectionView;

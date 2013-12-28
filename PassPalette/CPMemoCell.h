@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 codingpotato. All rights reserved.
 //
 
-@interface CPMemCell : UICollectionViewCell
+@interface CPMemoCell : UICollectionViewCell
 
-@property (strong, nonatomic) UILabel *label;
+@property (strong, nonatomic) IBOutlet UILabel *label;
 
 + (NSString *)reuseIdentifier;
 
