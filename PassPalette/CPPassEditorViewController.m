@@ -9,17 +9,19 @@
 #import "CPPassEditorViewController.h"
 
 #import "BBPasswordStrength.h"
-#import "CPHeader.h"
+#import "CPMemo.h"
 #import "CPMemoCell.h"
 #import "CPPassDataManager.h"
 #import "CPPassEditorTransition.h"
+#import "CPPassMeter.h"
 
 @interface CPPassEditorViewController ()
 
-@property (strong, nonatomic) NSMutableArray *memos;
-
+@property (weak, nonatomic) IBOutlet CPPassMeter *passMeter;
 @property (weak, nonatomic) IBOutlet UITextField *passTextField;
 @property (weak, nonatomic) IBOutlet UICollectionView *memosCollectionView;
+
+@property (strong, nonatomic) NSArray *sortedMemos;
 
 - (IBAction)exit:(id)sender;
 - (IBAction)addMemo:(id)sender;
@@ -28,16 +30,10 @@
 
 @implementation CPPassEditorViewController
 
-- (void)setPassword:(CPPassword *)password {
-    NSAssert(self.memos == nil, @"");
-    
-    _password = password;
-    self.memos = [[password.memos allObjects] mutableCopy];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.passMeter.entropy = self.password.entropy.doubleValue;
     self.view.backgroundColor = [CPPassword colorOfEntropy:self.password.entropy];;
     self.passTextField.text = self.password.text;
     self.passTextField.secureTextEntry = YES;
@@ -63,14 +59,16 @@
 
 - (IBAction)addMemo:(id)sender {
     static NSInteger index = 0;
-    [self.memos addObject:[NSString stringWithFormat:@"Test memo: %d", index++]];
+    [[CPPassDataManager defaultManager] addMemoText:[NSString stringWithFormat:@"Test memo: %d", index++] inPassword:self.password];
+    // force to reload
+    self.sortedMemos = nil;
     [self.memosCollectionView reloadData];
 }
 
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.memos.count;
+    return self.sortedMemos.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -78,7 +76,9 @@
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(30, cell.bounds.size.height - 1, cell.bounds.size.width, 1)];
     line.backgroundColor = [UIColor lightTextColor];
     [cell.contentView addSubview:line];
-    cell.label.text = [self.memos objectAtIndex:indexPath.row];
+    
+    CPMemo *memo = [self.sortedMemos objectAtIndex:indexPath.row];
+    cell.label.text = memo.text;
     return cell;
 }
 
@@ -109,16 +109,33 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     if (textField == self.passTextField) {
+        [[CPPassDataManager defaultManager] setText:textField.text intoPassword:self.password];
         self.passTextField.secureTextEntry = YES;
     }
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     NSString *password = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    BBPasswordStrength *passwordStrength = [[BBPasswordStrength alloc] initWithPassword:password];
-    self.view.backgroundColor = [CPPassword colorOfEntropy:[NSNumber numberWithDouble:passwordStrength.entropy]];
+    if ([password isEqualToString:@""]) {
+        self.view.backgroundColor = [UIColor grayColor];
+    } else {
+        BBPasswordStrength *passwordStrength = [[BBPasswordStrength alloc] initWithPassword:password];
+        self.passMeter.entropy = passwordStrength.entropy;
+        self.view.backgroundColor = [CPPassword colorOfEntropy:[NSNumber numberWithDouble:passwordStrength.entropy]];
+    }
     
     return YES;
+}
+
+#pragma mark - lazy init
+
+- (NSArray *)sortedMemos {
+    if (!_sortedMemos) {
+        NSAssert(self.password != nil, @"");
+        NSArray *sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"text" ascending:YES]];
+        _sortedMemos = [self.password.memos sortedArrayUsingDescriptors:sortDescriptors];
+    }
+    return _sortedMemos;
 }
 
 @end

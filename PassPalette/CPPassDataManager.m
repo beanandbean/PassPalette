@@ -67,6 +67,14 @@ static NSArray *g_defaultPassword = nil;
     return _passwordsController;
 }
 
+- (void)setText:(NSString *)text intoPassword:(CPPassword *)password {
+    password.text = text;
+    BBPasswordStrength *passwordStrength = [[BBPasswordStrength alloc] initWithPassword:password.text];
+    password.entropy = [NSNumber numberWithDouble:passwordStrength.entropy];
+    
+    [self saveContext];
+}
+
 - (void)setPasswordText:(NSString *)text atIndex:(NSUInteger)index {
     CPPassword *password = [self.passwordsController.fetchedObjects objectAtIndex:index];
     NSAssert1(password, @"No password corresponding to password index %d!", (int)index);

@@ -17,6 +17,7 @@
 
 + (CPPassDataManager *)defaultManager;
 
+- (void)setText:(NSString *)text intoPassword:(CPPassword *)password;
 - (void)setPasswordText:(NSString *)text atIndex:(NSUInteger)index;
 
 - (void)addMemoText:(NSString *)text inPassword:(CPPassword *)password;

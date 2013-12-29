@@ -31,6 +31,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [CPPassDataManager defaultManager].passwordsController.delegate = self;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -82,6 +84,20 @@ static NSString *g_searchSegueName = @"CPSearchSegue";
         else {
             [self.percentDrivenInteractiveTransition cancelInteractiveTransition];
         }
+    }
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate implement
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    switch (type) {
+        case NSFetchedResultsChangeUpdate:
+        case NSFetchedResultsChangeMove:
+            [self.passCollectionView reloadData];
+            break;
+        default:
+            NSAssert(NO, @"Unknowed change reported by NSFetchResultsController!");
+            break;
     }
 }
 

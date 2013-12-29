@@ -145,8 +145,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="120" height="34"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Sa-ac-Npj">
-                                                    <rect key="frame" x="0.0" y="7" width="120" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Sa-ac-Npj">
+                                                    <rect key="frame" x="30" y="7" width="90" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
@@ -154,6 +154,11 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <constraints>
+                                            <constraint firstItem="7Sa-ac-Npj" firstAttribute="leading" secondItem="pUF-Bg-hil" secondAttribute="leading" constant="30" id="HiM-Hz-DHU"/>
+                                            <constraint firstAttribute="trailing" secondItem="7Sa-ac-Npj" secondAttribute="trailing" id="Jir-BH-ToK"/>
+                                            <constraint firstItem="7Sa-ac-Npj" firstAttribute="centerY" secondItem="pUF-Bg-hil" secondAttribute="centerY" id="fKt-Jk-smj"/>
+                                        </constraints>
                                         <size key="customSize" width="120" height="34"/>
                                         <connections>
                                             <outlet property="label" destination="7Sa-ac-Npj" id="8F2-Ur-0dQ"/>
@@ -177,6 +182,7 @@
                     <navigationItem key="navigationItem" id="cei-N5-rEF"/>
                     <connections>
                         <outlet property="memosCollectionView" destination="58q-Zl-cuT" id="gEf-O4-EXl"/>
+                        <outlet property="passMeter" destination="4cN-oh-09Q" id="66w-MS-Cob"/>
                         <outlet property="passTextField" destination="F8N-Rj-YLp" id="pBN-Ma-lkF"/>
                     </connections>
                 </viewController>

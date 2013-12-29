@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 codingpotato. All rights reserved.
 //
 
-@interface CPPassContainerViewController : UICollectionViewController <UIGestureRecognizerDelegate, UINavigationControllerDelegate>
+@interface CPPassContainerViewController : UICollectionViewController <NSFetchedResultsControllerDelegate, UIGestureRecognizerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic) CGRect selectedPasswordFrame;
 
