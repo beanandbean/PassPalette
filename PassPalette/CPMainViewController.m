@@ -54,10 +54,6 @@ static int g_deviceOrientationWillChangeNotifierRequestCount = 0;
     }
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
-
 #pragma mark - lazy init
 
 - (CPHomeManager *)homeManager {

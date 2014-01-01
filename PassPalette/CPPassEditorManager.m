@@ -9,7 +9,6 @@
 #import "CPPassEditorManager.h"
 
 #import "CPConstraintHelper.h"
-#import "CPMainViewController.h"
 #import "CPMemoCell.h"
 #import "CPPassContainerManager.h"
 #import "CPPassMeterView.h"
@@ -48,6 +47,7 @@
 }
 
 - (void)loadAnimated:(BOOL)animated {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
     self.superview.backgroundColor = [CPPassword colorOfEntropy:self.password.entropy];
     
     // create mask
@@ -134,7 +134,7 @@
 - (void)exitButtonPressed:(id)sender {
     if (STOP_PROCESS(EDITING_PASS_CELL_PROCESS)) {
         CPPassContainerManager *passContainerManager = (CPPassContainerManager *)self.supermanager;
-        [passContainerManager unloadPassEditor];
+        [passContainerManager dismissPassEditorView];
     }
 }
 

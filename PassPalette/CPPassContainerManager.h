@@ -10,6 +10,6 @@
 
 @interface CPPassContainerManager : CPViewManager <UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate>
 
-- (void)unloadPassEditor;
+- (void)dismissPassEditorView;
 
 @end

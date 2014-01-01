@@ -35,10 +35,17 @@
 
 @property (strong, nonatomic) NSLayoutConstraint *settingBackgroundTopLayoutConstraint;
 
-@property (strong, nonatomic) UIView *snapshotView;
+#pragma mark - pass editor view and transition support
 @property (strong, nonatomic) UIView *passEditorView;
 @property (strong, nonatomic) CPPassEditorManager *passEditorManager;
+@property (strong, nonatomic) NSIndexPath *indexPathOfSelectedItem;
+@property (strong, nonatomic) UIView *snapshotView;
+@property (strong, nonatomic) NSLayoutConstraint *leftSnapshotConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *rightSnapshotConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *topSnapshotConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *bottomSnapshotConstraint;
 
+#pragma mark -
 @property (weak, nonatomic) UICollectionViewCell *draggingSourceCell;
 @property (weak, nonatomic) UICollectionViewCell *draggingDestinationCell;
 @property (strong, nonatomic) UIImageView *draggingImageView;
@@ -53,6 +60,7 @@
 @implementation CPPassContainerManager
 
 - (void)loadAnimated:(BOOL)animated {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     [self.superview addSubview:self.passCollectionView];
     [self.superview addConstraints:[CPConstraintHelper constraintsWithView:self.passCollectionView edgesAlignToView:self.superview]];
     
@@ -165,14 +173,62 @@
     return [[UIImageView alloc] initWithImage:blurredSnapshotImage];
 }
 
-- (void)unloadPassEditor {
+- (void)dismissPassEditorView {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+
+    // create pass editor snapshot
+    UIView *passEditorSnapshot = [self.passEditorView snapshotViewAfterScreenUpdates:NO];
+    passEditorSnapshot.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.superview addSubview:passEditorSnapshot];
+    
+    // remove pass editor view
     [self.passEditorManager unloadAnimated:YES];
     [self.passEditorView removeFromSuperview];
     self.passEditorManager = nil;
     self.passEditorView = nil;
+    
+    // get selected cell frame
+    CGRect cellFrame = [self.passCollectionView layoutAttributesForItemAtIndexPath:self.indexPathOfSelectedItem].frame;
+    CGRect destFrame = self.superview.bounds;
+    
+    // add constraints for the pass editor snapshot view
+    NSLayoutConstraint *leftPassEditorSnapshotConstraint = [CPConstraintHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeLeft constant:0.0];
+    NSLayoutConstraint *rightPassEditorSnapshotConstraint = [CPConstraintHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeRight constant:0.0];
+    NSLayoutConstraint *topPassEditorSnapshotConstraint = [CPConstraintHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeTop constant:0.0];
+    NSLayoutConstraint *bottomPassEditorSnapshotConstraint = [CPConstraintHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeBottom constant:0.0];
+    [self.superview addConstraints:@[leftPassEditorSnapshotConstraint, rightPassEditorSnapshotConstraint, topPassEditorSnapshotConstraint, bottomPassEditorSnapshotConstraint]];
+    [self.superview layoutIfNeeded];
+
+    // shink snapshot view
+    self.leftSnapshotConstraint.constant = 0.0;
+    self.rightSnapshotConstraint.constant = 0.0;
+    self.topSnapshotConstraint.constant = 0.0;
+    self.bottomSnapshotConstraint.constant = 0.0;
+    
+    // shink pass editor snapshot view
+    leftPassEditorSnapshotConstraint.constant = cellFrame.origin.x;
+    rightPassEditorSnapshotConstraint.constant = -(destFrame.size.width - cellFrame.origin.x - cellFrame.size.width);
+    topPassEditorSnapshotConstraint.constant = cellFrame.origin.y;
+    bottomPassEditorSnapshotConstraint.constant = -(destFrame.size.height - cellFrame.origin.y - cellFrame.size.height);
+    
+    [CPProcessManager animateWithDuration:0.4 animations:^{
+        passEditorSnapshot.alpha = 0.0;
+        [self.superview layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        [passEditorSnapshot removeFromSuperview];
+        [self.snapshotView removeFromSuperview];
+        self.indexPathOfSelectedItem = nil;
+        self.snapshotView = nil;
+        self.leftSnapshotConstraint = nil;
+        self.rightSnapshotConstraint = nil;
+        self.topSnapshotConstraint = nil;
+        self.bottomSnapshotConstraint = nil;
+    }];
 }
 
-- (void)transitToPassEditorViewFromItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)transitToPassEditorView {
+    NSAssert(self.indexPathOfSelectedItem, @"");
+    
     // create the snapshot view
     self.snapshotView = [self.superview snapshotViewAfterScreenUpdates:NO];
     self.snapshotView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -185,7 +241,7 @@
     [self.superview addConstraints:[CPConstraintHelper constraintsWithView:self.passEditorView edgesAlignToView:self.superview]];
     
     // create pass editor manager
-    self.passEditorManager = [[CPPassEditorManager alloc] initWithPassword:[[CPPassDataManager defaultManager].passwordsController.fetchedObjects objectAtIndex:indexPath.row] supermanager:self andSuperview:self.passEditorView];
+    self.passEditorManager = [[CPPassEditorManager alloc] initWithPassword:[[CPPassDataManager defaultManager].passwordsController.fetchedObjects objectAtIndex:self.indexPathOfSelectedItem.row] supermanager:self andSuperview:self.passEditorView];
     [self.passEditorManager loadAnimated:YES];
     [self.superview layoutIfNeeded];
 
@@ -194,21 +250,22 @@
     passEditorSnapshot.alpha = 0.0;
     passEditorSnapshot.translatesAutoresizingMaskIntoConstraints = NO;
     [self.superview addSubview:passEditorSnapshot];
+    
     // hide pass editor view
     self.passEditorView.hidden = YES;
     
-    // calculate layout constraint constants for the selected cell
-    CGRect cellFrame = [self.passCollectionView layoutAttributesForItemAtIndexPath:indexPath].frame;
+    // get selected cell frame
+    CGRect cellFrame = [self.passCollectionView layoutAttributesForItemAtIndexPath:self.indexPathOfSelectedItem].frame;
     CGRect destFrame = self.superview.bounds;
     CGFloat xScale = destFrame.size.width / cellFrame.size.width;
     CGFloat yScale = destFrame.size.height / cellFrame.size.height;
     
     // add constraints for the snapshot view
-    NSLayoutConstraint *leftSnapshotConstraint = [CPConstraintHelper constraintWithView:self.snapshotView alignToView:self.superview attribute:NSLayoutAttributeLeft constant:0.0];
-    NSLayoutConstraint *rightSnapshotConstraint = [CPConstraintHelper constraintWithView:self.snapshotView alignToView:self.superview attribute:NSLayoutAttributeRight constant:0.0];
-    NSLayoutConstraint *topSnapshotConstraint = [CPConstraintHelper constraintWithView:self.snapshotView alignToView:self.superview attribute:NSLayoutAttributeTop constant:0.0];
-    NSLayoutConstraint *bottomSnapshotConstraint = [CPConstraintHelper constraintWithView:self.snapshotView alignToView:self.superview attribute:NSLayoutAttributeBottom constant:0.0];
-    [self.superview addConstraints:@[leftSnapshotConstraint, rightSnapshotConstraint, topSnapshotConstraint, bottomSnapshotConstraint]];
+    self.leftSnapshotConstraint = [CPConstraintHelper constraintWithView:self.snapshotView alignToView:self.superview attribute:NSLayoutAttributeLeft constant:0.0];
+    self.rightSnapshotConstraint = [CPConstraintHelper constraintWithView:self.snapshotView alignToView:self.superview attribute:NSLayoutAttributeRight constant:0.0];
+    self.topSnapshotConstraint = [CPConstraintHelper constraintWithView:self.snapshotView alignToView:self.superview attribute:NSLayoutAttributeTop constant:0.0];
+    self.bottomSnapshotConstraint = [CPConstraintHelper constraintWithView:self.snapshotView alignToView:self.superview attribute:NSLayoutAttributeBottom constant:0.0];
+    [self.superview addConstraints:@[self.leftSnapshotConstraint, self.rightSnapshotConstraint, self.topSnapshotConstraint, self.bottomSnapshotConstraint]];
 
     // add constraints for the pass editor snapshot view
     NSLayoutConstraint *leftPassEditorSnapshotConstraint = [CPConstraintHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeLeft constant:cellFrame.origin.x];
@@ -219,17 +276,18 @@
     [self.superview layoutIfNeeded];
     
     // enlarge snapshot view
-    leftSnapshotConstraint.constant = -cellFrame.origin.x * xScale - 1;
-    rightSnapshotConstraint.constant = (destFrame.size.width - cellFrame.origin.x - cellFrame.size.width) * xScale + 1;
-    topSnapshotConstraint.constant = -cellFrame.origin.y * yScale - 1;
-    bottomSnapshotConstraint.constant = (destFrame.size.height - cellFrame.origin.y - cellFrame.size.height) * yScale + 1;
+    self.leftSnapshotConstraint.constant = -cellFrame.origin.x * xScale - 1;
+    self.rightSnapshotConstraint.constant = (destFrame.size.width - cellFrame.origin.x - cellFrame.size.width) * xScale + 1;
+    self.topSnapshotConstraint.constant = -cellFrame.origin.y * yScale - 1;
+    self.bottomSnapshotConstraint.constant = (destFrame.size.height - cellFrame.origin.y - cellFrame.size.height) * yScale + 1;
     
+    // enlarge pass editor snapshot view
     leftPassEditorSnapshotConstraint.constant = 0.0;
     rightPassEditorSnapshotConstraint.constant = 0.0;
     topPassEditorSnapshotConstraint.constant = 0.0;
     bottomPassEditorSnapshotConstraint.constant = 0.0;
     
-    [CPProcessManager animateWithDuration:0.4 animations:^{
+    [CPProcessManager animateWithDuration:0.5 animations:^{
         passEditorSnapshot.alpha = 1.0;
         [self.superview layoutIfNeeded];
     } completion:^(BOOL finished) {
@@ -346,7 +404,8 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (START_PROCESS(EDITING_PASS_CELL_PROCESS)) {
-        [self transitToPassEditorViewFromItemAtIndexPath:indexPath];
+        self.indexPathOfSelectedItem = indexPath;
+        [self transitToPassEditorView];
     }
 }
 
