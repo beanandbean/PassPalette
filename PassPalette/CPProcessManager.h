@@ -12,9 +12,6 @@
 #define START_PROCESS(process) [CPProcessManager startProcess:process]
 #define STOP_PROCESS(process) [CPProcessManager stopProcess:process]
 
-#define INCREASE_FORBIDDEN_COUNT [CPProcessManager increaseForbiddenCount]
-#define DECREASE_FORBIDDEN_COUNT [CPProcessManager decreaseForbiddenCount]
-
 @interface CPProcessManager : NSObject
 
 + (bool)isInProcess:(id<CPProcess>)process;
@@ -23,5 +20,9 @@
 
 + (void)increaseForbiddenCount;
 + (void)decreaseForbiddenCount;
+
++ (void)animateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations;
++ (void)animateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations completion:(void (^)(BOOL))completion;
++ (void)animateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay options:(UIViewAnimationOptions)options animations:(void (^)(void))animations completion:(void (^)(BOOL))completion;
 
 @end

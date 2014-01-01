@@ -8,7 +8,7 @@
 
 @interface CPMemoCell : UICollectionViewCell
 
-@property (strong, nonatomic) IBOutlet UILabel *label;
+@property (strong, nonatomic) UILabel *label;
 
 + (NSString *)reuseIdentifier;
 

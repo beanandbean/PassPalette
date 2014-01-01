@@ -9,6 +9,7 @@
 #import "CPProcessManager.h"
 
 #import "CPApplicationProcess.h"
+#import "CPHelperMacros.h"
 
 // #define NO_PROCESS_LOG
 
@@ -71,6 +72,35 @@ static int g_forbiddenCount = 0;
     if (g_forbiddenCount > 0) {
         g_forbiddenCount--;
     }
+}
+
++ (void)animateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations {
+    [self increaseForbiddenCount];
+    [UIView animateWithDuration:duration animations:animations completion:^(BOOL finished) {
+        [self decreaseForbiddenCount];
+    }];
+}
+
++ (void)animateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations completion:(void (^)(BOOL))completion {
+    [self increaseForbiddenCount];
+    [UIView animateWithDuration:duration animations:animations completion:^(BOOL finished) {
+        [self decreaseForbiddenCount];
+        if (completion) {
+            completion(finished);
+        }
+    }];
+}
+
++ (void)animateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay options:(UIViewAnimationOptions)options animations:(void (^)(void))animations completion:(void (^)(BOOL))completion {
+    delayBlock(delay, ^{
+        [self increaseForbiddenCount];
+        [UIView animateWithDuration:duration delay:0.0 options:options animations:animations completion:^(BOOL finished) {
+            [self decreaseForbiddenCount];
+            if (completion) {
+                completion(finished);
+            }
+        }];
+    });
 }
 
 @end

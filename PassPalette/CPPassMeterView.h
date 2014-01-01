@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 codingpotato. All rights reserved.
 //
 
-@interface CPPassMeter : UIView
+@interface CPPassMeterView : UIView
 
 @property (nonatomic) double entropy;
 

@@ -8,7 +8,7 @@
 
 #import "CPMemoCell.h"
 
-#import "CPAppearanceManager.h"
+#import "CPConstraintHelper.h"
 
 @interface CPMemoCell ()
 
@@ -30,11 +30,21 @@ static UITextField *g_textField;
         g_textField.translatesAutoresizingMaskIntoConstraints = NO;
     }
     [self.contentView addSubview:g_textField];
-    [self.contentView addConstraints:[CPAppearanceManager constraintsWithView:g_textField edgesAlignToView:self.contentView]];
+    [self.contentView addConstraints:[CPConstraintHelper constraintsWithView:g_textField edgesAlignToView:self.contentView]];
 }
 
 - (void)stopEditing {
     
+}
+
+- (UILabel *)label {
+    if (!_label) {
+        _label = [[UILabel alloc] init];
+        _label.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:_label];
+        [self addConstraints:[CPConstraintHelper constraintsWithView:_label edgesAlignToView:self]];
+    }
+    return _label;
 }
 
 @end

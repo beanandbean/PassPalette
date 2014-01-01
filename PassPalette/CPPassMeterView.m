@@ -6,17 +6,17 @@
 //  Copyright (c) 2013 codingpotato. All rights reserved.
 //
 
-#import "CPPassMeter.h"
+#import "CPPassMeterView.h"
 
-#import "CPAppearanceManager.h"
+#import "CPConstraintHelper.h"
 
-@interface CPPassMeter ()
+@interface CPPassMeterView ()
 
 @property (strong, nonatomic) UILabel *label;
 
 @end
 
-@implementation CPPassMeter
+@implementation CPPassMeterView
 
 - (void)setEntropy:(double)entropy {
     _entropy = entropy;
@@ -24,9 +24,10 @@
     
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
+- (id)init {
+    self = [super init];
     if (self) {
+        self.backgroundColor = [UIColor clearColor];
         self.label = [[UILabel alloc] init];
         self.label.translatesAutoresizingMaskIntoConstraints = NO;
         self.label.text = @"0";
@@ -34,7 +35,7 @@
         self.label.font = [UIFont systemFontOfSize:50.0];
         self.label.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.label];
-        [self addConstraints:[CPAppearanceManager constraintsWithView:self.label edgesAlignToView:self]];
+        [self addConstraints:[CPConstraintHelper constraintsWithView:self.label edgesAlignToView:self]];
     }
     return self;
 }

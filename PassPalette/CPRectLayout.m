@@ -18,7 +18,6 @@
 
 - (CGSize)collectionViewContentSize {
     CGSize size = self.collectionView.bounds.size;
-    size.height -= 20.0;
     return size;
 }
 
@@ -30,7 +29,7 @@
     static const CGFloat topSeperator = 20.0;
     static const CGFloat seperator = 4.0;
     CGFloat width = (self.collectionViewContentSize.width - seperator) / 2;
-    CGFloat height = (self.collectionViewContentSize.height - topSeperator - seperator * 3) / 4;
+    CGFloat height = (self.collectionViewContentSize.height - topSeperator - seperator * 4) / 4;
     for (int i = 0; i < count; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];

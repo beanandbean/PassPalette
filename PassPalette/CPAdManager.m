@@ -8,9 +8,9 @@
 
 #import "CPAdManager.h"
 
+#import "CPConstraintHelper.h"
 #import "CPHelperMacros.h"
 
-#import "CPAppearanceManager.h"
 #import "CPMainViewController.h"
 
 // #import "Reachability.h"
@@ -31,7 +31,7 @@
 
 - (void)loadAnimated:(BOOL)animated {
     [self.superview addSubview:self.iAdBannerView];
-    [self.superview addConstraints:[CPAppearanceManager constraintsWithView:self.superview edgesAlignToView:self.iAdBannerView]];
+    [self.superview addConstraints:[CPConstraintHelper constraintsWithView:self.superview edgesAlignToView:self.iAdBannerView]];
     [self.superview addConstraint:self.heightConstraint];
     
     // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
@@ -63,8 +63,9 @@
         // self.heightConstraint.constant = 0.0;
         // self.iAdBannerView.hidden = YES;
     // } else {
-        self.heightConstraint.constant = ((UIView *)[self.iAdBannerView.subviews objectAtIndex:0]).frame.size.height;
-        self.iAdBannerView.hidden = NO;
+    CGSize iAdSize = [self.iAdBannerView sizeThatFits:self.superview.bounds.size];
+    self.heightConstraint.constant = iAdSize.height;
+    self.iAdBannerView.hidden = NO;
     /// }
 }
 
@@ -110,7 +111,7 @@
 
 - (NSLayoutConstraint *)heightConstraint {
     if (!_heightConstraint) {
-        _heightConstraint = [CPAppearanceManager constraintWithView:self.superview height:0.0];
+        _heightConstraint = [CPConstraintHelper constraintWithView:self.superview height:0.0];
     }
     return _heightConstraint;
 }

@@ -8,19 +8,9 @@
 
 #import "CPAppDelegate.h"
 
-#import "CPAdViewController.h"
-
 @implementation CPAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"PassPalette" bundle:nil];
-    UIViewController *mainViewController = [storyBoard instantiateInitialViewController];
-    
-    CPAdViewController *adViewController = [[CPAdViewController alloc] initWithContentViewController:mainViewController];
-    
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = adViewController;
-    [self.window makeKeyAndVisible];
     return YES;
 }
 
