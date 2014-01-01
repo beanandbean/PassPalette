@@ -61,6 +61,8 @@
 
 - (void)loadAnimated:(BOOL)animated {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    [CPPassDataManager defaultManager].passwordsController.delegate = self;
+    
     [self.superview addSubview:self.passCollectionView];
     [self.superview addConstraints:[CPConstraintHelper constraintsWithView:self.passCollectionView edgesAlignToView:self.superview]];
     
@@ -385,6 +387,12 @@
 
 - (UICollectionViewCell *)passCellAtPoint:(CGPoint)point {
     return [self.passCollectionView cellForItemAtIndexPath:[self.passCollectionView indexPathForItemAtPoint:point]];
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate implement
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.passCollectionView reloadData];
 }
 
 #pragma mark - UICollectionViewDataSource implement

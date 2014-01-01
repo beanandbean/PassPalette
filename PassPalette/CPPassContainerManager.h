@@ -8,7 +8,7 @@
 
 #import "CPViewManager.h"
 
-@interface CPPassContainerManager : CPViewManager <UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate>
+@interface CPPassContainerManager : CPViewManager <NSFetchedResultsControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate>
 
 - (void)dismissPassEditorView;
 
