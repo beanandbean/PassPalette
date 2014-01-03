@@ -7,7 +7,6 @@
 //
 
 #import <iAd/iAd.h>
-
 #import "CPViewManager.h"
 
 @interface CPAdManager : CPViewManager <ADBannerViewDelegate>

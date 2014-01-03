@@ -19,16 +19,10 @@
     return self;
 }
 
-- (void)loadAnimated:(BOOL)animated {
+- (void)loadViews {
 }
 
-- (void)unloadAnimated:(BOOL)animated {
-}
-
-- (void)submanagerWillUnload:(CPViewManager *)submanager {
-}
-
-- (void)submanagerDidUnload:(CPViewManager *)submanager {
+- (void)unloadViews {
 }
 
 @end

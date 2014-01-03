@@ -46,7 +46,7 @@
     return self;
 }
 
-- (void)loadAnimated:(BOOL)animated {
+- (void)loadViews {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
     self.superview.backgroundColor = [CPPassword colorOfEntropy:self.password.entropy];
     

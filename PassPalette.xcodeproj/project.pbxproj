@@ -62,6 +62,9 @@
 		FC8E7DB81824FD1F00B3BE52 /* CPMemo.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7DB51824FD1F00B3BE52 /* CPMemo.m */; };
 		FC8E7DB91824FD1F00B3BE52 /* CPPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = FC8E7DB71824FD1F00B3BE52 /* CPPassword.m */; };
 		FC9A571218263FC800A3A0B7 /* CPSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC9A571118263FC800A3A0B7 /* CPSettingsManager.m */; };
+		FCBBAF2A18759C4A002B2C83 /* CPSearchViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FCBBAF2918759C4A002B2C83 /* CPSearchViewManager.m */; };
+		FCBBAF2D18759D2C002B2C83 /* CPSearchProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FCBBAF2C18759D2C002B2C83 /* CPSearchProcess.m */; };
+		FCDD19211876FA1100835792 /* CPInteractiveViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FCDD19201876FA1100835792 /* CPInteractiveViewManager.m */; };
 		FCDF1FF2182FDA9C00D7BEF2 /* PassPalette.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = FCDF1FF1182FDA9C00D7BEF2 /* PassPalette.xcdatamodel */; };
 		FCEBDA011873A98E00F1D553 /* CPConstraintHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FCEBDA001873A98E00F1D553 /* CPConstraintHelper.m */; };
 /* End PBXBuildFile section */
@@ -174,6 +177,12 @@
 		FC8E7DBA1824FDB800B3BE52 /* CPProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPProcess.h; sourceTree = "<group>"; };
 		FC9A571018263FC800A3A0B7 /* CPSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPSettingsManager.h; sourceTree = "<group>"; };
 		FC9A571118263FC800A3A0B7 /* CPSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPSettingsManager.m; sourceTree = "<group>"; };
+		FCBBAF2818759C4A002B2C83 /* CPSearchViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPSearchViewManager.h; sourceTree = "<group>"; };
+		FCBBAF2918759C4A002B2C83 /* CPSearchViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPSearchViewManager.m; sourceTree = "<group>"; };
+		FCBBAF2B18759D2C002B2C83 /* CPSearchProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPSearchProcess.h; sourceTree = "<group>"; };
+		FCBBAF2C18759D2C002B2C83 /* CPSearchProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPSearchProcess.m; sourceTree = "<group>"; };
+		FCDD191F1876FA1100835792 /* CPInteractiveViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPInteractiveViewManager.h; sourceTree = "<group>"; };
+		FCDD19201876FA1100835792 /* CPInteractiveViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPInteractiveViewManager.m; sourceTree = "<group>"; };
 		FCDF1FF1182FDA9C00D7BEF2 /* PassPalette.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PassPalette.xcdatamodel; sourceTree = "<group>"; };
 		FCEBD9FF1873A98E00F1D553 /* CPConstraintHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPConstraintHelper.h; sourceTree = "<group>"; };
 		FCEBDA001873A98E00F1D553 /* CPConstraintHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPConstraintHelper.m; sourceTree = "<group>"; };
@@ -373,10 +382,14 @@
 				FC8E7D9D1824F73B00B3BE52 /* CPAdManager.m */,
 				FC8E7D991824F6E700B3BE52 /* CPHomeManager.h */,
 				FC8E7D9A1824F6E700B3BE52 /* CPHomeManager.m */,
+				FCDD191F1876FA1100835792 /* CPInteractiveViewManager.h */,
+				FCDD19201876FA1100835792 /* CPInteractiveViewManager.m */,
 				FC8E7DAA1824F8D600B3BE52 /* CPPassContainerManager.h */,
 				FC8E7DAB1824F8D600B3BE52 /* CPPassContainerManager.m */,
 				FC64C61A182F95F800AB6C5C /* CPPassEditorManager.h */,
 				FC64C61B182F95F800AB6C5C /* CPPassEditorManager.m */,
+				FCBBAF2818759C4A002B2C83 /* CPSearchViewManager.h */,
+				FCBBAF2918759C4A002B2C83 /* CPSearchViewManager.m */,
 				FC9A571018263FC800A3A0B7 /* CPSettingsManager.h */,
 				FC9A571118263FC800A3A0B7 /* CPSettingsManager.m */,
 			);
@@ -409,6 +422,8 @@
 				FC553FE61838C95D00065628 /* CPRemovingMemoCellProcess.m */,
 				FC553FE81838C97200065628 /* CPScrollingCollectionViewProcess.h */,
 				FC553FE91838C97200065628 /* CPScrollingCollectionViewProcess.m */,
+				FCBBAF2B18759D2C002B2C83 /* CPSearchProcess.h */,
+				FCBBAF2C18759D2C002B2C83 /* CPSearchProcess.m */,
 				FC8130DE183858BA00D345E3 /* CPSettingsProcess.h */,
 				FC8130DF183858BA00D345E3 /* CPSettingsProcess.m */,
 			);
@@ -539,6 +554,7 @@
 				FC8130DD1838571900D345E3 /* CPApplicationProcess.m in Sources */,
 				FC8E7DB81824FD1F00B3BE52 /* CPMemo.m in Sources */,
 				FC2828A5182F37800030B1AE /* BBYearMatcher.m in Sources */,
+				FCBBAF2A18759C4A002B2C83 /* CPSearchViewManager.m in Sources */,
 				FC8E7DA01824F73B00B3BE52 /* CPAdManager.m in Sources */,
 				FC64C61C182F95F800AB6C5C /* CPPassEditorManager.m in Sources */,
 				FC78598F18253F87005B5B03 /* CPRectLayout.m in Sources */,
@@ -546,6 +562,7 @@
 				FC2828A1182F37800030B1AE /* BBRegularExpressionMatchHelper.m in Sources */,
 				FC28289E182F37800030B1AE /* BBPasswordStrength.m in Sources */,
 				FCEBDA011873A98E00F1D553 /* CPConstraintHelper.m in Sources */,
+				FCDD19211876FA1100835792 /* CPInteractiveViewManager.m in Sources */,
 				FC8130E0183858BA00D345E3 /* CPSettingsProcess.m in Sources */,
 				FC8E7D671824ECC100B3BE52 /* main.m in Sources */,
 				FC553FDE1838AFE100065628 /* CPDraggingPassCellProcess.m in Sources */,
@@ -560,6 +577,7 @@
 				FC8E7DA91824F84F00B3BE52 /* CPProcessManager.m in Sources */,
 				FC9A571218263FC800A3A0B7 /* CPSettingsManager.m in Sources */,
 				FC7DFF19186EA6CA00D1C4A3 /* CPPassMeterView.m in Sources */,
+				FCBBAF2D18759D2C002B2C83 /* CPSearchProcess.m in Sources */,
 				FC8E7D6B1824ECC100B3BE52 /* CPAppDelegate.m in Sources */,
 				FC48FCB61839028000172B35 /* CPMemoCell.m in Sources */,
 				FC8E7DB91824FD1F00B3BE52 /* CPPassword.m in Sources */,

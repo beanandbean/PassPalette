@@ -12,15 +12,15 @@ const NSLayoutAttribute ATTR_END = -1;
 
 @implementation CPConstraintHelper
 
-+ (NSArray *)constraintsWithView:(UIView *)view1 edgesAlignToView:(UIView *)view2 {
++ (NSArray *)constraintsWithView:(id)view1 edgesAlignToView:(id)view2 {
     return [CPConstraintHelper constraintsWithView:view1 alignToView:view2 attributes:NSLayoutAttributeLeft, NSLayoutAttributeTop, NSLayoutAttributeRight, NSLayoutAttributeBottom, ATTR_END];
 }
 
-+ (NSArray *)constraintsWithView:(UIView *)view1 centerAlignToView:(UIView *)view2 {
++ (NSArray *)constraintsWithView:(id)view1 centerAlignToView:(id)view2 {
     return [CPConstraintHelper constraintsWithView:view1 alignToView:view2 attributes:NSLayoutAttributeCenterX, NSLayoutAttributeCenterY, ATTR_END];
 }
 
-+ (NSArray *)constraintsWithView:(UIView *)view1 alignToView:(UIView *)view2 attributes:(NSLayoutAttribute)firstAttr, ... {
++ (NSArray *)constraintsWithView:(id)view1 alignToView:(id)view2 attributes:(NSLayoutAttribute)firstAttr, ... {
     NSMutableArray *result = [NSMutableArray array];
     
     NSLayoutAttribute eachAttr;
@@ -37,27 +37,27 @@ const NSLayoutAttribute ATTR_END = -1;
     return result;
 }
 
-+ (NSLayoutConstraint *)constraintWithView:(UIView *)view1 alignToView:(UIView *)view2 attribute:(NSLayoutAttribute)attr {
++ (NSLayoutConstraint *)constraintWithView:(id)view1 alignToView:(id)view2 attribute:(NSLayoutAttribute)attr {
     return [NSLayoutConstraint constraintWithItem:view1 attribute:attr relatedBy:NSLayoutRelationEqual toItem:view2 attribute:attr multiplier:1.0 constant:0.0];
 }
 
-+ (NSLayoutConstraint *)constraintWithView:(UIView *)view1 attribute:(NSLayoutAttribute)attr1 alignToView:(UIView *)view2 attribute:(NSLayoutAttribute)attr2 {
++ (NSLayoutConstraint *)constraintWithView:(id)view1 attribute:(NSLayoutAttribute)attr1 alignToView:(id)view2 attribute:(NSLayoutAttribute)attr2 {
     return [NSLayoutConstraint constraintWithItem:view1 attribute:attr1 relatedBy:NSLayoutRelationEqual toItem:view2 attribute:attr2 multiplier:1.0 constant:0.0];
 }
 
-+ (NSLayoutConstraint *)constraintWithView:(UIView *)view1 alignToView:(UIView *)view2 attribute:(NSLayoutAttribute)attr constant:(CGFloat)c {
++ (NSLayoutConstraint *)constraintWithView:(id)view1 alignToView:(id)view2 attribute:(NSLayoutAttribute)attr constant:(CGFloat)c {
     return [NSLayoutConstraint constraintWithItem:view1 attribute:attr relatedBy:NSLayoutRelationEqual toItem:view2 attribute:attr multiplier:1.0 constant:c];
 }
 
-+ (NSLayoutConstraint *)constraintWithView:(UIView *)view1 attribute:(NSLayoutAttribute)attr1 alignToView:(UIView *)view2 attribute:(NSLayoutAttribute)attr2 constant:(CGFloat)c {
++ (NSLayoutConstraint *)constraintWithView:(id)view1 attribute:(NSLayoutAttribute)attr1 alignToView:(id)view2 attribute:(NSLayoutAttribute)attr2 constant:(CGFloat)c {
     return [NSLayoutConstraint constraintWithItem:view1 attribute:attr1 relatedBy:NSLayoutRelationEqual toItem:view2 attribute:attr2 multiplier:1.0 constant:c];
 }
 
-+ (NSLayoutConstraint *)constraintWithView:(UIView *)view width:(CGFloat)width {
++ (NSLayoutConstraint *)constraintWithView:(id)view width:(CGFloat)width {
     return [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:width];
 }
 
-+ (NSLayoutConstraint *)constraintWithView:(UIView *)view height:(CGFloat)height {
++ (NSLayoutConstraint *)constraintWithView:(id)view height:(CGFloat)height {
     return [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:height];
 }
 
