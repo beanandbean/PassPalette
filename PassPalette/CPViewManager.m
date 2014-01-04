@@ -19,10 +19,13 @@
     return self;
 }
 
-- (void)loadViews {
+- (void)loadViewsWithAnimation {
 }
 
-- (void)unloadViews {
+- (void)unloadViewsWithAnimation {
+}
+
+- (void)dismissSubviewManager:(CPViewManager *)subviewManager {
 }
 
 @end

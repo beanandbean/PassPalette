@@ -25,7 +25,7 @@
 
 @implementation CPHomeManager
 
-- (void)loadViews {
+- (void)loadViewsWithAnimation {
     [self.superview addSubview:self.passView];
     [self.superview addConstraints:[CPConstraintHelper constraintsWithView:self.passView alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeTop, NSLayoutAttributeRight, ATTR_END]];
     
@@ -33,8 +33,8 @@
     [self.superview addConstraints:[CPConstraintHelper constraintsWithView:self.adView alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeBottom, NSLayoutAttributeRight, ATTR_END]];
     [self.superview addConstraint:[CPConstraintHelper constraintWithView:self.passView attribute:NSLayoutAttributeBottom alignToView:self.adView attribute:NSLayoutAttributeTop]];
     
-    [self.passContainerManager loadViews];
-    [self.adManager loadViews];
+    [self.passContainerManager loadViewsWithAnimation];
+    [self.adManager loadViewsWithAnimation];
 }
 
 #pragma mark - lazy init

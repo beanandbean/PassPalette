@@ -41,7 +41,7 @@ static int g_deviceOrientationWillChangeNotifierRequestCount = 0;
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor blackColor];
-    [self.homeManager loadViews];
+    [self.homeManager loadViewsWithAnimation];
 }
 
 - (void)didReceiveMemoryWarning {

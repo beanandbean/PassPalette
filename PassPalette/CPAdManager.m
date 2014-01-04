@@ -29,7 +29,7 @@
 
 @implementation CPAdManager
 
-- (void)loadViews {
+- (void)loadViewsWithAnimation {
     [self.superview addSubview:self.iAdBannerView];
     [self.superview addConstraints:[CPConstraintHelper constraintsWithView:self.superview edgesAlignToView:self.iAdBannerView]];
     [self.superview addConstraint:self.heightConstraint];
@@ -46,7 +46,7 @@
     [self.gAdBannerView loadRequest:request];*/
 }
 
-- (void)unloadViews {
+- (void)unloadViewsWithAnimation {
     // [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
 }
 

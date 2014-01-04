@@ -37,7 +37,7 @@
     return self;
 }
 
-- (void)loadViews {
+- (void)loadViewsWithAnimation {
     [self.superview addSubview:self.searchBarPanel];
     [self.superview addConstraints:[CPConstraintHelper constraintsWithView:self.searchBarPanel alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, ATTR_END]];
     [self.superview addConstraint:self.searchBarPanelBottomConstraint];
@@ -55,6 +55,20 @@
     [self.searchBarPanel addConstraints:[CPConstraintHelper constraintsWithView:line alignToView:self.searchBarPanel attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, ATTR_END]];
     [self.searchBarPanel addConstraint:[CPConstraintHelper constraintWithView:line alignToView:self.searchBarPanel attribute:NSLayoutAttributeBottom]];
     [line addConstraint:[CPConstraintHelper constraintWithView:line height:1]];
+}
+
+- (void)unloadViewsWithAnimation {
+    [self.searchBar resignFirstResponder];
+    [CPProcessManager animateWithDuration:0.3 animations:^{
+        self.resultCollectionViewPanel.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        self.searchBarPanelBottomConstraint.constant = 0.0;
+        [CPProcessManager animateWithDuration:0.3 animations:^{
+            [self.superview layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            [self.supermanager dismissSubviewManager:self];
+        }];
+    }];
 }
 
 #pragma mark - CPInteractiveTransitioning implement
@@ -91,7 +105,7 @@
     [CPProcessManager animateWithDuration:0.5 animations:^{
         [self.searchBarPanel layoutIfNeeded];
     } completion:^(BOOL finished) {
-        [((CPPassContainerManager *)self.supermanager) unloadSearchView];
+        [self.supermanager dismissSubviewManager:self];
     }];
 }
 
@@ -123,17 +137,7 @@
 #pragma mark - UISearchBarDelegate implement
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    [self.searchBar resignFirstResponder];
-    [CPProcessManager animateWithDuration:0.3 animations:^{
-        self.resultCollectionViewPanel.alpha = 0.0;
-    } completion:^(BOOL finished) {
-        self.searchBarPanelBottomConstraint.constant = 0.0;
-        [CPProcessManager animateWithDuration:0.3 animations:^{
-            [self.superview layoutIfNeeded];
-        } completion:^(BOOL finished) {
-            [((CPPassContainerManager *)self.supermanager) unloadSearchView];
-        }];
-    }];
+    [self unloadViewsWithAnimation];
 }
 
 #pragma mark - lazy init

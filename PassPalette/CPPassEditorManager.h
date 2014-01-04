@@ -12,6 +12,6 @@
 
 @interface CPPassEditorManager : CPViewManager <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate>
 
-- (id)initWithPassword:(CPPassword *)password supermanager:(CPViewManager *)supermanager andSuperview:(UIView *)superview;
+- (id)initWithPassword:(CPPassword *)password backgroundSnapshotView:(UIView *)backgroundSnapshotView originalCellFrame:(CGRect)originalCellFrame supermanager:(CPViewManager *)supermanager andSuperview:(UIView *)superview;
 
 @end

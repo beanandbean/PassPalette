@@ -13,7 +13,9 @@
 
 - (id)initWithSupermanager:(CPViewManager *)supermanager andSuperview:(UIView *)superview;
 
-- (void)loadViews;
-- (void)unloadViews;
+- (void)loadViewsWithAnimation;
+- (void)unloadViewsWithAnimation;
+
+- (void)dismissSubviewManager:(CPViewManager *)subviewManager;
 
 @end
