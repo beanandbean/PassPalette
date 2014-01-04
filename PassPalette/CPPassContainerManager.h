@@ -10,6 +10,7 @@
 
 @interface CPPassContainerManager : CPViewManager <NSFetchedResultsControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate>
 
-- (void)dismissPassEditorView;
+- (void)unloadPassEditorView;
+- (void)unloadSearchView;
 
 @end

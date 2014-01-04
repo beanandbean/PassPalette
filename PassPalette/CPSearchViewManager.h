@@ -6,8 +6,12 @@
 //  Copyright (c) 2014 codingpotato. All rights reserved.
 //
 
-#import "CPInteractiveViewManager.h"
+#import "CPViewManager.h"
 
-@interface CPSearchViewManager : CPInteractiveViewManager
+#import "CPInteractiveTransition.h"
+
+@interface CPSearchViewManager : CPViewManager <CPInteractiveTransitioning, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate>
+
+- (id)initWithBluredBackgroundImage:(UIImage *)bluredBackgroundImage Supermanager:(CPViewManager *)supermanager andSuperview:(UIView *)superview;
 
 @end

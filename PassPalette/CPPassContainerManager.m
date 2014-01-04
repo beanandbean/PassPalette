@@ -31,6 +31,8 @@
 @property (strong, nonatomic) UIView *searchView;
 @property (strong, nonatomic) CPSearchViewManager *searchViewManager;
 
+@property (nonatomic) CGPoint panTranslation;
+
 #pragma mark - member variables for pass editor view and transition
 @property (strong, nonatomic) UIView *passEditorView;
 @property (strong, nonatomic) CPPassEditorManager *passEditorManager;
@@ -79,15 +81,16 @@
 }
 
 - (void)handlePanGesture:(UIPanGestureRecognizer *)panGesture {
-    if (panGesture.state == UIGestureRecognizerStateChanged) {
-        CGPoint translation = [panGesture translationInView:panGesture.view];
+    if (panGesture.state == UIGestureRecognizerStateBegan || panGesture.state == UIGestureRecognizerStateChanged) {
+        self.panTranslation = [panGesture translationInView:panGesture.view];
         if (IS_IN_PROCESS(DRAGGING_PASS_CELL_PROCESS)) {
-            [self dragPassCellByTranslation:translation];
+            [self dragPassCellByTranslation:self.panTranslation];
         } else if (IS_IN_PROCESS(SEARCH_PROCESS)) {
-            [self.searchViewManager updateByTranslation:translation];
+            [self.searchViewManager updateInteractiveTranstionByTranslation:self.panTranslation];
         } else {
             if (START_PROCESS(SEARCH_PROCESS)) {
                 [self loadSearchView];
+                [self.searchViewManager updateInteractiveTranstionByTranslation:self.panTranslation];
             }
         }
         [panGesture setTranslation:CGPointZero inView:panGesture.view];
@@ -95,7 +98,11 @@
         if (IS_IN_PROCESS(DRAGGING_PASS_CELL_PROCESS)) {
             [self stopDraggingPassCell];
         } else if (IS_IN_PROCESS(SEARCH_PROCESS)) {
-            //[self animateSearchViewToEnd];
+            if (self.panTranslation.y >= 0.0) {
+                [self.searchViewManager finishInteractiveTranstion];
+            } else {
+                [self.searchViewManager cancelInteractiveTransition];
+            }
         }
     }
 }
@@ -182,7 +189,7 @@
     }];
 }
 
-- (void)dismissPassEditorView {
+- (void)unloadPassEditorView {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     
     // create pass editor snapshot
@@ -249,42 +256,15 @@
     [self.searchViewManager loadViews];
 }
 
-/*- (void)updateSearchViewByTranslation:(CGPoint)translation {
-    self.lastTranslation = translation;
-    if (self.searchViewBottomLayout.constant < 0.0) {
-        self.searchViewBottomLayout.constant += self.lastTranslation.y;
-        //self.snapshotTopLayoutConstraint.constant -= self.lastTranslation.y;
-    }
-}
-
-- (void)animateSearchViewToEnd {
-    if (self.lastTranslation.y >= 0.0) {
-        self.searchViewBottomLayout.constant = 0.0;
-        self.snapshotTopLayoutConstraint.constant = 0.0;
-    } else {
-        self.searchViewBottomLayout.constant = 0.0;
-        self.snapshotTopLayoutConstraint.constant = 0.0;
-    }
-    
-    [CPProcessManager animateWithDuration:0.5 animations:^{
-        [self.superview layoutIfNeeded];
-    } completion:^(BOOL finished) {
-        if (self.lastTranslation.y < 0) {
-            [self dismissSearchView];
-        }
-    }];
-}
-
-- (void)dismissSearchView {
+- (void)unloadSearchView {
     if (STOP_PROCESS(SEARCH_PROCESS)) {
         [self.searchViewManager unloadViews];
         [self.searchView removeFromSuperview];
         self.searchView = nil;
-        self.searchViewBottomLayout = nil;
         self.searchViewManager = nil;
-        self.snapshotTopLayoutConstraint = nil;
+        self.panTranslation = CGPointZero;
     }
-}*/
+}
 
 #pragma mark - dragging pass cell
 

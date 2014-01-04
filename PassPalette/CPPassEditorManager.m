@@ -134,7 +134,7 @@
 - (void)exitButtonPressed:(id)sender {
     if (STOP_PROCESS(EDITING_PASS_CELL_PROCESS)) {
         CPPassContainerManager *passContainerManager = (CPPassContainerManager *)self.supermanager;
-        [passContainerManager dismissPassEditorView];
+        [passContainerManager unloadPassEditorView];
     }
 }
 
