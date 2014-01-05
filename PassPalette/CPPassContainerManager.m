@@ -8,18 +8,19 @@
 
 #import "CPPassContainerManager.h"
 
-#import "UIImage+ImageEffects.h"
-
 #import "CPConstraintHelper.h"
 #import "CPPassEditorManager.h"
 #import "CPProcessManager.h"
-#import "CPSearchViewManager.h"
+#import "CPSearchManager.h"
+#import "CPSettingsManager.h"
 
 #import "CPEditingPassCellProcess.h"
 #import "CPDraggingPassCellProcess.h"
 #import "CPSearchProcess.h"
+#import "CPSettingsProcess.h"
 
 #import "CPRectLayout.h"
+#import "CPImageHelper.h"
 
 #import "CPPassDataManager.h"
 #import "CPPassword.h"
@@ -28,10 +29,10 @@
 
 @property (strong, nonatomic) UICollectionView *passCollectionView;
 
-@property (strong, nonatomic) UIView *searchView;
-@property (strong, nonatomic) CPSearchViewManager *searchViewManager;
-
 @property (nonatomic) CGPoint panTranslation;
+
+@property (strong, nonatomic) UIView *interactiveView;
+@property (strong, nonatomic) CPInteractiveViewManager *interactiveViewManager;
 
 @property (strong, nonatomic) UIView *passEditorView;
 @property (strong, nonatomic) CPPassEditorManager *passEditorManager;
@@ -77,23 +78,30 @@
     [self.passEditorManager loadViewsWithAnimation];
 }
 
-- (void)loadSearchView {
-    self.searchView = [[UIView alloc] init];
-    self.searchView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.superview addSubview:self.searchView];
-    [self.superview addConstraints:[CPConstraintHelper constraintsWithView:self.searchView edgesAlignToView:self.superview]];
-    
-    self.searchViewManager = [[CPSearchViewManager alloc] initWithBluredBackgroundImage:[self createSnapshot] Supermanager:self andSuperview:self.searchView];
-    [self.searchViewManager loadViewsWithAnimation];
+- (void)loadInteractiveView {
+    self.interactiveView = [[UIView alloc] init];
+    self.interactiveView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.superview addSubview:self.interactiveView];
+    [self.superview addConstraints:[CPConstraintHelper constraintsWithView:self.interactiveView edgesAlignToView:self.superview]];
+
+    UIImage *snapshot = [CPImageHelper bluredSnapshotForView:self.superview];
+    if (IS_IN_PROCESS(SEARCH_PROCESS)) {
+        self.interactiveViewManager = [[CPSearchManager alloc] initWithBluredBackgroundImage:snapshot Supermanager:self andSuperview:self.interactiveView];
+    } else if (IS_IN_PROCESS(SETTINGS_PROCESS)) {
+        self.interactiveViewManager = [[CPSettingsManager alloc] initWithBluredBackgroundImage:snapshot Supermanager:self andSuperview:self.interactiveView];
+    } else {
+        NSAssert(NO, @"");
+    }
+    [self.interactiveViewManager loadViewsWithAnimation];
 }
 
 - (void)dismissSubviewManager:(CPViewManager *)subviewManager {
-    if (IS_IN_PROCESS(SEARCH_PROCESS)) {
-        NSAssert(subviewManager == self.searchViewManager, @"");
-        if (STOP_PROCESS(SEARCH_PROCESS)) {
-            [self.searchView removeFromSuperview];
-            self.searchView = nil;
-            self.searchViewManager = nil;
+    if (IS_IN_PROCESS(SEARCH_PROCESS) || IS_IN_PROCESS(SETTINGS_PROCESS)) {
+        NSAssert(subviewManager == self.interactiveViewManager, @"");
+        if (STOP_PROCESS(SEARCH_PROCESS) || STOP_PROCESS(SETTINGS_PROCESS)) {
+            [self.interactiveView removeFromSuperview];
+            self.interactiveView = nil;
+            self.interactiveViewManager = nil;
             self.panTranslation = CGPointZero;
         }
     } else if (subviewManager == self.passEditorManager) {
@@ -116,12 +124,19 @@
         self.panTranslation = [panGesture translationInView:panGesture.view];
         if (IS_IN_PROCESS(DRAGGING_PASS_CELL_PROCESS)) {
             [self dragPassCellByTranslation:self.panTranslation];
-        } else if (IS_IN_PROCESS(SEARCH_PROCESS)) {
-            [self.searchViewManager updateInteractiveTranstionByTranslation:self.panTranslation];
+        } else if (IS_IN_PROCESS(SEARCH_PROCESS) || IS_IN_PROCESS(SETTINGS_PROCESS)) {
+            [self.interactiveViewManager updateInteractiveTranstionByTranslation:self.panTranslation];
         } else {
-            if (START_PROCESS(SEARCH_PROCESS)) {
-                [self loadSearchView];
-                [self.searchViewManager updateInteractiveTranstionByTranslation:self.panTranslation];
+            if (self.panTranslation.y >= 0.0) {
+                if (START_PROCESS(SEARCH_PROCESS)) {
+                    [self loadInteractiveView];
+                    [self.interactiveViewManager updateInteractiveTranstionByTranslation:self.panTranslation];
+                }
+            } else {
+                if (START_PROCESS(SETTINGS_PROCESS)) {
+                    [self loadInteractiveView];
+                    [self.interactiveViewManager updateInteractiveTranstionByTranslation:self.panTranslation];
+                }
             }
         }
         [panGesture setTranslation:CGPointZero inView:panGesture.view];
@@ -130,22 +145,18 @@
             [self stopDraggingPassCell];
         } else if (IS_IN_PROCESS(SEARCH_PROCESS)) {
             if (self.panTranslation.y >= 0.0) {
-                [self.searchViewManager finishInteractiveTranstion];
+                [self.interactiveViewManager finishInteractiveTranstion];
             } else {
-                [self.searchViewManager cancelInteractiveTransition];
+                [self.interactiveViewManager cancelInteractiveTransition];
+            }
+        } else if (IS_IN_PROCESS(SETTINGS_PROCESS)) {
+            if (self.panTranslation.y <= 0.0) {
+                [self.interactiveViewManager finishInteractiveTranstion];
+            } else {
+                [self.interactiveViewManager cancelInteractiveTransition];
             }
         }
     }
-}
-
-- (UIImage *)createSnapshot {
-    UIGraphicsBeginImageContextWithOptions(self.superview.bounds.size, NO, self.superview.window.screen.scale);
-    [self.superview drawViewHierarchyInRect:self.superview.bounds afterScreenUpdates:NO];
-    UIImage *snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIImage *blurredSnapshotImage = [snapshotImage applyLightEffect];
-    UIGraphicsEndImageContext();
-    
-    return blurredSnapshotImage;
 }
 
 #pragma mark - dragging pass cell

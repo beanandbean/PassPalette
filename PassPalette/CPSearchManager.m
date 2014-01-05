@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 codingpotato. All rights reserved.
 //
 
-#import "CPSearchViewManager.h"
+#import "CPSearchManager.h"
 
 #import "CPConstraintHelper.h"
 #import "CPMainViewController.h"
@@ -14,9 +14,7 @@
 #import "CPPassContainerManager.h"
 #import "CPProcessManager.h"
 
-@interface CPSearchViewManager ()
-
-@property (strong, nonatomic) UIImage *bluredBackgroundImage;
+@interface CPSearchManager ()
 
 @property (strong, nonatomic) UIView *searchBarPanel;
 @property (strong, nonatomic) NSLayoutConstraint *searchBarPanelBottomConstraint;
@@ -27,34 +25,18 @@
 
 @end
 
-@implementation CPSearchViewManager
-
-- (id)initWithBluredBackgroundImage:(UIImage *)bluredBackgroundImage Supermanager:(CPViewManager *)supermanager andSuperview:(UIView *)superview {
-    self = [super initWithSupermanager:supermanager andSuperview:superview];
-    if (self) {
-        self.bluredBackgroundImage = bluredBackgroundImage;
-    }
-    return self;
-}
+@implementation CPSearchManager
 
 - (void)loadViewsWithAnimation {
     [self.superview addSubview:self.searchBarPanel];
     [self.superview addConstraints:[CPConstraintHelper constraintsWithView:self.searchBarPanel alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, ATTR_END]];
     [self.superview addConstraint:self.searchBarPanelBottomConstraint];
+    [self addBackgroundImageIntoView:self.searchBarPanel];
     
     [self.searchBarPanel addSubview:self.searchBar];
     [self.searchBarPanel addConstraints:[CPConstraintHelper constraintsWithView:self.searchBar alignToView:self.searchBarPanel attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, ATTR_END]];
     [self.searchBarPanel addConstraint:[CPConstraintHelper constraintWithView:self.searchBar alignToView:self.searchBarPanel attribute:NSLayoutAttributeTop constant:[CPMainViewController mainViewController].topLayoutGuide.length]];
-    [self.searchBarPanel addConstraint:[CPConstraintHelper constraintWithView:self.searchBar alignToView:self.searchBarPanel attribute:NSLayoutAttributeBottom]];
-    
-    // create line on the bottom of search bar
-    UIView *line = [[UIView alloc] init];
-    line.backgroundColor = [UIColor grayColor];
-    line.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.searchBarPanel addSubview:line];
-    [self.searchBarPanel addConstraints:[CPConstraintHelper constraintsWithView:line alignToView:self.searchBarPanel attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, ATTR_END]];
-    [self.searchBarPanel addConstraint:[CPConstraintHelper constraintWithView:line alignToView:self.searchBarPanel attribute:NSLayoutAttributeBottom]];
-    [line addConstraint:[CPConstraintHelper constraintWithView:line height:1]];
+    [self.searchBarPanel addConstraint:[CPConstraintHelper constraintWithView:self.searchBar alignToView:self.searchBarPanel attribute:NSLayoutAttributeBottom]];    
 }
 
 - (void)unloadViewsWithAnimation {
@@ -62,6 +44,7 @@
     [CPProcessManager animateWithDuration:0.3 animations:^{
         self.resultCollectionViewPanel.alpha = 0.0;
     } completion:^(BOOL finished) {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
         self.searchBarPanelBottomConstraint.constant = 0.0;
         [CPProcessManager animateWithDuration:0.3 animations:^{
             [self.superview layoutIfNeeded];
@@ -87,11 +70,13 @@
     [CPProcessManager animateWithDuration:0.3 animations:^{
         [self.searchBarPanel layoutIfNeeded];
     } completion:^(BOOL finished) {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
         [self.searchBar becomeFirstResponder];
         
         [self.superview addSubview:self.resultCollectionViewPanel];
         [self.superview addConstraints:[CPConstraintHelper constraintsWithView:self.resultCollectionViewPanel alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, NSLayoutAttributeBottom, ATTR_END]];
-        [self.superview addConstraint:[CPConstraintHelper constraintWithView:self.resultCollectionViewPanel attribute:NSLayoutAttributeTop alignToView:self.searchBarPanel attribute:NSLayoutAttributeBottom]];
+        [self.superview addConstraint:[CPConstraintHelper constraintWithView:self.resultCollectionViewPanel attribute:NSLayoutAttributeTop alignToView:self.searchBarPanel attribute:NSLayoutAttributeBottom constant:1.0]];
+        [self addBackgroundImageIntoView:self.resultCollectionViewPanel];
         
         self.resultCollectionViewPanel.alpha = 0.0;
         [CPProcessManager animateWithDuration:0.3 animations:^{
@@ -102,7 +87,7 @@
 
 - (void)cancelInteractiveTransition {
     self.searchBarPanelBottomConstraint.constant = 0.0;
-    [CPProcessManager animateWithDuration:0.5 animations:^{
+    [CPProcessManager animateWithDuration:0.3 animations:^{
         [self.searchBarPanel layoutIfNeeded];
     } completion:^(BOOL finished) {
         [self.supermanager dismissSubviewManager:self];
@@ -148,11 +133,6 @@
         _searchBarPanel.backgroundColor = [UIColor clearColor];
         _searchBarPanel.clipsToBounds = YES;
         _searchBarPanel.translatesAutoresizingMaskIntoConstraints = NO;
-        
-        UIImageView *background = [[UIImageView alloc] initWithImage:self.bluredBackgroundImage];
-        background.translatesAutoresizingMaskIntoConstraints = NO;
-        [_searchBarPanel addSubview:background];
-        [_searchBarPanel addConstraints:[CPConstraintHelper constraintsWithView:background alignToView:_searchBarPanel attributes:NSLayoutAttributeTop, NSLayoutAttributeLeft, NSLayoutAttributeRight, ATTR_END]];
     }
     return _searchBarPanel;
 }
@@ -181,11 +161,6 @@
         _resultCollectionViewPanel.backgroundColor = [UIColor clearColor];
         _resultCollectionViewPanel.clipsToBounds = YES;
         _resultCollectionViewPanel.translatesAutoresizingMaskIntoConstraints = NO;
-        
-        UIImageView *background = [[UIImageView alloc] initWithImage:self.bluredBackgroundImage];
-        background.translatesAutoresizingMaskIntoConstraints = NO;
-        [_resultCollectionViewPanel addSubview:background];
-        [_resultCollectionViewPanel addConstraints:[CPConstraintHelper constraintsWithView:background alignToView:_resultCollectionViewPanel attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, NSLayoutAttributeBottom, ATTR_END]];
     }
     return _resultCollectionViewPanel;
 }

@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 codingpotato. All rights reserved.
 //
 
-#import "CPViewManager.h"
+#import "CPInteractiveViewManager.h"
 
-@interface CPSettingsManager : CPViewManager
+@interface CPSettingsManager : CPInteractiveViewManager
 
 @end
