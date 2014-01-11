@@ -8,7 +8,7 @@
 
 #import "CPAdManager.h"
 
-#import "CPConstraintHelper.h"
+#import "CPUIKitHelper.h"
 #import "CPHelperMacros.h"
 
 #import "CPMainViewController.h"
@@ -31,7 +31,7 @@
 
 - (void)loadViewsWithAnimation {
     [self.superview addSubview:self.iAdBannerView];
-    [self.superview addConstraints:[CPConstraintHelper constraintsWithView:self.superview edgesAlignToView:self.iAdBannerView]];
+    [self.superview addConstraints:[CPUIKitHelper constraintsWithView:self.superview edgesAlignToView:self.iAdBannerView]];
     [self.superview addConstraint:self.heightConstraint];
     
     // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
@@ -109,7 +109,7 @@
 
 - (NSLayoutConstraint *)heightConstraint {
     if (!_heightConstraint) {
-        _heightConstraint = [CPConstraintHelper constraintWithView:self.superview height:0.0];
+        _heightConstraint = [CPUIKitHelper constraintWithView:self.superview height:0.0];
     }
     return _heightConstraint;
 }

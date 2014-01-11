@@ -8,7 +8,7 @@
 
 #import "CPPassMeterView.h"
 
-#import "CPConstraintHelper.h"
+#import "CPUIKitHelper.h"
 
 @interface CPPassMeterView ()
 
@@ -35,7 +35,7 @@
         self.label.font = [UIFont systemFontOfSize:50.0];
         self.label.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.label];
-        [self addConstraints:[CPConstraintHelper constraintsWithView:self.label edgesAlignToView:self]];
+        [self addConstraints:[CPUIKitHelper constraintsWithView:self.label edgesAlignToView:self]];
     }
     return self;
 }

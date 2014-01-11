@@ -8,7 +8,7 @@
 
 #import "CPSettingsManager.h"
 
-#import "CPConstraintHelper.h"
+#import "CPUIKitHelper.h"
 #import "CPProcessManager.h"
 
 @interface CPSettingsManager ()
@@ -22,8 +22,8 @@
 
 - (void)loadViewsWithAnimation {
     [self.superview addSubview:self.settingsPanel];
-    [self.settingsPanel addConstraint:[CPConstraintHelper constraintWithView:self.settingsPanel height:300.0]];
-    [self.superview addConstraints:[CPConstraintHelper constraintsWithView:self.settingsPanel alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, ATTR_END]];
+    [self.settingsPanel addConstraint:[CPUIKitHelper constraintWithView:self.settingsPanel height:300.0]];
+    [self.superview addConstraints:[CPUIKitHelper constraintsWithView:self.settingsPanel alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, ATTR_END]];
     [self.superview addConstraint:self.settingsPanelTopConstraint];
     [self addBackgroundImageIntoView:self.settingsPanel];
     
@@ -83,7 +83,7 @@
 
 - (NSLayoutConstraint *)settingsPanelTopConstraint {
     if (!_settingsPanelTopConstraint) {
-        _settingsPanelTopConstraint = [CPConstraintHelper constraintWithView:self.settingsPanel attribute:NSLayoutAttributeTop alignToView:self.superview attribute:NSLayoutAttributeBottom constant:0.0];
+        _settingsPanelTopConstraint = [CPUIKitHelper constraintWithView:self.settingsPanel attribute:NSLayoutAttributeTop alignToView:self.superview attribute:NSLayoutAttributeBottom constant:0.0];
     }
     return _settingsPanelTopConstraint;
 }

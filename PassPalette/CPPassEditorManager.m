@@ -8,7 +8,7 @@
 
 #import "CPPassEditorManager.h"
 
-#import "CPConstraintHelper.h"
+#import "CPUIKitHelper.h"
 #import "CPMemoCell.h"
 #import "CPPassContainerManager.h"
 #import "CPPassMeterView.h"
@@ -36,8 +36,11 @@
 @property (strong, nonatomic) UIView *passEditorPanel;
 @property (strong, nonatomic) CPPassMeterView *passMeterView;
 @property (strong, nonatomic) UITextField *passTextField;
-@property (strong, nonatomic) UILabel *memosTitle;
 @property (strong, nonatomic) UICollectionView *memosCollectionView;
+
+@property (strong, nonatomic) UIView *memoTextFieldPanel;
+@property (strong, nonatomic) UITextField *memoTextField;
+@property (strong, nonatomic) UIView *memoEdittingMask;
 
 @property (strong, nonatomic) NSArray *sortedMemos;
 
@@ -75,17 +78,17 @@
     CGRect destFrame = self.superview.bounds;
     CGFloat xScale = destFrame.size.width / self.originalCellFrame.size.width;
     CGFloat yScale = destFrame.size.height / self.originalCellFrame.size.height;
-    self.leftSnapshotConstraint = [CPConstraintHelper constraintWithView:self.backgroundSnapshotView alignToView:self.superview attribute:NSLayoutAttributeLeft constant:0.0];
-    self.rightSnapshotConstraint = [CPConstraintHelper constraintWithView:self.backgroundSnapshotView alignToView:self.superview attribute:NSLayoutAttributeRight constant:0.0];
-    self.topSnapshotConstraint = [CPConstraintHelper constraintWithView:self.backgroundSnapshotView alignToView:self.superview attribute:NSLayoutAttributeTop constant:0.0];
-    self.bottomSnapshotConstraint = [CPConstraintHelper constraintWithView:self.backgroundSnapshotView alignToView:self.superview attribute:NSLayoutAttributeBottom constant:0.0];
+    self.leftSnapshotConstraint = [CPUIKitHelper constraintWithView:self.backgroundSnapshotView alignToView:self.superview attribute:NSLayoutAttributeLeft constant:0.0];
+    self.rightSnapshotConstraint = [CPUIKitHelper constraintWithView:self.backgroundSnapshotView alignToView:self.superview attribute:NSLayoutAttributeRight constant:0.0];
+    self.topSnapshotConstraint = [CPUIKitHelper constraintWithView:self.backgroundSnapshotView alignToView:self.superview attribute:NSLayoutAttributeTop constant:0.0];
+    self.bottomSnapshotConstraint = [CPUIKitHelper constraintWithView:self.backgroundSnapshotView alignToView:self.superview attribute:NSLayoutAttributeBottom constant:0.0];
     [self.superview addConstraints:@[self.leftSnapshotConstraint, self.rightSnapshotConstraint, self.topSnapshotConstraint, self.bottomSnapshotConstraint]];
     
     // add constraints for the pass editor snapshot view
-    NSLayoutConstraint *leftPassEditorSnapshotConstraint = [CPConstraintHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeLeft constant:self.originalCellFrame.origin.x];
-    NSLayoutConstraint *rightPassEditorSnapshotConstraint = [CPConstraintHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeRight constant:-(destFrame.size.width - self.originalCellFrame.origin.x - self.originalCellFrame.size.width)];
-    NSLayoutConstraint *topPassEditorSnapshotConstraint = [CPConstraintHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeTop constant:self.originalCellFrame.origin.y];
-    NSLayoutConstraint *bottomPassEditorSnapshotConstraint = [CPConstraintHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeBottom constant:-(destFrame.size.height - self.originalCellFrame.origin.y - self.originalCellFrame.size.height)];
+    NSLayoutConstraint *leftPassEditorSnapshotConstraint = [CPUIKitHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeLeft constant:self.originalCellFrame.origin.x];
+    NSLayoutConstraint *rightPassEditorSnapshotConstraint = [CPUIKitHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeRight constant:-(destFrame.size.width - self.originalCellFrame.origin.x - self.originalCellFrame.size.width)];
+    NSLayoutConstraint *topPassEditorSnapshotConstraint = [CPUIKitHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeTop constant:self.originalCellFrame.origin.y];
+    NSLayoutConstraint *bottomPassEditorSnapshotConstraint = [CPUIKitHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeBottom constant:-(destFrame.size.height - self.originalCellFrame.origin.y - self.originalCellFrame.size.height)];
     [self.superview addConstraints:@[leftPassEditorSnapshotConstraint, rightPassEditorSnapshotConstraint, topPassEditorSnapshotConstraint, bottomPassEditorSnapshotConstraint]];
     [self.superview layoutIfNeeded];
     
@@ -123,10 +126,10 @@
     
     // add constraints for the pass editor snapshot view
     CGRect destFrame = self.superview.bounds;
-    NSLayoutConstraint *leftPassEditorSnapshotConstraint = [CPConstraintHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeLeft constant:0.0];
-    NSLayoutConstraint *rightPassEditorSnapshotConstraint = [CPConstraintHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeRight constant:0.0];
-    NSLayoutConstraint *topPassEditorSnapshotConstraint = [CPConstraintHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeTop constant:0.0];
-    NSLayoutConstraint *bottomPassEditorSnapshotConstraint = [CPConstraintHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeBottom constant:0.0];
+    NSLayoutConstraint *leftPassEditorSnapshotConstraint = [CPUIKitHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeLeft constant:0.0];
+    NSLayoutConstraint *rightPassEditorSnapshotConstraint = [CPUIKitHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeRight constant:0.0];
+    NSLayoutConstraint *topPassEditorSnapshotConstraint = [CPUIKitHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeTop constant:0.0];
+    NSLayoutConstraint *bottomPassEditorSnapshotConstraint = [CPUIKitHelper constraintWithView:passEditorSnapshot alignToView:self.superview attribute:NSLayoutAttributeBottom constant:0.0];
     [self.superview addConstraints:@[leftPassEditorSnapshotConstraint, rightPassEditorSnapshotConstraint, topPassEditorSnapshotConstraint, bottomPassEditorSnapshotConstraint]];
     [self.superview layoutIfNeeded];
     
@@ -157,17 +160,13 @@
 }
 
 - (void)addButtonPressed:(id)sender {
-    static NSInteger index = 0;
-    [[CPPassDataManager defaultManager] addMemoText:[NSString stringWithFormat:@"Test memo: %d", index++] inPassword:self.password];
-    // force to reload
-    self.sortedMemos = nil;
-    [self.memosCollectionView reloadData];
+    [self loadMemoTextField];
 }
 
 - (void)loadPassEditorPanel {
     self.passEditorPanel.backgroundColor = [CPPassword colorOfEntropy:self.password.entropy];
     [self.superview addSubview:self.passEditorPanel];
-    [self.superview addConstraints:[CPConstraintHelper constraintsWithView:self.passEditorPanel edgesAlignToView:self.superview]];
+    [self.superview addConstraints:[CPUIKitHelper constraintsWithView:self.passEditorPanel edgesAlignToView:self.superview]];
     
     // create mask
     UIView *mask = [[UIView alloc] init];
@@ -175,22 +174,22 @@
     mask.backgroundColor = [UIColor whiteColor];
     mask.translatesAutoresizingMaskIntoConstraints = NO;
     [self.passEditorPanel addSubview:mask];
-    [self.passEditorPanel addConstraints:[CPConstraintHelper constraintsWithView:mask edgesAlignToView:self.passEditorPanel]];
+    [self.passEditorPanel addConstraints:[CPUIKitHelper constraintsWithView:mask edgesAlignToView:self.passEditorPanel]];
     
     // create front panel
     UIView *frontPanel = [[UIView alloc] init];
     frontPanel.backgroundColor = [UIColor clearColor];
     frontPanel.translatesAutoresizingMaskIntoConstraints = NO;
     [self.passEditorPanel addSubview:frontPanel];
-    [self.passEditorPanel addConstraints:[CPConstraintHelper constraintsWithView:frontPanel edgesAlignToView:self.passEditorPanel]];
+    [self.passEditorPanel addConstraints:[CPUIKitHelper constraintsWithView:frontPanel edgesAlignToView:self.passEditorPanel]];
     
     // create pass meter
     self.passMeterView.entropy = self.password.entropy.doubleValue;
     [frontPanel addSubview:self.passMeterView];
-    [frontPanel addConstraints:@[[CPConstraintHelper constraintWithView:self.passMeterView alignToView:frontPanel attribute:NSLayoutAttributeCenterX],
-                            [CPConstraintHelper constraintWithView:self.passMeterView alignToView:frontPanel attribute:NSLayoutAttributeTop constant:20.0],
-                            [CPConstraintHelper constraintWithView:self.passMeterView width:100.0],
-                            [CPConstraintHelper constraintWithView:self.passMeterView height:100.0]]];
+    [frontPanel addConstraints:@[[CPUIKitHelper constraintWithView:self.passMeterView alignToView:frontPanel attribute:NSLayoutAttributeCenterX],
+                            [CPUIKitHelper constraintWithView:self.passMeterView alignToView:frontPanel attribute:NSLayoutAttributeTop constant:20.0],
+                            [CPUIKitHelper constraintWithView:self.passMeterView width:100.0],
+                            [CPUIKitHelper constraintWithView:self.passMeterView height:100.0]]];
     
     // create exit button
     UIButton *exitButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -198,16 +197,16 @@
     [exitButton setTitle:@"Exit" forState:UIControlStateNormal];
     [exitButton addTarget:self action:@selector(exitButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [frontPanel addSubview:exitButton];
-    [frontPanel addConstraint:[CPConstraintHelper constraintWithView:exitButton alignToView:self.passMeterView attribute:NSLayoutAttributeTop]];
-    [frontPanel addConstraint:[CPConstraintHelper constraintWithView:exitButton alignToView:frontPanel attribute:NSLayoutAttributeRight constant:-8.0]];
+    [frontPanel addConstraint:[CPUIKitHelper constraintWithView:exitButton alignToView:self.passMeterView attribute:NSLayoutAttributeTop]];
+    [frontPanel addConstraint:[CPUIKitHelper constraintWithView:exitButton alignToView:frontPanel attribute:NSLayoutAttributeRight constant:-8.0]];
     
     // create pass text field
     self.passTextField.text = self.password.text;
     self.passTextField.secureTextEntry = YES;
     [frontPanel addSubview:self.passTextField];
-    [frontPanel addConstraints:[CPConstraintHelper constraintsWithView:self.passTextField alignToView:frontPanel attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, ATTR_END]];
-    [frontPanel addConstraint:[CPConstraintHelper constraintWithView:self.passTextField attribute:NSLayoutAttributeTop alignToView:self.passMeterView attribute:NSLayoutAttributeBottom]];
-    [self.passTextField addConstraint:[CPConstraintHelper constraintWithView:self.passTextField height:44.0]];
+    [frontPanel addConstraints:[CPUIKitHelper constraintsWithView:self.passTextField alignToView:frontPanel attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, ATTR_END]];
+    [frontPanel addConstraint:[CPUIKitHelper constraintWithView:self.passTextField attribute:NSLayoutAttributeTop alignToView:self.passMeterView attribute:NSLayoutAttributeBottom]];
+    [self.passTextField addConstraint:[CPUIKitHelper constraintWithView:self.passTextField height:44.0]];
     
     // create add memo button
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -215,39 +214,40 @@
     [addButton setTitle:@"Add" forState:UIControlStateNormal];
     [addButton addTarget:self action:@selector(addButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [frontPanel addSubview:addButton];
-    [frontPanel addConstraint:[CPConstraintHelper constraintWithView:addButton attribute:NSLayoutAttributeTop alignToView:self.passTextField attribute:NSLayoutAttributeBottom]];
-    [frontPanel addConstraint:[CPConstraintHelper constraintWithView:addButton alignToView:frontPanel attribute:NSLayoutAttributeRight constant:-8.0]];
-    [frontPanel addConstraint:[CPConstraintHelper constraintWithView:addButton alignToView:exitButton attribute:NSLayoutAttributeWidth]];
-    
-    // create memos title
-    [frontPanel addSubview:self.memosTitle];
-    [frontPanel addConstraint:[CPConstraintHelper constraintWithView:self.memosTitle alignToView:addButton attribute:NSLayoutAttributeBaseline]];
-    [frontPanel addConstraint:[CPConstraintHelper constraintWithView:self.memosTitle alignToView:frontPanel attribute:NSLayoutAttributeLeft constant:8.0]];
-    [frontPanel addConstraint:[CPConstraintHelper constraintWithView:self.memosTitle attribute:NSLayoutAttributeRight alignToView:addButton attribute:NSLayoutAttributeLeft]];
-    
-    // create line on the top of memos collection view
-    UIView *topLine = [[UIView alloc] init];
-    topLine.backgroundColor = [UIColor lightTextColor];
-    topLine.translatesAutoresizingMaskIntoConstraints = NO;
-    [frontPanel addSubview:topLine];
-    [frontPanel addConstraints:[CPConstraintHelper constraintsWithView:topLine alignToView:frontPanel attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, ATTR_END]];
-    [frontPanel addConstraint:[CPConstraintHelper constraintWithView:topLine attribute:NSLayoutAttributeTop alignToView:self.memosTitle attribute:NSLayoutAttributeBottom]];
-    [topLine addConstraint:[CPConstraintHelper constraintWithView:topLine height:1]];
+    [frontPanel addConstraint:[CPUIKitHelper constraintWithView:addButton attribute:NSLayoutAttributeBottom alignToView:self.passTextField attribute:NSLayoutAttributeTop]];
+    [frontPanel addConstraint:[CPUIKitHelper constraintWithView:addButton alignToView:frontPanel attribute:NSLayoutAttributeRight constant:-8.0]];
+    // [frontPanel addConstraint:[CPConstraintHelper constraintWithView:addButton alignToView:exitButton attribute:NSLayoutAttributeWidth]];
     
     // create memos collection view
     [frontPanel addSubview:self.memosCollectionView];
-    [frontPanel addConstraints:[CPConstraintHelper constraintsWithView:self.memosCollectionView alignToView:frontPanel attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, ATTR_END]];
-    [frontPanel addConstraint:[CPConstraintHelper constraintWithView:self.memosCollectionView attribute:NSLayoutAttributeTop alignToView:topLine attribute:NSLayoutAttributeBottom]];
+    [frontPanel addConstraints:[CPUIKitHelper constraintsWithView:self.memosCollectionView alignToView:frontPanel attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, NSLayoutAttributeBottom,  ATTR_END]];
+    [frontPanel addConstraint:[CPUIKitHelper constraintWithView:self.memosCollectionView attribute:NSLayoutAttributeTop alignToView:self.passTextField attribute:NSLayoutAttributeBottom]];
+}
+
+- (void)loadMemoTextField {
+    // add memo text field panel
+    [self.superview addSubview:self.memoTextFieldPanel];
+    [self.superview addConstraints:[CPUIKitHelper constraintsWithView:self.memoTextFieldPanel edgesAlignToView:self.memosCollectionView]];
     
-    // create line on the bottom of memos collection view
-    UIView *bottomLine = [[UIView alloc] init];
-    bottomLine.backgroundColor = [UIColor lightTextColor];
-    bottomLine.translatesAutoresizingMaskIntoConstraints = NO;
-    [frontPanel addSubview:bottomLine];
-    [frontPanel addConstraints:[CPConstraintHelper constraintsWithView:bottomLine alignToView:frontPanel attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, ATTR_END]];
-    [frontPanel addConstraint:[CPConstraintHelper constraintWithView:bottomLine attribute:NSLayoutAttributeTop alignToView:self.memosCollectionView attribute:NSLayoutAttributeBottom]];
-    [bottomLine addConstraint:[CPConstraintHelper constraintWithView:bottomLine height:1]];
-    [frontPanel addConstraint:[CPConstraintHelper constraintWithView:bottomLine alignToView:frontPanel attribute:NSLayoutAttributeBottom]];
+    // add memo text field
+    [self.memoTextFieldPanel addSubview:self.memoTextField];
+    [self.memoTextFieldPanel addConstraint:[CPUIKitHelper constraintWithView:self.memoTextField alignToView:self.memoTextFieldPanel attribute:NSLayoutAttributeTop]];
+    [self.memoTextFieldPanel addConstraint:[CPUIKitHelper constraintWithView:self.memoTextField alignToView:self.memoTextFieldPanel attribute:NSLayoutAttributeLeft constant:8.0]];
+    [self.memoTextFieldPanel addConstraint:[CPUIKitHelper constraintWithView:self.memoTextField alignToView:self.memoTextFieldPanel attribute:NSLayoutAttributeRight constant:-8.0]];
+    [self.memoTextField addConstraint:[CPUIKitHelper constraintWithView:self.memoTextField height:44.0]];
+    [self.memoTextField becomeFirstResponder];
+    
+    // add mask
+    [self.memoTextFieldPanel addSubview:self.memoEdittingMask];
+    [self.memoTextFieldPanel addConstraints:[CPUIKitHelper constraintsWithView:self.memoEdittingMask alignToView:self.memoTextFieldPanel attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, NSLayoutAttributeBottom, ATTR_END]];
+    [self.memoTextFieldPanel addConstraint:[CPUIKitHelper constraintWithView:self.memoEdittingMask attribute:NSLayoutAttributeTop alignToView:self.memoTextField attribute:NSLayoutAttributeBottom]];
+}
+
+- (void)unloadMemoTextField {
+    [self.memoTextFieldPanel removeFromSuperview];
+    [self.memoTextField removeFromSuperview];
+    [self.memoEdittingMask removeFromSuperview];
+    self.memoTextField.text = @"";
 }
 
 #pragma mark - UICollectionViewDataSource implement
@@ -266,10 +266,6 @@
 #pragma mark - UICollectionViewDelegateFlowLayout implement
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return CGSizeMake(collectionView.bounds.size.width, 44.0);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -293,19 +289,27 @@
     if (textField == self.passTextField) {
         [[CPPassDataManager defaultManager] setText:textField.text intoPassword:self.password];
         self.passTextField.secureTextEntry = YES;
+    } else if (textField == self.memoTextField) {
+        if (![self.memoTextField.text isEqualToString:@""]) {
+            [[CPPassDataManager defaultManager] addMemoText:self.memoTextField.text inPassword:self.password];
+            self.sortedMemos = nil;
+            [self.memosCollectionView reloadData];
+        }
+        [self unloadMemoTextField];
     }
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    NSString *password = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    if ([password isEqualToString:@""]) {
-        self.superview.backgroundColor = [UIColor grayColor];
-    } else {
-        BBPasswordStrength *passwordStrength = [[BBPasswordStrength alloc] initWithPassword:password];
-        self.passMeterView.entropy = passwordStrength.entropy;
-        self.superview.backgroundColor = [CPPassword colorOfEntropy:[NSNumber numberWithDouble:passwordStrength.entropy]];
+    if (textField == self.passTextField) {
+        NSString *password = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        if ([password isEqualToString:@""]) {
+            self.superview.backgroundColor = [UIColor grayColor];
+        } else {
+            BBPasswordStrength *passwordStrength = [[BBPasswordStrength alloc] initWithPassword:password];
+            self.passMeterView.entropy = passwordStrength.entropy;
+            self.superview.backgroundColor = [CPPassword colorOfEntropy:[NSNumber numberWithDouble:passwordStrength.entropy]];
+        }
     }
-    
     return YES;
 }
 
@@ -340,15 +344,6 @@
     return _passTextField;
 }
 
-- (UILabel *)memosTitle {
-    if (!_memosTitle) {
-        _memosTitle = [[UILabel alloc] init];
-        _memosTitle.text = @"Memos";
-        _memosTitle.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    return _memosTitle;
-}
-
 - (UICollectionView *)memosCollectionView {
     if (!_memosCollectionView) {
         _memosCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
@@ -361,6 +356,32 @@
         [_memosCollectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"123456"];
     }
     return _memosCollectionView;
+}
+
+- (UIView *)memoTextFieldPanel {
+    if (!_memoTextFieldPanel) {
+        _memoTextFieldPanel = [[UIView alloc] init];
+        _memoTextFieldPanel.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _memoTextFieldPanel;
+}
+
+- (UITextField *)memoTextField {
+    if (!_memoTextField) {
+        _memoTextField = [[UITextField alloc] init];
+        _memoTextField.backgroundColor = [UIColor clearColor];
+        _memoTextField.returnKeyType = UIReturnKeyDone;
+        _memoTextField.translatesAutoresizingMaskIntoConstraints = NO;
+        _memoTextField.delegate = self;
+    }
+    return _memoTextField;
+}
+
+- (UIView *)memoEdittingMask {
+    if (!_memoEdittingMask) {
+        _memoEdittingMask = [CPUIKitHelper maskWithColor:[UIColor blackColor] alpha:0.6];
+    }
+    return _memoEdittingMask;
 }
 
 - (NSArray *)sortedMemos {

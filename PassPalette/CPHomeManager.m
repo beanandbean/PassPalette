@@ -9,7 +9,7 @@
 #import "CPHomeManager.h"
 
 #import "CPAdManager.h"
-#import "CPConstraintHelper.h"
+#import "CPUIKitHelper.h"
 #import "CPPassContainerManager.h"
 #import "CPProcessManager.h"
 
@@ -27,11 +27,11 @@
 
 - (void)loadViewsWithAnimation {
     [self.superview addSubview:self.passView];
-    [self.superview addConstraints:[CPConstraintHelper constraintsWithView:self.passView alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeTop, NSLayoutAttributeRight, ATTR_END]];
+    [self.superview addConstraints:[CPUIKitHelper constraintsWithView:self.passView alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeTop, NSLayoutAttributeRight, ATTR_END]];
     
     [self.superview addSubview:self.adView];
-    [self.superview addConstraints:[CPConstraintHelper constraintsWithView:self.adView alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeBottom, NSLayoutAttributeRight, ATTR_END]];
-    [self.superview addConstraint:[CPConstraintHelper constraintWithView:self.passView attribute:NSLayoutAttributeBottom alignToView:self.adView attribute:NSLayoutAttributeTop]];
+    [self.superview addConstraints:[CPUIKitHelper constraintsWithView:self.adView alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeBottom, NSLayoutAttributeRight, ATTR_END]];
+    [self.superview addConstraint:[CPUIKitHelper constraintWithView:self.passView attribute:NSLayoutAttributeBottom alignToView:self.adView attribute:NSLayoutAttributeTop]];
     
     [self.passContainerManager loadViewsWithAnimation];
     [self.adManager loadViewsWithAnimation];

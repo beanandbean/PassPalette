@@ -8,7 +8,9 @@
 
 extern const NSLayoutAttribute ATTR_END;
 
-@interface CPConstraintHelper : NSObject
+@interface CPUIKitHelper : NSObject
+
++ (UIView *)maskWithColor:(UIColor *)color alpha:(CGFloat)alpha;
 
 + (NSArray *)constraintsWithView:(id)view1 edgesAlignToView:(id)view2;
 + (NSArray *)constraintsWithView:(id)view1 centerAlignToView:(id)view2;

@@ -8,7 +8,7 @@
 
 #import "CPPassContainerManager.h"
 
-#import "CPConstraintHelper.h"
+#import "CPUIKitHelper.h"
 #import "CPPassEditorManager.h"
 #import "CPProcessManager.h"
 #import "CPSearchManager.h"
@@ -55,7 +55,7 @@
     [CPPassDataManager defaultManager].passwordsController.delegate = self;
     
     [self.superview addSubview:self.passCollectionView];
-    [self.superview addConstraints:[CPConstraintHelper constraintsWithView:self.passCollectionView edgesAlignToView:self.superview]];
+    [self.superview addConstraints:[CPUIKitHelper constraintsWithView:self.passCollectionView edgesAlignToView:self.superview]];
     
     UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGesture:)];
     longPressGesture.delegate = self;
@@ -72,7 +72,7 @@
     self.passEditorView = [[UIView alloc] init];
     self.passEditorView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.superview addSubview:self.passEditorView];
-    [self.superview addConstraints:[CPConstraintHelper constraintsWithView:self.passEditorView edgesAlignToView:self.superview]];
+    [self.superview addConstraints:[CPUIKitHelper constraintsWithView:self.passEditorView edgesAlignToView:self.superview]];
     
     self.passEditorManager = [[CPPassEditorManager alloc] initWithPassword:password backgroundSnapshotView:snapshotView originalCellFrame:cellFrame supermanager:self andSuperview:self.passEditorView];
     [self.passEditorManager loadViewsWithAnimation];
@@ -82,7 +82,7 @@
     self.interactiveView = [[UIView alloc] init];
     self.interactiveView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.superview addSubview:self.interactiveView];
-    [self.superview addConstraints:[CPConstraintHelper constraintsWithView:self.interactiveView edgesAlignToView:self.superview]];
+    [self.superview addConstraints:[CPUIKitHelper constraintsWithView:self.interactiveView edgesAlignToView:self.superview]];
 
     UIImage *snapshot = [CPImageHelper bluredSnapshotForView:self.superview];
     if (IS_IN_PROCESS(SEARCH_PROCESS)) {

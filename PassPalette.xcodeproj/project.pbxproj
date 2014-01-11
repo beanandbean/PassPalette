@@ -66,7 +66,7 @@
 		FCBBAF2A18759C4A002B2C83 /* CPSearchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FCBBAF2918759C4A002B2C83 /* CPSearchManager.m */; };
 		FCBBAF2D18759D2C002B2C83 /* CPSearchProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FCBBAF2C18759D2C002B2C83 /* CPSearchProcess.m */; };
 		FCDF1FF2182FDA9C00D7BEF2 /* PassPalette.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = FCDF1FF1182FDA9C00D7BEF2 /* PassPalette.xcdatamodel */; };
-		FCEBDA011873A98E00F1D553 /* CPConstraintHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FCEBDA001873A98E00F1D553 /* CPConstraintHelper.m */; };
+		FCEBDA011873A98E00F1D553 /* CPUIKitHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FCEBDA001873A98E00F1D553 /* CPUIKitHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -184,8 +184,8 @@
 		FCBBAF2B18759D2C002B2C83 /* CPSearchProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPSearchProcess.h; sourceTree = "<group>"; };
 		FCBBAF2C18759D2C002B2C83 /* CPSearchProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPSearchProcess.m; sourceTree = "<group>"; };
 		FCDF1FF1182FDA9C00D7BEF2 /* PassPalette.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PassPalette.xcdatamodel; sourceTree = "<group>"; };
-		FCEBD9FF1873A98E00F1D553 /* CPConstraintHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPConstraintHelper.h; sourceTree = "<group>"; };
-		FCEBDA001873A98E00F1D553 /* CPConstraintHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPConstraintHelper.m; sourceTree = "<group>"; };
+		FCEBD9FF1873A98E00F1D553 /* CPUIKitHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPUIKitHelper.h; sourceTree = "<group>"; };
+		FCEBDA001873A98E00F1D553 /* CPUIKitHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPUIKitHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -423,8 +423,8 @@
 		FCEBD9FE1873A92100F1D553 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				FCEBD9FF1873A98E00F1D553 /* CPConstraintHelper.h */,
-				FCEBDA001873A98E00F1D553 /* CPConstraintHelper.m */,
+				FCEBD9FF1873A98E00F1D553 /* CPUIKitHelper.h */,
+				FCEBDA001873A98E00F1D553 /* CPUIKitHelper.m */,
 				FC8E7DA51824F81C00B3BE52 /* CPHelperMacros.h */,
 				FC702F5D187911960011E51D /* CPImageHelper.h */,
 				FC702F5E187911960011E51D /* CPImageHelper.m */,
@@ -553,7 +553,7 @@
 				FC8E7DB21824FCA700B3BE52 /* CPPassDataManager.m in Sources */,
 				FC2828A1182F37800030B1AE /* BBRegularExpressionMatchHelper.m in Sources */,
 				FC28289E182F37800030B1AE /* BBPasswordStrength.m in Sources */,
-				FCEBDA011873A98E00F1D553 /* CPConstraintHelper.m in Sources */,
+				FCEBDA011873A98E00F1D553 /* CPUIKitHelper.m in Sources */,
 				FC69F753187848270033D3DB /* CPInteractiveViewManager.m in Sources */,
 				FC8130E0183858BA00D345E3 /* CPSettingsProcess.m in Sources */,
 				FC8E7D671824ECC100B3BE52 /* main.m in Sources */,

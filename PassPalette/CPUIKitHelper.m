@@ -6,18 +6,26 @@
 //  Copyright (c) 2014 codingpotato. All rights reserved.
 //
 
-#import "CPConstraintHelper.h"
+#import "CPUIKitHelper.h"
 
 const NSLayoutAttribute ATTR_END = -1;
 
-@implementation CPConstraintHelper
+@implementation CPUIKitHelper
+
++ (UIView *)maskWithColor:(UIColor *)color alpha:(CGFloat)alpha {
+    UIView *mask = [[UIView alloc] init];
+    mask.backgroundColor = color;
+    mask.alpha = alpha;
+    mask.translatesAutoresizingMaskIntoConstraints = NO;
+    return mask;
+}
 
 + (NSArray *)constraintsWithView:(id)view1 edgesAlignToView:(id)view2 {
-    return [CPConstraintHelper constraintsWithView:view1 alignToView:view2 attributes:NSLayoutAttributeLeft, NSLayoutAttributeTop, NSLayoutAttributeRight, NSLayoutAttributeBottom, ATTR_END];
+    return [CPUIKitHelper constraintsWithView:view1 alignToView:view2 attributes:NSLayoutAttributeLeft, NSLayoutAttributeTop, NSLayoutAttributeRight, NSLayoutAttributeBottom, ATTR_END];
 }
 
 + (NSArray *)constraintsWithView:(id)view1 centerAlignToView:(id)view2 {
-    return [CPConstraintHelper constraintsWithView:view1 alignToView:view2 attributes:NSLayoutAttributeCenterX, NSLayoutAttributeCenterY, ATTR_END];
+    return [CPUIKitHelper constraintsWithView:view1 alignToView:view2 attributes:NSLayoutAttributeCenterX, NSLayoutAttributeCenterY, ATTR_END];
 }
 
 + (NSArray *)constraintsWithView:(id)view1 alignToView:(id)view2 attributes:(NSLayoutAttribute)firstAttr, ... {
@@ -26,10 +34,10 @@ const NSLayoutAttribute ATTR_END = -1;
     NSLayoutAttribute eachAttr;
     va_list attrList;
     if (firstAttr != ATTR_END) {
-        [result addObject:[CPConstraintHelper constraintWithView:view1 alignToView:view2 attribute:firstAttr]];
+        [result addObject:[CPUIKitHelper constraintWithView:view1 alignToView:view2 attribute:firstAttr]];
         va_start(attrList, firstAttr);
         while ((eachAttr = va_arg(attrList, NSLayoutAttribute)) != ATTR_END) {
-            [result addObject:[CPConstraintHelper constraintWithView:view1 alignToView:view2 attribute:eachAttr]];
+            [result addObject:[CPUIKitHelper constraintWithView:view1 alignToView:view2 attribute:eachAttr]];
         }
         va_end(attrList);
     }

@@ -8,7 +8,7 @@
 
 #import "CPMemoCell.h"
 
-#import "CPConstraintHelper.h"
+#import "CPUIKitHelper.h"
 
 @interface CPMemoCell ()
 
@@ -16,33 +16,36 @@
 
 @implementation CPMemoCell
 
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self addSubview:self.label];
+        [self addConstraints:[CPUIKitHelper constraintsWithView:self.label alignToView:self attributes:NSLayoutAttributeTop, NSLayoutAttributeBottom, ATTR_END]];
+        [self addConstraint:[CPUIKitHelper constraintWithView:self.label alignToView:self attribute:NSLayoutAttributeLeft constant:8.0]];
+        [self addConstraint:[CPUIKitHelper constraintWithView:self.label alignToView:self attribute:NSLayoutAttributeRight constant:-8.0]];
+        
+        UIView *line = [[UIView alloc] init];
+        line.backgroundColor = [UIColor lightTextColor];
+        line.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:line];
+        [self addConstraint:[CPUIKitHelper constraintWithView:line alignToView:self attribute:NSLayoutAttributeLeft constant:8.0]];
+        [self addConstraint:[CPUIKitHelper constraintWithView:line alignToView:self attribute:NSLayoutAttributeRight]];
+        [self addConstraint:[CPUIKitHelper constraintWithView:line alignToView:self attribute:NSLayoutAttributeBottom]];
+        [line addConstraint:[CPUIKitHelper constraintWithView:line height:1.0]];
+    }
+    return self;
+}
+
 + (NSString *)reuseIdentifier {
     return @"CPMemoCell";
 }
 
-#pragma mark - editing
-
-static UITextField *g_textField;
-
-- (void)startEditing {
-    if (!g_textField) {
-        g_textField = [[UITextField alloc] init];
-        g_textField.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    [self.contentView addSubview:g_textField];
-    [self.contentView addConstraints:[CPConstraintHelper constraintsWithView:g_textField edgesAlignToView:self.contentView]];
-}
-
-- (void)stopEditing {
-    
-}
+#pragma mark - lazy init
 
 - (UILabel *)label {
     if (!_label) {
         _label = [[UILabel alloc] init];
         _label.translatesAutoresizingMaskIntoConstraints = NO;
-        [self addSubview:_label];
-        [self addConstraints:[CPConstraintHelper constraintsWithView:_label edgesAlignToView:self]];
     }
     return _label;
 }

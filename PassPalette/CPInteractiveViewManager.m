@@ -8,7 +8,7 @@
 
 #import "CPInteractiveViewManager.h"
 
-#import "CPConstraintHelper.h"
+#import "CPUIKitHelper.h"
 
 @interface CPInteractiveViewManager ()
 
@@ -39,14 +39,14 @@
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:self.bluredBackgroundImage];
     backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
     [view addSubview:backgroundImageView];
-    [self.superview addConstraints:[CPConstraintHelper constraintsWithView:backgroundImageView edgesAlignToView:self.superview]];
+    [self.superview addConstraints:[CPUIKitHelper constraintsWithView:backgroundImageView edgesAlignToView:self.superview]];
     
     UIView *maskView = [[UIView alloc] init];
     maskView.alpha = 0.5;
     maskView.backgroundColor = [UIColor whiteColor];
     maskView.translatesAutoresizingMaskIntoConstraints = NO;
     [view addSubview:maskView];
-    [view addConstraints:[CPConstraintHelper constraintsWithView:maskView edgesAlignToView:view]];
+    [view addConstraints:[CPUIKitHelper constraintsWithView:maskView edgesAlignToView:view]];
 }
 
 @end

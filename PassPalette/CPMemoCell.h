@@ -12,7 +12,4 @@
 
 + (NSString *)reuseIdentifier;
 
-- (void)startEditing;
-- (void)stopEditing;
-
 @end
