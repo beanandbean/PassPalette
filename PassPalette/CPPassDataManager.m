@@ -136,9 +136,7 @@ static NSArray *g_defaultPassword = nil;
     [request setEntity:[NSEntityDescription entityForName:@"Memo" inManagedObjectContext:self.managedObjectContext]];
     
     if (text && ![text isEqualToString:@""]) {
-        request.predicate = [NSPredicate predicateWithFormat:@"password.isUsed = YES && text contains %@", text];
-    } else {
-        request.predicate = [NSPredicate predicateWithFormat:@"password.isUsed = YES", text];
+        request.predicate = [NSPredicate predicateWithFormat:@"text contains %@", text];
     }
     request.sortDescriptors = [[NSArray alloc] initWithObjects:[[NSSortDescriptor alloc] initWithKey:@"text" ascending:YES], nil];
     return [self.managedObjectContext executeFetchRequest:request error:nil];

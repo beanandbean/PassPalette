@@ -8,11 +8,13 @@
 
 #import "CPSearchManager.h"
 
-#import "CPUIKitHelper.h"
 #import "CPMainViewController.h"
+#import "CPMemo.h"
 #import "CPMemoCell.h"
 #import "CPPassContainerManager.h"
+#import "CPPassDataManager.h"
 #import "CPProcessManager.h"
+#import "CPUIKitHelper.h"
 
 @interface CPSearchManager ()
 
@@ -22,6 +24,8 @@
 
 @property (strong, nonatomic) UIView *resultCollectionViewPanel;
 @property (strong, nonatomic) UICollectionView *resultCollectionView;
+
+@property (strong, nonatomic) NSArray *resultMemos;
 
 @end
 
@@ -54,6 +58,26 @@
     }];
 }
 
+- (void)loadResultCollectionViewPanelWithAnimation {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+    [self.searchBar becomeFirstResponder];
+    
+    self.resultMemos = [[CPPassDataManager defaultManager] memosContainText:@""];
+    
+    [self.superview addSubview:self.resultCollectionViewPanel];
+    [self.superview addConstraints:[CPUIKitHelper constraintsWithView:self.resultCollectionViewPanel alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, NSLayoutAttributeBottom, ATTR_END]];
+    [self.superview addConstraint:[CPUIKitHelper constraintWithView:self.resultCollectionViewPanel attribute:NSLayoutAttributeTop alignToView:self.searchBarPanel attribute:NSLayoutAttributeBottom constant:1.0]];
+    
+    [self addBackgroundImageIntoView:self.resultCollectionViewPanel];
+    [self.resultCollectionViewPanel addSubview:self.resultCollectionView];
+    [self.resultCollectionViewPanel addConstraints:[CPUIKitHelper constraintsWithView:self.resultCollectionView edgesAlignToView:self.resultCollectionViewPanel]];
+    
+    self.resultCollectionViewPanel.alpha = 0.0;
+    [CPProcessManager animateWithDuration:0.3 animations:^{
+        self.resultCollectionViewPanel.alpha = 1.0;
+    }];
+}
+
 #pragma mark - CPInteractiveTransitioning implement
 
 - (void)updateInteractiveTranstionByTranslation:(CGPoint)translation {
@@ -70,18 +94,7 @@
     [CPProcessManager animateWithDuration:0.3 animations:^{
         [self.searchBarPanel layoutIfNeeded];
     } completion:^(BOOL finished) {
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-        [self.searchBar becomeFirstResponder];
-        
-        [self.superview addSubview:self.resultCollectionViewPanel];
-        [self.superview addConstraints:[CPUIKitHelper constraintsWithView:self.resultCollectionViewPanel alignToView:self.superview attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, NSLayoutAttributeBottom, ATTR_END]];
-        [self.superview addConstraint:[CPUIKitHelper constraintWithView:self.resultCollectionViewPanel attribute:NSLayoutAttributeTop alignToView:self.searchBarPanel attribute:NSLayoutAttributeBottom constant:1.0]];
-        [self addBackgroundImageIntoView:self.resultCollectionViewPanel];
-        
-        self.resultCollectionViewPanel.alpha = 0.0;
-        [CPProcessManager animateWithDuration:0.3 animations:^{
-            self.resultCollectionViewPanel.alpha = 1.0;
-        }];
+        [self loadResultCollectionViewPanelWithAnimation];
     }];
 }
 
@@ -97,22 +110,19 @@
 #pragma mark - UICollectionViewDataSource implement
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 5;
+    return self.resultMemos.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CPMemoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[CPMemoCell reuseIdentifier] forIndexPath:indexPath];
-    cell.label.text = @"11111111";
+    CPMemo *memo = [self.resultMemos objectAtIndex:indexPath.row];
+    cell.label.text = memo.text;
     return cell;
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout implement
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return CGSizeMake(collectionView.bounds.size.width, 44.0);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
