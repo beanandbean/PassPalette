@@ -8,8 +8,8 @@
 
 #import "CPProcess.h"
 
-#define SEARCH_PROCESS [CPSearchProcess process]
+#define SEARCHING_PROCESS [CPSearchingProcess process]
 
-@interface CPSearchProcess : NSObject <CPProcess>
+@interface CPSearchingProcess : NSObject <CPProcess>
 
 @end

@@ -6,15 +6,15 @@
 //  Copyright (c) 2013 codingpotato. All rights reserved.
 //
 
-#import "CPEditingMemoCellProcess.h"
+#import "CPMemoEdittingProcess.h"
 
-static CPEditingMemoCellProcess *g_process;
+@implementation CPMemoEdittingProcess
 
-@implementation CPEditingMemoCellProcess
+static CPMemoEdittingProcess *g_process;
 
 + (id<CPProcess>)process {
     if (!g_process) {
-        g_process = [[CPEditingMemoCellProcess alloc] init];
+        g_process = [[CPMemoEdittingProcess alloc] init];
     }
     return g_process;
 }

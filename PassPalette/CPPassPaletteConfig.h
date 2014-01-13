@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 codingpotato. All rights reserved.
 //
 
-#import "CPHelperMacros.h"
-
 #ifndef _CPPassPaletteConfig_h_
 #define _CPPassPaletteConfig_h_
 

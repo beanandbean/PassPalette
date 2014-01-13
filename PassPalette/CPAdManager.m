@@ -9,7 +9,6 @@
 #import "CPAdManager.h"
 
 #import "CPUIKitHelper.h"
-#import "CPHelperMacros.h"
 
 #import "CPMainViewController.h"
 

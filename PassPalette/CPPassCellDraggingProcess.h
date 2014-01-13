@@ -8,8 +8,8 @@
 
 #import "CPProcess.h"
 
-#define DRAGGING_PASS_CELL_PROCESS [CPDraggingPassCellProcess process]
+#define PASS_CELL_DRAGGING_PROCESS [CPPassCellDraggingProcess process]
 
-@interface CPDraggingPassCellProcess : NSObject <CPProcess>
+@interface CPPassCellDraggingProcess : NSObject <CPProcess>
 
 @end

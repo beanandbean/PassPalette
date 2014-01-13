@@ -6,15 +6,15 @@
 //  Copyright (c) 2013 codingpotato. All rights reserved.
 //
 
-#import "CPDraggingPassCellProcess.h"
+#import "CPPassCellDraggingProcess.h"
 
-@implementation CPDraggingPassCellProcess
+@implementation CPPassCellDraggingProcess
 
-static CPDraggingPassCellProcess *g_process;
+static CPPassCellDraggingProcess *g_process;
 
 + (id<CPProcess>)process {
     if (!g_process) {
-        g_process = [[CPDraggingPassCellProcess alloc] init];
+        g_process = [[CPPassCellDraggingProcess alloc] init];
     }
     return g_process;
 }

@@ -9,6 +9,7 @@
 @protocol CPProcess <NSObject>
 
 + (id<CPProcess>)process;
+
 - (BOOL)allowSubprocess:(id<CPProcess>)process;
 
 @end

@@ -10,7 +10,6 @@
 
 #import "BBPasswordStrength.h"
 
-#import "CPHelperMacros.h"
 #import "CPPassPaletteConfig.h"
 
 #import "CPMemo.h"
@@ -90,13 +89,14 @@ static NSArray *g_defaultPassword = nil;
     [self saveContext];
 }
 
-- (void)addMemoText:(NSString *)text inPassword:(CPPassword *)password {
+- (CPMemo *)addMemoText:(NSString *)text inPassword:(CPPassword *)password {
     CPMemo *memo = [NSEntityDescription insertNewObjectForEntityForName:@"Memo" inManagedObjectContext:self.managedObjectContext];
     memo.text = text;
     memo.password = password;
     [password addMemosObject:memo];
     
     [self saveContext];
+    return memo;
 }
 
 - (CPMemo *)newMemoText:(NSString *)text inIndex:(NSUInteger)index {
@@ -110,6 +110,11 @@ static NSArray *g_defaultPassword = nil;
     
     [self saveContext];
     return memo;
+}
+
+- (void)setText:(NSString *)text ofMemo:(CPMemo *)memo {
+    memo.text = text;
+    [self saveContext];
 }
 
 - (void)removeMemo:(CPMemo *)memo {

@@ -18,9 +18,10 @@
 #import "CPPassDataManager.h"
 #import "CPPassword.h"
 
-#import "CPEditingPassCellProcess.h"
+#import "CPMemoAddingProcess.h"
+#import "CPMemoEdittingProcess.h"
+#import "CPPassEdittingProcess.h"
 #import "CPProcessManager.h"
-#import "CPScrollingCollectionViewProcess.h"
 
 @interface CPPassEditorManager ()
 
@@ -40,9 +41,10 @@
 
 @property (strong, nonatomic) UIView *memoTextFieldPanel;
 @property (strong, nonatomic) UITextField *memoTextField;
-@property (strong, nonatomic) UIView *memoEdittingMask;
 
 @property (strong, nonatomic) NSArray *sortedMemos;
+
+@property (strong, nonatomic) NSIndexPath *indexOfEdittingMemoCell;
 
 @end
 
@@ -154,13 +156,21 @@
 }
 
 - (void)exitButtonPressed:(id)sender {
-    if (STOP_PROCESS(EDITING_PASS_CELL_PROCESS)) {
+    if (IS_CURRENT_PROCESS(MEMO_ADDING_PROCESS) && STOP_PROCESS(MEMO_ADDING_PROCESS)) {
+        [self unloadMemoTextField];
+    } else if (IS_CURRENT_PROCESS(MEMO_EDITTING_PROCESS) && STOP_PROCESS(MEMO_EDITTING_PROCESS)) {
+        [self unloadMemoTextField];
+    }
+    if (STOP_PROCESS(PASS_EDITTING_PROCESS)) {
         [self unloadViewsWithAnimation];
     }
 }
 
 - (void)addButtonPressed:(id)sender {
-    [self loadMemoTextField];
+    if (START_PROCESS(MEMO_ADDING_PROCESS)) {
+        [self.memosCollectionView setContentOffset:CGPointMake(0.0, -44.0) animated:YES];
+        [self loadMemoTextFieldWithText:@""];
+    }
 }
 
 - (void)loadPassEditorPanel {
@@ -224,30 +234,15 @@
     [frontPanel addConstraint:[CPUIKitHelper constraintWithView:self.memosCollectionView attribute:NSLayoutAttributeTop alignToView:self.passTextField attribute:NSLayoutAttributeBottom]];
 }
 
-- (void)loadMemoTextField {
-    // add memo text field panel
+- (void)loadMemoTextFieldWithText:(NSString *)text {
     [self.superview addSubview:self.memoTextFieldPanel];
     [self.superview addConstraints:[CPUIKitHelper constraintsWithView:self.memoTextFieldPanel edgesAlignToView:self.memosCollectionView]];
-    
-    // add memo text field
-    [self.memoTextFieldPanel addSubview:self.memoTextField];
-    [self.memoTextFieldPanel addConstraint:[CPUIKitHelper constraintWithView:self.memoTextField alignToView:self.memoTextFieldPanel attribute:NSLayoutAttributeTop]];
-    [self.memoTextFieldPanel addConstraint:[CPUIKitHelper constraintWithView:self.memoTextField alignToView:self.memoTextFieldPanel attribute:NSLayoutAttributeLeft constant:8.0]];
-    [self.memoTextFieldPanel addConstraint:[CPUIKitHelper constraintWithView:self.memoTextField alignToView:self.memoTextFieldPanel attribute:NSLayoutAttributeRight constant:-8.0]];
-    [self.memoTextField addConstraint:[CPUIKitHelper constraintWithView:self.memoTextField height:44.0]];
+    self.memoTextField.text = text;
     [self.memoTextField becomeFirstResponder];
-    
-    // add mask
-    [self.memoTextFieldPanel addSubview:self.memoEdittingMask];
-    [self.memoTextFieldPanel addConstraints:[CPUIKitHelper constraintsWithView:self.memoEdittingMask alignToView:self.memoTextFieldPanel attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, NSLayoutAttributeBottom, ATTR_END]];
-    [self.memoTextFieldPanel addConstraint:[CPUIKitHelper constraintWithView:self.memoEdittingMask attribute:NSLayoutAttributeTop alignToView:self.memoTextField attribute:NSLayoutAttributeBottom]];
 }
 
 - (void)unloadMemoTextField {
     [self.memoTextFieldPanel removeFromSuperview];
-    [self.memoTextField removeFromSuperview];
-    [self.memoEdittingMask removeFromSuperview];
-    self.memoTextField.text = @"";
 }
 
 #pragma mark - UICollectionViewDataSource implement
@@ -266,6 +261,16 @@
 #pragma mark - UICollectionViewDelegateFlowLayout implement
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (START_PROCESS(MEMO_EDITTING_PROCESS)) {
+        self.indexOfEdittingMemoCell = indexPath;
+        CPMemoCell *cell = (CPMemoCell *)[collectionView cellForItemAtIndexPath:indexPath];
+        [CPProcessManager animateWithDuration:0.3 animations:^{
+            collectionView.contentOffset = cell.frame.origin;
+        } completion:^(BOOL finished) {
+            cell.hidden = YES;
+            [self loadMemoTextFieldWithText:cell.label.text];
+        }];
+    }
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -290,12 +295,30 @@
         [[CPPassDataManager defaultManager] setText:textField.text intoPassword:self.password];
         self.passTextField.secureTextEntry = YES;
     } else if (textField == self.memoTextField) {
-        if (![self.memoTextField.text isEqualToString:@""]) {
-            [[CPPassDataManager defaultManager] addMemoText:self.memoTextField.text inPassword:self.password];
-            self.sortedMemos = nil;
-            [self.memosCollectionView reloadData];
+        if (IS_CURRENT_PROCESS(MEMO_ADDING_PROCESS) && STOP_PROCESS(MEMO_ADDING_PROCESS)) {
+            CPMemo *memo = nil;
+            if (![self.memoTextField.text isEqualToString:@""]) {
+                memo = [[CPPassDataManager defaultManager] addMemoText:self.memoTextField.text inPassword:self.password];
+                self.sortedMemos = nil;
+                [self.memosCollectionView reloadData];
+            }
+            [self unloadMemoTextField];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.sortedMemos indexOfObject:memo] inSection:0];
+            [self.memosCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+        } else if (IS_CURRENT_PROCESS(MEMO_EDITTING_PROCESS) && STOP_PROCESS(MEMO_EDITTING_PROCESS)) {
+            CPMemoCell *edittingMemoCell = (CPMemoCell *)[self.memosCollectionView cellForItemAtIndexPath:self.indexOfEdittingMemoCell];
+            edittingMemoCell.hidden = NO;
+            CPMemo *memo = [self.sortedMemos objectAtIndex:self.indexOfEdittingMemoCell.row];
+            NSAssert(memo != nil, @"should find editing memo");
+            if (![self.memoTextField.text isEqualToString:@""]) {
+                [[CPPassDataManager defaultManager] setText:self.memoTextField.text ofMemo:memo];
+                self.sortedMemos = nil;
+                [self.memosCollectionView reloadData];
+            }
+            [self unloadMemoTextField];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.sortedMemos indexOfObject:memo] inSection:0];
+            [self.memosCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
         }
-        [self unloadMemoTextField];
     }
 }
 
@@ -362,6 +385,17 @@
     if (!_memoTextFieldPanel) {
         _memoTextFieldPanel = [[UIView alloc] init];
         _memoTextFieldPanel.translatesAutoresizingMaskIntoConstraints = NO;
+
+        [_memoTextFieldPanel addSubview:self.memoTextField];
+        [_memoTextFieldPanel addConstraint:[CPUIKitHelper constraintWithView:self.memoTextField alignToView:_memoTextFieldPanel attribute:NSLayoutAttributeTop]];
+        [_memoTextFieldPanel addConstraint:[CPUIKitHelper constraintWithView:self.memoTextField alignToView:_memoTextFieldPanel attribute:NSLayoutAttributeLeft constant:8.0]];
+        [_memoTextFieldPanel addConstraint:[CPUIKitHelper constraintWithView:self.memoTextField alignToView:_memoTextFieldPanel attribute:NSLayoutAttributeRight constant:-8.0]];
+        [self.memoTextField addConstraint:[CPUIKitHelper constraintWithView:self.memoTextField height:44.0]];
+        
+        UIView *mask = [CPUIKitHelper maskWithColor:[UIColor blackColor] alpha:0.8];
+        [_memoTextFieldPanel addSubview:mask];
+        [_memoTextFieldPanel addConstraints:[CPUIKitHelper constraintsWithView:mask alignToView:self.memoTextFieldPanel attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, NSLayoutAttributeBottom, ATTR_END]];
+        [self.memoTextFieldPanel addConstraint:[CPUIKitHelper constraintWithView:mask attribute:NSLayoutAttributeTop alignToView:self.memoTextField attribute:NSLayoutAttributeBottom]];
     }
     return _memoTextFieldPanel;
 }
@@ -375,13 +409,6 @@
         _memoTextField.delegate = self;
     }
     return _memoTextField;
-}
-
-- (UIView *)memoEdittingMask {
-    if (!_memoEdittingMask) {
-        _memoEdittingMask = [CPUIKitHelper maskWithColor:[UIColor blackColor] alpha:0.6];
-    }
-    return _memoEdittingMask;
 }
 
 - (NSArray *)sortedMemos {

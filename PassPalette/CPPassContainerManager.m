@@ -14,9 +14,9 @@
 #import "CPSearchManager.h"
 #import "CPSettingsManager.h"
 
-#import "CPEditingPassCellProcess.h"
-#import "CPDraggingPassCellProcess.h"
-#import "CPSearchProcess.h"
+#import "CPPassEdittingProcess.h"
+#import "CPPassCellDraggingProcess.h"
+#import "CPSearchingProcess.h"
 #import "CPSettingsProcess.h"
 
 #import "CPRectLayout.h"
@@ -85,7 +85,7 @@
     [self.superview addConstraints:[CPUIKitHelper constraintsWithView:self.interactiveView edgesAlignToView:self.superview]];
 
     UIImage *snapshot = [CPImageHelper bluredSnapshotForView:self.superview];
-    if (IS_IN_PROCESS(SEARCH_PROCESS)) {
+    if (IS_IN_PROCESS(SEARCHING_PROCESS)) {
         self.interactiveViewManager = [[CPSearchManager alloc] initWithBluredBackgroundImage:snapshot Supermanager:self andSuperview:self.interactiveView];
     } else if (IS_IN_PROCESS(SETTINGS_PROCESS)) {
         self.interactiveViewManager = [[CPSettingsManager alloc] initWithBluredBackgroundImage:snapshot Supermanager:self andSuperview:self.interactiveView];
@@ -96,9 +96,9 @@
 }
 
 - (void)dismissSubviewManager:(CPViewManager *)subviewManager {
-    if (IS_IN_PROCESS(SEARCH_PROCESS) || IS_IN_PROCESS(SETTINGS_PROCESS)) {
+    if (IS_IN_PROCESS(SEARCHING_PROCESS) || IS_IN_PROCESS(SETTINGS_PROCESS)) {
         NSAssert(subviewManager == self.interactiveViewManager, @"");
-        if (STOP_PROCESS(SEARCH_PROCESS) || STOP_PROCESS(SETTINGS_PROCESS)) {
+        if (STOP_PROCESS(SEARCHING_PROCESS) || STOP_PROCESS(SETTINGS_PROCESS)) {
             [self.interactiveView removeFromSuperview];
             self.interactiveView = nil;
             self.interactiveViewManager = nil;
@@ -113,7 +113,7 @@
 
 - (void)handleLongPressGesture:(UILongPressGestureRecognizer *)longPressGesture {
     if (longPressGesture.state == UIGestureRecognizerStateBegan) {
-        if (START_PROCESS(DRAGGING_PASS_CELL_PROCESS)) {
+        if (START_PROCESS(PASS_CELL_DRAGGING_PROCESS)) {
             [self startDraggingPassCellAtPoint:[longPressGesture locationInView:longPressGesture.view]];
         }
     }
@@ -122,13 +122,13 @@
 - (void)handlePanGesture:(UIPanGestureRecognizer *)panGesture {
     if (panGesture.state == UIGestureRecognizerStateBegan || panGesture.state == UIGestureRecognizerStateChanged) {
         self.panTranslation = [panGesture translationInView:panGesture.view];
-        if (IS_IN_PROCESS(DRAGGING_PASS_CELL_PROCESS)) {
+        if (IS_IN_PROCESS(PASS_CELL_DRAGGING_PROCESS)) {
             [self dragPassCellByTranslation:self.panTranslation];
-        } else if (IS_IN_PROCESS(SEARCH_PROCESS) || IS_IN_PROCESS(SETTINGS_PROCESS)) {
+        } else if (IS_IN_PROCESS(SEARCHING_PROCESS) || IS_IN_PROCESS(SETTINGS_PROCESS)) {
             [self.interactiveViewManager updateInteractiveTranstionByTranslation:self.panTranslation];
         } else {
             if (self.panTranslation.y >= 0.0) {
-                if (START_PROCESS(SEARCH_PROCESS)) {
+                if (START_PROCESS(SEARCHING_PROCESS)) {
                     [self loadInteractiveView];
                     [self.interactiveViewManager updateInteractiveTranstionByTranslation:self.panTranslation];
                 }
@@ -141,9 +141,9 @@
         }
         [panGesture setTranslation:CGPointZero inView:panGesture.view];
     } else if (panGesture.state == UIGestureRecognizerStateEnded || panGesture.state == UIGestureRecognizerStateCancelled || panGesture.state == UIGestureRecognizerStateFailed) {
-        if (IS_IN_PROCESS(DRAGGING_PASS_CELL_PROCESS)) {
+        if (IS_IN_PROCESS(PASS_CELL_DRAGGING_PROCESS)) {
             [self stopDraggingPassCell];
-        } else if (IS_IN_PROCESS(SEARCH_PROCESS)) {
+        } else if (IS_IN_PROCESS(SEARCHING_PROCESS)) {
             if (self.panTranslation.y >= 0.0) {
                 [self.interactiveViewManager finishInteractiveTranstion];
             } else {
@@ -227,7 +227,7 @@
         [CPProcessManager animateWithDuration:0.5 animations:^{
             [self.superview layoutIfNeeded];
         } completion:^(BOOL finished) {
-            if (STOP_PROCESS(DRAGGING_PASS_CELL_PROCESS)) {
+            if (STOP_PROCESS(PASS_CELL_DRAGGING_PROCESS)) {
                 [self.draggingImageView removeFromSuperview];
                 [self.destinationImageView removeFromSuperview];
                 self.draggingImageView = nil;
@@ -272,7 +272,7 @@
 #pragma mark - UICollectionViewDelegate implement
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (START_PROCESS(EDITING_PASS_CELL_PROCESS)) {
+    if (START_PROCESS(PASS_EDITTING_PROCESS)) {
         CPPassword *password = [[CPPassDataManager defaultManager].passwordsController.fetchedObjects objectAtIndex:indexPath.row];
         [self loadPassEditorViewWithPassword:password andCellFrame:[collectionView cellForItemAtIndexPath:indexPath].frame];
     }

@@ -10,6 +10,6 @@
 
 #define APPLICATION_PROCESS [CPApplicationProcess process]
 
-@interface CPApplicationProcess : NSObject  <CPProcess>
+@interface CPApplicationProcess : NSObject <CPProcess>
 
 @end

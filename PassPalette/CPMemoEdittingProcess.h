@@ -8,8 +8,8 @@
 
 #import "CPProcess.h"
 
-#define EDITING_MEMO_CELL_PROCESS [CPEditingMemoCellProcess process]
+#define MEMO_EDITTING_PROCESS [CPMemoEdittingProcess process]
 
-@interface CPEditingMemoCellProcess : NSObject <CPProcess>
+@interface CPMemoEdittingProcess : NSObject <CPProcess>
 
 @end

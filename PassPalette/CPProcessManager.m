@@ -9,7 +9,6 @@
 #import "CPProcessManager.h"
 
 #import "CPApplicationProcess.h"
-#import "CPHelperMacros.h"
 
 // #define NO_PROCESS_LOG
 
@@ -25,6 +24,10 @@ static int g_forbiddenCount = 0;
         g_processArray = [NSMutableArray arrayWithObject:APPLICATION_PROCESS];
     }
     return g_processArray;
+}
+
++ (bool)isCurrentProcess:(id<CPProcess>)process {
+    return ([PROCESS_ARRAY lastObject] == process);
 }
 
 + (bool)isInProcess:(id<CPProcess>)process {
@@ -47,12 +50,8 @@ static int g_forbiddenCount = 0;
 
 + (bool)stopProcess:(id<CPProcess>)process {
     if (!g_forbiddenCount && process != APPLICATION_PROCESS) {
-        NSUInteger index = PROCESS_ARRAY.count - 1;
-        while (index > 0 && [PROCESS_ARRAY objectAtIndex:index] != process) {
-            index--;
-        }
-        if (index > 0 && (index == PROCESS_ARRAY.count - 1 || [[PROCESS_ARRAY objectAtIndex:index - 1] allowSubprocess:[PROCESS_ARRAY objectAtIndex:index + 1]])) {
-            [PROCESS_ARRAY removeObjectAtIndex:index];
+        if ([self isCurrentProcess:process]) {
+            [PROCESS_ARRAY removeLastObject];
             return YES;
         }
     }
@@ -89,18 +88,6 @@ static int g_forbiddenCount = 0;
             completion(finished);
         }
     }];
-}
-
-+ (void)animateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay options:(UIViewAnimationOptions)options animations:(void (^)(void))animations completion:(void (^)(BOOL))completion {
-    delayBlock(delay, ^{
-        [self increaseForbiddenCount];
-        [UIView animateWithDuration:duration delay:0.0 options:options animations:animations completion:^(BOOL finished) {
-            [self decreaseForbiddenCount];
-            if (completion) {
-                completion(finished);
-            }
-        }];
-    });
 }
 
 @end

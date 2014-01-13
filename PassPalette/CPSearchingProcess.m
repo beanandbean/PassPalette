@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 codingpotato. All rights reserved.
 //
 
-#import "CPSearchProcess.h"
+#import "CPSearchingProcess.h"
 
-@implementation CPSearchProcess
+@implementation CPSearchingProcess
 
-static CPSearchProcess *g_process;
+static CPSearchingProcess *g_process;
 
 + (id<CPProcess>)process {
     if (!g_process) {
-        g_process = [[CPSearchProcess alloc] init];
+        g_process = [[CPSearchingProcess alloc] init];
     }
     return g_process;
 }
