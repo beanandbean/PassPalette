@@ -24,6 +24,7 @@
 
 @property (strong, nonatomic) UIView *resultCollectionViewPanel;
 @property (strong, nonatomic) UICollectionView *resultCollectionView;
+@property (strong, nonatomic) NSLayoutConstraint *resultCollectionViewBottomConstraint;
 
 @property (strong, nonatomic) NSArray *resultMemos;
 
@@ -40,7 +41,7 @@
     [self.searchBarPanel addSubview:self.searchBar];
     [self.searchBarPanel addConstraints:[CPUIKitHelper constraintsWithView:self.searchBar alignToView:self.searchBarPanel attributes:NSLayoutAttributeLeft, NSLayoutAttributeRight, ATTR_END]];
     [self.searchBarPanel addConstraint:[CPUIKitHelper constraintWithView:self.searchBar alignToView:self.searchBarPanel attribute:NSLayoutAttributeTop constant:[CPMainViewController mainViewController].topLayoutGuide.length]];
-    [self.searchBarPanel addConstraint:[CPUIKitHelper constraintWithView:self.searchBar alignToView:self.searchBarPanel attribute:NSLayoutAttributeBottom]];    
+    [self.searchBarPanel addConstraint:[CPUIKitHelper constraintWithView:self.searchBar alignToView:self.searchBarPanel attribute:NSLayoutAttributeBottom]];
 }
 
 - (void)unloadViewsWithAnimation {
@@ -70,7 +71,9 @@
     
     [self addBackgroundImageIntoView:self.resultCollectionViewPanel];
     [self.resultCollectionViewPanel addSubview:self.resultCollectionView];
-    [self.resultCollectionViewPanel addConstraints:[CPUIKitHelper constraintsWithView:self.resultCollectionView edgesAlignToView:self.resultCollectionViewPanel]];
+    [self.resultCollectionViewPanel addConstraints:[CPUIKitHelper constraintsWithView:self.resultCollectionView alignToView:self.resultCollectionViewPanel attributes:NSLayoutAttributeTop, NSLayoutAttributeLeft, NSLayoutAttributeRight, ATTR_END]];
+    self.resultCollectionViewBottomConstraint = [CPUIKitHelper constraintWithView:self.resultCollectionView alignToView:self.resultCollectionViewPanel attribute:NSLayoutAttributeBottom];
+    [self.resultCollectionViewPanel addConstraint:self.resultCollectionViewBottomConstraint];
     
     self.resultCollectionViewPanel.alpha = 0.0;
     [CPProcessManager animateWithDuration:0.3 animations:^{
@@ -130,6 +133,15 @@
 }
 
 #pragma mark - UISearchBarDelegate implement
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    self.resultMemos = [[CPPassDataManager defaultManager] memosContainText:searchBar.text];
+    [self.resultCollectionView reloadData];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [self.searchBar resignFirstResponder];
+}
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     [self unloadViewsWithAnimation];
