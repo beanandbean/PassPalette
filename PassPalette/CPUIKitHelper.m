@@ -12,6 +12,15 @@ const NSLayoutAttribute ATTR_END = -1;
 
 @implementation CPUIKitHelper
 
++ (void)enableControlsInView:(UIView *)view {
+    for (id subview in view.subviews) {
+        if ([subview isKindOfClass:[UIControl class]]) {
+            [subview setEnabled:YES];
+        }
+        [self enableControlsInView:subview];
+    }
+}
+
 + (UIView *)maskWithColor:(UIColor *)color alpha:(CGFloat)alpha {
     UIView *mask = [[UIView alloc] init];
     mask.backgroundColor = color;

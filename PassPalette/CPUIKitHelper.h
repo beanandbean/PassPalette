@@ -10,6 +10,8 @@ extern const NSLayoutAttribute ATTR_END;
 
 @interface CPUIKitHelper : NSObject
 
++ (void)enableControlsInView:(UIView *)view;
+
 + (UIView *)maskWithColor:(UIColor *)color alpha:(CGFloat)alpha;
 
 + (NSArray *)constraintsWithView:(id)view1 edgesAlignToView:(id)view2;

@@ -125,6 +125,11 @@
 
 #pragma mark - UICollectionViewDelegateFlowLayout implement
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.searchBar resignFirstResponder];
+    [CPUIKitHelper enableControlsInView:self.searchBar];
+}
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 }
 
@@ -140,7 +145,8 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    [self.searchBar resignFirstResponder];
+    [searchBar resignFirstResponder];
+    [CPUIKitHelper enableControlsInView:searchBar];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
@@ -171,6 +177,7 @@
         _searchBar = [[UISearchBar alloc] init];
         _searchBar.barTintColor = [UIColor clearColor];
         _searchBar.delegate = self;
+        _searchBar.placeholder = @"Search: memos";
         _searchBar.showsCancelButton = YES;
         _searchBar.translatesAutoresizingMaskIntoConstraints = NO;
     }
