@@ -330,7 +330,7 @@
         } else {
             BBPasswordStrength *passwordStrength = [[BBPasswordStrength alloc] initWithPassword:password];
             self.passMeterView.entropy = passwordStrength.entropy;
-            self.superview.backgroundColor = [CPPassword colorOfEntropy:[NSNumber numberWithDouble:passwordStrength.entropy]];
+            self.passEditorPanel.backgroundColor = [CPPassword colorOfEntropy:[NSNumber numberWithDouble:passwordStrength.entropy]];
         }
     }
     return YES;
