@@ -8,6 +8,7 @@
 
 #import "CPPassEditorManager.h"
 
+#import "CPAppearenceManager.h"
 #import "CPUIKitHelper.h"
 #import "CPMemoCell.h"
 #import "CPPassContainerManager.h"
@@ -174,7 +175,7 @@
 }
 
 - (void)loadPassEditorPanel {
-    self.passEditorPanel.backgroundColor = [CPPassword colorOfEntropy:self.password.entropy];
+    self.passEditorPanel.backgroundColor = [[CPAppearenceManager defaultManager].colorTable colorOfEntropy:self.password.entropy.floatValue];
     [self.superview addSubview:self.passEditorPanel];
     [self.superview addConstraints:[CPUIKitHelper constraintsWithView:self.passEditorPanel edgesAlignToView:self.superview]];
     
@@ -330,7 +331,7 @@
         } else {
             BBPasswordStrength *passwordStrength = [[BBPasswordStrength alloc] initWithPassword:password];
             self.passMeterView.entropy = passwordStrength.entropy;
-            self.passEditorPanel.backgroundColor = [CPPassword colorOfEntropy:[NSNumber numberWithDouble:passwordStrength.entropy]];
+            self.passEditorPanel.backgroundColor = [[CPAppearenceManager defaultManager].colorTable colorOfEntropy:passwordStrength.entropy];
         }
     }
     return YES;

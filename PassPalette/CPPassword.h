@@ -17,8 +17,6 @@
 @property (strong, nonatomic) NSString *text;
 @property (strong, nonatomic) NSSet *memos;
 
-+ (UIColor *)colorOfEntropy:(NSNumber *)entropy;
-
 @end
 
 @interface CPPassword (CoreDataGeneratedAccessors)
@@ -27,5 +25,7 @@
 - (void)removeMemosObject:(CPMemo *)value;
 - (void)addMemos:(NSSet *)values;
 - (void)removeMemos:(NSSet *)values;
+
+- (CGFloat)strength;
 
 @end

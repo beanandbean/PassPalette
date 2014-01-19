@@ -15,8 +15,4 @@
 @dynamic text;
 @dynamic memos;
 
-+ (UIColor *)colorOfEntropy:(NSNumber *)entropy {
-    return [UIColor colorWithHue:0.667 - entropy.doubleValue / 75.0 saturation:1.0 brightness:1.0 alpha:1.0];
-}
-
 @end

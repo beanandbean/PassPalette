@@ -31,6 +31,8 @@
 		FC64C61C182F95F800AB6C5C /* CPPassEditorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC64C61B182F95F800AB6C5C /* CPPassEditorManager.m */; };
 		FC69F5F9186B1CCB000DE63F /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC69F5F8186B1CCB000DE63F /* iAd.framework */; };
 		FC69F753187848270033D3DB /* CPInteractiveViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC69F752187848270033D3DB /* CPInteractiveViewManager.m */; };
+		FC6A6CBB188C0D6900982965 /* CPAppearenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC6A6CBA188C0D6900982965 /* CPAppearenceManager.m */; };
+		FC6A6CBF188C0E8200982965 /* CPRainbow.m in Sources */ = {isa = PBXBuildFile; fileRef = FC6A6CBE188C0E8200982965 /* CPRainbow.m */; };
 		FC702F5F187911960011E51D /* CPImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FC702F5E187911960011E51D /* CPImageHelper.m */; };
 		FC78598F18253F87005B5B03 /* CPRectLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = FC78598E18253F87005B5B03 /* CPRectLayout.m */; };
 		FC7DFF19186EA6CA00D1C4A3 /* CPPassMeterView.m in Sources */ = {isa = PBXBuildFile; fileRef = FC7DFF18186EA6CA00D1C4A3 /* CPPassMeterView.m */; };
@@ -80,6 +82,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FC26B923188A863700DD9ACD /* CPColorTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPColorTable.h; sourceTree = "<group>"; };
 		FC282880182F37800030B1AE /* BBDateMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBDateMatcher.h; sourceTree = "<group>"; };
 		FC282881182F37800030B1AE /* BBDateMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBDateMatcher.m; sourceTree = "<group>"; };
 		FC282882182F37800030B1AE /* BBDictionaryMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBDictionaryMatcher.h; sourceTree = "<group>"; };
@@ -125,6 +128,10 @@
 		FC69F5F8186B1CCB000DE63F /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		FC69F751187848270033D3DB /* CPInteractiveViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPInteractiveViewManager.h; sourceTree = "<group>"; };
 		FC69F752187848270033D3DB /* CPInteractiveViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPInteractiveViewManager.m; sourceTree = "<group>"; };
+		FC6A6CB9188C0D6900982965 /* CPAppearenceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAppearenceManager.h; sourceTree = "<group>"; };
+		FC6A6CBA188C0D6900982965 /* CPAppearenceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAppearenceManager.m; sourceTree = "<group>"; };
+		FC6A6CBD188C0E8200982965 /* CPRainbow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRainbow.h; sourceTree = "<group>"; };
+		FC6A6CBE188C0E8200982965 /* CPRainbow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRainbow.m; sourceTree = "<group>"; };
 		FC702F5D187911960011E51D /* CPImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPImageHelper.h; sourceTree = "<group>"; };
 		FC702F5E187911960011E51D /* CPImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPImageHelper.m; sourceTree = "<group>"; };
 		FC78598D18253F87005B5B03 /* CPRectLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRectLayout.h; sourceTree = "<group>"; };
@@ -269,6 +276,15 @@
 			path = ZXCVBN;
 			sourceTree = "<group>";
 		};
+		FC6A6CBC188C0E2F00982965 /* Color Tables */ = {
+			isa = PBXGroup;
+			children = (
+				FC6A6CBD188C0E8200982965 /* CPRainbow.h */,
+				FC6A6CBE188C0E8200982965 /* CPRainbow.m */,
+			);
+			name = "Color Tables";
+			sourceTree = "<group>";
+		};
 		FC8E7D4C1824ECC100B3BE52 = {
 			isa = PBXGroup;
 			children = (
@@ -305,8 +321,12 @@
 		FC8E7D601824ECC100B3BE52 /* PassPalette */ = {
 			isa = PBXGroup;
 			children = (
+				FC6A6CBC188C0E2F00982965 /* Color Tables */,
 				FC8E7D691824ECC100B3BE52 /* CPAppDelegate.h */,
 				FC8E7D6A1824ECC100B3BE52 /* CPAppDelegate.m */,
+				FC6A6CB9188C0D6900982965 /* CPAppearenceManager.h */,
+				FC6A6CBA188C0D6900982965 /* CPAppearenceManager.m */,
+				FC26B923188A863700DD9ACD /* CPColorTable.h */,
 				FC8E7D8F1824F4DA00B3BE52 /* CPMainViewController.h */,
 				FC8E7D901824F4DA00B3BE52 /* CPMainViewController.m */,
 				FC8E7DB01824FCA700B3BE52 /* CPPassDataManager.h */,
@@ -558,10 +578,12 @@
 				FC8E7D671824ECC100B3BE52 /* main.m in Sources */,
 				FC553FDE1838AFE100065628 /* CPPassCellDraggingProcess.m in Sources */,
 				FC2828A0182F37800030B1AE /* BBPatternCenter.m in Sources */,
+				FC6A6CBF188C0E8200982965 /* CPRainbow.m in Sources */,
 				FC2828A2182F37800030B1AE /* BBRepeatMatcher.m in Sources */,
 				FC553FE41838C93400065628 /* CPMemoEdittingProcess.m in Sources */,
 				FC8E7DAF1824FC0F00B3BE52 /* CPPassPaletteConfig.c in Sources */,
 				FC28289A182F37800030B1AE /* BBDateMatcher.m in Sources */,
+				FC6A6CBB188C0D6900982965 /* CPAppearenceManager.m in Sources */,
 				FC2828A3182F37800030B1AE /* BBSequenceMatcher.m in Sources */,
 				FC28289F182F37800030B1AE /* BBPattern.m in Sources */,
 				FC8E7DA91824F84F00B3BE52 /* CPProcessManager.m in Sources */,

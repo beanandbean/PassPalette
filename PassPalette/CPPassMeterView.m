@@ -8,6 +8,7 @@
 
 #import "CPPassMeterView.h"
 
+#import "CPAppearenceManager.h"
 #import "CPUIKitHelper.h"
 
 @interface CPPassMeterView ()
@@ -47,26 +48,17 @@
     CGFloat centerY = self.bounds.size.height / 2;
     CGContextBeginPath(context);
     
-    CGFloat startAngle = 0.0;
-    CGFloat endAngle = self.entropy * 360.0 / 50.0;
-    CGFloat interval = 10.0;
-    while (startAngle < endAngle) {
+    id<CPColorTable> colorTable = [CPAppearenceManager defaultManager].colorTable;
+    CGFloat interval = M_PI * 2 / colorTable.colors.count;
+    for (NSUInteger index = 0; index < colorTable.colors.count; ++index) {
+        CGFloat startAngle = index * interval;
         CGFloat nextAngle = startAngle + interval;
-        CGFloat startRadian = [self radianOfAngle:startAngle];
-        CGFloat nextRadian = [self radianOfAngle:nextAngle];
-        CGContextAddArc(context, centerX, centerY, centerX, startRadian, nextRadian + 0.01, 0);
-        CGContextAddArc(context, centerX, centerY, centerX - 10.0, nextRadian + 0.01, startRadian, 1);
+        CGContextAddArc(context, centerX, centerY, centerX, startAngle, nextAngle, 0);
+        CGContextAddArc(context, centerX, centerY, centerX - 10.0, nextAngle, startAngle, 1);
         CGContextClosePath(context);
-        UIColor *color = [UIColor colorWithHue:startAngle / 360.0 saturation:1.0 brightness:1.0 alpha:1.0];
-        CGContextSetFillColorWithColor(context, color.CGColor);
+        CGContextSetFillColorWithColor(context, [[colorTable.colors objectAtIndex:index] CGColor]);
         CGContextFillPath(context);
-        startAngle = nextAngle;
     }
 }
 
-- (CGFloat)radianOfAngle:(CGFloat)angle {
-    return (angle - 90.0) * M_PI / 180.0;
-}
-
 @end
-

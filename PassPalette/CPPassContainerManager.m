@@ -8,6 +8,7 @@
 
 #import "CPPassContainerManager.h"
 
+#import "CPAppearenceManager.h"
 #import "CPUIKitHelper.h"
 #import "CPPassEditorManager.h"
 #import "CPProcessManager.h"
@@ -265,7 +266,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PassCollectionViewCell" forIndexPath:indexPath];
     CPPassword *password = [[CPPassDataManager defaultManager].passwordsController.fetchedObjects objectAtIndex:indexPath.row];
-    cell.contentView.backgroundColor = [CPPassword colorOfEntropy:password.entropy];
+    cell.contentView.backgroundColor = [[CPAppearenceManager defaultManager].colorTable colorOfEntropy:password.entropy.floatValue];
     return cell;
 }
 
