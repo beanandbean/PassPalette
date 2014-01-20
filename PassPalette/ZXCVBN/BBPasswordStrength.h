@@ -10,6 +10,7 @@
 
 - (id)initWithPassword:(NSString *)password;
 
+- (double)strength;
 - (double)entropy;
 - (double)crackTime;
 - (NSString *)password;

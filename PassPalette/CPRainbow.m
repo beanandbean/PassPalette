@@ -23,10 +23,8 @@
     return _colors;
 }
 
-- (UIColor *)colorOfEntropy:(CGFloat)entropy {
-    CGFloat e = entropy < 0.0 ? 0.0 : entropy;
-    e = e >= 50.0 ? 49.99 : e;
-    return [self.colors objectAtIndex:e * self.colors.count / 50.0];
+- (UIColor *)colorOfPassStrength:(double)strength {
+    return [self.colors objectAtIndex:strength * self.colors.count];
 }
 
 @end

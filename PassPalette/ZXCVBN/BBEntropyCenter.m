@@ -184,7 +184,7 @@ static int DAY_COUNT = 31;
     }
     
     long long possibilities = 0;
-    int length = match.token.length;
+    int length = (int)match.token.length;
     int turns = ((NSNumber *)[match.userInfo objectForKey:BBSpatialPatternUserInfoKeyTurns]).intValue;
     
     for (int i = 2; i < length + 1; i++) {

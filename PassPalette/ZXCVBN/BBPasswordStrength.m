@@ -21,6 +21,7 @@ static const double SECOND_PER_GUESS = SINGLE_GUESS / ATTACKER_COUNT;
 
 @interface BBPasswordStrength ()
 
+@property (nonatomic) double strength;
 @property (nonatomic) double entropy;
 @property (nonatomic) double crackTime;
 @property (strong, nonatomic) NSString *password;
@@ -92,7 +93,7 @@ static const double SECOND_PER_GUESS = SINGLE_GUESS / ATTACKER_COUNT;
     }
     
     NSMutableArray *matchSequence = [NSMutableArray array];
-    int k = self.password.length - 1;
+    int k = (int)self.password.length - 1;
     while (k >= 0) {
         BBPattern *match = [backPointers objectAtIndex:k];
         if (match == (BBPattern *)[NSNull null]) {
@@ -115,14 +116,16 @@ static const double SECOND_PER_GUESS = SINGLE_GUESS / ATTACKER_COUNT;
         [newSequence addObject:match];
     }
     if (k < self.password.length) {
-        [newSequence addObject:[self bruteforceMatchFrom:k to:self.password.length - 1]];
+        [newSequence addObject:[self bruteforceMatchFrom:k to:(int)self.password.length - 1]];
     }
     matchSequence = newSequence;
     
-    double minimumEntropy = self.password.length ? [BBPasswordStrength getNumberFromArray:minimumEntropyUpToK atIndex:self.password.length - 1] : 0;
+    double minimumEntropy = self.password.length ? [BBPasswordStrength getNumberFromArray:minimumEntropyUpToK atIndex:(int)self.password.length - 1] : 0;
     self.entropy = [BBPasswordStrength round:minimumEntropy toDigits:DISPLAY_DIGITS];
     self.crackTime = 0.5 * pow(2, minimumEntropy) * SECOND_PER_GUESS;
     self.matchSequence = matchSequence;
+    
+    self.strength = MAX(0.0, MIN(self.entropy, 49.999)) / 50.0;
 }
 
 - (int)bruteforceCardinality {

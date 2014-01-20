@@ -175,7 +175,7 @@
 }
 
 - (void)loadPassEditorPanel {
-    self.passEditorPanel.backgroundColor = [[CPAppearenceManager defaultManager].colorTable colorOfEntropy:self.password.entropy.floatValue];
+    self.passEditorPanel.backgroundColor = [[CPAppearenceManager defaultManager].colorTable colorOfPassStrength:self.password.strength.floatValue];
     [self.superview addSubview:self.passEditorPanel];
     [self.superview addConstraints:[CPUIKitHelper constraintsWithView:self.passEditorPanel edgesAlignToView:self.superview]];
     
@@ -195,7 +195,7 @@
     [self.passEditorPanel addConstraints:[CPUIKitHelper constraintsWithView:frontPanel edgesAlignToView:self.passEditorPanel]];
     
     // create pass meter
-    self.passMeterView.entropy = self.password.entropy.doubleValue;
+    self.passMeterView.strength = self.password.strength.doubleValue;
     [frontPanel addSubview:self.passMeterView];
     [frontPanel addConstraints:@[[CPUIKitHelper constraintWithView:self.passMeterView alignToView:frontPanel attribute:NSLayoutAttributeCenterX],
                             [CPUIKitHelper constraintWithView:self.passMeterView alignToView:frontPanel attribute:NSLayoutAttributeTop constant:20.0],
@@ -330,8 +330,8 @@
             self.superview.backgroundColor = [UIColor grayColor];
         } else {
             BBPasswordStrength *passwordStrength = [[BBPasswordStrength alloc] initWithPassword:password];
-            self.passMeterView.entropy = passwordStrength.entropy;
-            self.passEditorPanel.backgroundColor = [[CPAppearenceManager defaultManager].colorTable colorOfEntropy:passwordStrength.entropy];
+            self.passMeterView.strength = passwordStrength.strength;
+            self.passEditorPanel.backgroundColor = [[CPAppearenceManager defaultManager].colorTable colorOfPassStrength:passwordStrength.strength];
         }
     }
     return YES;

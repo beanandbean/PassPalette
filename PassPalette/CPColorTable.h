@@ -10,6 +10,6 @@
 
 @property (strong, nonatomic) NSArray *colors;
 
-- (UIColor *)colorOfEntropy:(CGFloat)entropy;
+- (UIColor *)colorOfPassStrength:(double)strength;
 
 @end

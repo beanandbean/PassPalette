@@ -56,8 +56,7 @@ static NSArray *g_defaultPassword = nil;
                 CPPassword *password = [NSEntityDescription insertNewObjectForEntityForName:@"Password" inManagedObjectContext:self.managedObjectContext];
                 password.index = [NSNumber numberWithUnsignedInteger:index];
                 password.text = [[CPPassDataManager defaultPassword] objectAtIndex:index];
-                BBPasswordStrength *passwordStrength = [[BBPasswordStrength alloc] initWithPassword:password.text];
-                password.entropy = [NSNumber numberWithDouble:passwordStrength.entropy];
+                password.strength = [self passwordStrengthOfText:password.text];
             }
             [self saveContext];
             [_passwordsController performFetch:nil];
@@ -68,8 +67,7 @@ static NSArray *g_defaultPassword = nil;
 
 - (void)setText:(NSString *)text intoPassword:(CPPassword *)password {
     password.text = text;
-    BBPasswordStrength *passwordStrength = [[BBPasswordStrength alloc] initWithPassword:password.text];
-    password.entropy = [NSNumber numberWithDouble:passwordStrength.entropy];
+    password.strength = [self passwordStrengthOfText:password.text];
     
     [self saveContext];
 }
@@ -83,8 +81,7 @@ static NSArray *g_defaultPassword = nil;
     } else {
         password.text = text;
     }
-    BBPasswordStrength *passwordStrength = [[BBPasswordStrength alloc] initWithPassword:password.text];
-    password.entropy = [NSNumber numberWithDouble:passwordStrength.entropy];
+    password.strength = [self passwordStrengthOfText:password.text];
     
     [self saveContext];
 }
@@ -140,6 +137,11 @@ static NSArray *g_defaultPassword = nil;
     }
     request.sortDescriptors = [[NSArray alloc] initWithObjects:[[NSSortDescriptor alloc] initWithKey:@"text" ascending:YES], nil];
     return [self.managedObjectContext executeFetchRequest:request error:nil];
+}
+
+- (NSNumber *)passwordStrengthOfText:(NSString *)text {
+    BBPasswordStrength *passwordStrength = [[BBPasswordStrength alloc] initWithPassword:text];
+    return [NSNumber numberWithDouble:passwordStrength.strength];
 }
 
 #pragma mark - Core Data stack

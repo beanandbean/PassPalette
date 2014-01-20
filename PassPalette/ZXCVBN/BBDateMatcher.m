@@ -68,8 +68,8 @@ static NSString * const BBDateCandidateInfoKeySeparator = @"separator";
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\d{4,8}" options:0 error:nil];
     [regex enumerateMatchesInString:password options:0 range:NSMakeRange(0, password.length) usingBlock:^ (NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
         NSRange range = result.range;
-        NSNumber *begin = [NSNumber numberWithInt:range.location];
-        NSNumber *end = [NSNumber numberWithInt:range.location + range.length - 1];
+        NSNumber *begin = [NSNumber numberWithInt:(int)range.location];
+        NSNumber *end = [NSNumber numberWithInt:(int)range.location + (int)range.length - 1];
         NSString *token = [password substringWithRange:range];
         
         // token.length == 6 can both be explained as "09 11 20" or "2009 1 2"
@@ -186,8 +186,8 @@ static NSString * const BBDateCandidateInfoKeySeparator = @"separator";
         NSRange separatorRange = [result rangeAtIndex:2];
         NSString *separator = [password substringWithRange:separatorRange];
         NSRange range = result.range;
-        int begin = range.location;
-        int end = range.location + range.length - 1;
+        int begin = (int)range.location;
+        int end = (int)range.location + (int)range.length - 1;
         [matches addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                             [NSNumber numberWithInt:day], BBDateCandidateInfoKeyDay,
                             [NSNumber numberWithInt:month], BBDateCandidateInfoKeyMonth,
@@ -210,8 +210,8 @@ static NSString * const BBDateCandidateInfoKeySeparator = @"separator";
         NSRange separatorRange = [result rangeAtIndex:2];
         NSString *separator = [password substringWithRange:separatorRange];
         NSRange range = result.range;
-        int begin = range.location;
-        int end = range.location + range.length - 1;
+        int begin = (int)range.location;
+        int end = (int)range.location + (int)range.length - 1;
         [matches addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                             [NSNumber numberWithInt:day], BBDateCandidateInfoKeyDay,
                             [NSNumber numberWithInt:month], BBDateCandidateInfoKeyMonth,

@@ -12,8 +12,8 @@
 
 @interface CPPassword : NSManagedObject
 
-@property (strong, nonatomic) NSNumber *entropy;
 @property (strong, nonatomic) NSNumber *index;
+@property (strong, nonatomic) NSNumber *strength;
 @property (strong, nonatomic) NSString *text;
 @property (strong, nonatomic) NSSet *memos;
 
@@ -25,7 +25,5 @@
 - (void)removeMemosObject:(CPMemo *)value;
 - (void)addMemos:(NSSet *)values;
 - (void)removeMemos:(NSSet *)values;
-
-- (CGFloat)strength;
 
 @end

@@ -19,9 +19,9 @@
 
 @implementation CPPassMeterView
 
-- (void)setEntropy:(double)entropy {
-    _entropy = entropy;
-    self.label.text = [NSString stringWithFormat:@"%2.0f", entropy];
+- (void)setStrength:(double)strength {
+    _strength = strength;
+    self.label.text = [NSString stringWithFormat:@"%2.0f", _strength * 100.0];
     [self setNeedsDisplay];
 }
 
@@ -50,8 +50,8 @@
     
     id<CPColorTable> colorTable = [CPAppearenceManager defaultManager].colorTable;
     CGFloat interval = M_PI * 2 / colorTable.colors.count;
-    for (NSUInteger index = 0; index < colorTable.colors.count; ++index) {
-        CGFloat startAngle = index * interval;
+    for (NSUInteger index = 0; index < self.strength * colorTable.colors.count; ++index) {
+        CGFloat startAngle = -M_PI_2 + index * interval;
         CGFloat nextAngle = startAngle + interval;
         CGContextAddArc(context, centerX, centerY, centerX, startAngle, nextAngle, 0);
         CGContextAddArc(context, centerX, centerY, centerX - 10.0, nextAngle, startAngle, 1);

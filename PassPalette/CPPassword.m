@@ -10,8 +10,8 @@
 
 @implementation CPPassword
 
-@dynamic entropy;
 @dynamic index;
+@dynamic strength;
 @dynamic text;
 @dynamic memos;
 

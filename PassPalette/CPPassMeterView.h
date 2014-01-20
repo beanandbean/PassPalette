@@ -8,6 +8,6 @@
 
 @interface CPPassMeterView : UIView
 
-@property (nonatomic) double entropy;
+@property (nonatomic) double strength;
 
 @end

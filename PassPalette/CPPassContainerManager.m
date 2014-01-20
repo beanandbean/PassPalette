@@ -266,7 +266,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PassCollectionViewCell" forIndexPath:indexPath];
     CPPassword *password = [[CPPassDataManager defaultManager].passwordsController.fetchedObjects objectAtIndex:indexPath.row];
-    cell.contentView.backgroundColor = [[CPAppearenceManager defaultManager].colorTable colorOfEntropy:password.entropy.floatValue];
+    cell.contentView.backgroundColor = [[CPAppearenceManager defaultManager].colorTable colorOfPassStrength:password.strength.floatValue];
     return cell;
 }
 

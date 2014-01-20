@@ -16,8 +16,9 @@
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:expression options:0 error:nil];
     [regex enumerateMatchesInString:password options:0 range:NSMakeRange(0, password.length) usingBlock:^ (NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
         NSRange range = result.range;
-        int begin = range.location;
-        int end = range.location + range.length - 1;
+        NSUInteger begin = range.location;
+        NSAssert(range.length > 0, @"");
+        NSUInteger end = range.location + range.length - 1;
         BBPattern *match = [[BBPattern alloc] init];
         match.type = expressionType;
         match.begin = begin;

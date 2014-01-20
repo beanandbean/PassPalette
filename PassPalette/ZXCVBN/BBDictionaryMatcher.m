@@ -37,7 +37,7 @@
 
 - (NSArray *)match:(NSString *)password {
     NSMutableArray *result = [NSMutableArray array];
-    int length = password.length;
+    int length = (int)password.length;
     NSString *lower = [password lowercaseString];
     
     for (int i = 0; i < length; i++) {
