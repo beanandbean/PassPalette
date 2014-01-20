@@ -9,6 +9,7 @@
 #import "CPPassEditorManager.h"
 
 #import "CPAppearenceManager.h"
+#import "BBURLDetection.h"
 #import "CPUIKitHelper.h"
 #import "CPMemoCell.h"
 #import "CPPassContainerManager.h"
@@ -332,6 +333,12 @@
             BBPasswordStrength *passwordStrength = [[BBPasswordStrength alloc] initWithPassword:password];
             self.passMeterView.strength = passwordStrength.strength;
             self.passEditorPanel.backgroundColor = [[CPAppearenceManager defaultManager].colorTable colorOfPassStrength:passwordStrength.strength];
+        }
+    } else if (textField == self.memoTextField) {
+        NSString *memo = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        BBURLDetection *detection = [[BBURLDetection alloc] initWithString:memo];
+        if (detection.matches.count) {
+            NSLog(@"%@", [detection.matches.firstObject URL]);
         }
     }
     return YES;

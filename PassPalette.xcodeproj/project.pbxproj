@@ -20,14 +20,19 @@
 		FC2828A4182F37800030B1AE /* BBSpatialMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = FC282896182F37800030B1AE /* BBSpatialMatcher.m */; };
 		FC2828A5182F37800030B1AE /* BBYearMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = FC282898182F37800030B1AE /* BBYearMatcher.m */; };
 		FC2828A8182F381B0030B1AE /* BBEntropyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FC2828A7182F381B0030B1AE /* BBEntropyCenter.m */; };
-		FC2828AB182F48C40030B1AE /* adjacency_graphs.json in Resources */ = {isa = PBXBuildFile; fileRef = FC2828A9182F48C40030B1AE /* adjacency_graphs.json */; };
-		FC2828AC182F48C40030B1AE /* frequency_lists.json in Resources */ = {isa = PBXBuildFile; fileRef = FC2828AA182F48C40030B1AE /* frequency_lists.json */; };
 		FC48FCB61839028000172B35 /* CPMemoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC48FCB51839028000172B35 /* CPMemoCell.m */; };
 		FC4DF5CB18667EE20049BE46 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC4DF5CA18667EE20049BE46 /* QuartzCore.framework */; };
 		FC553FDE1838AFE100065628 /* CPPassCellDraggingProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC553FDD1838AFE100065628 /* CPPassCellDraggingProcess.m */; };
 		FC553FE11838C90100065628 /* CPPassEdittingProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC553FE01838C90100065628 /* CPPassEdittingProcess.m */; };
 		FC553FE41838C93400065628 /* CPMemoEdittingProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC553FE31838C93400065628 /* CPMemoEdittingProcess.m */; };
 		FC553FE71838C95D00065628 /* CPRemovingMemoCellProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FC553FE61838C95D00065628 /* CPRemovingMemoCellProcess.m */; };
+		FC5D636E188D63990074764D /* adjacency_graphs.json in Resources */ = {isa = PBXBuildFile; fileRef = FC5D636C188D63990074764D /* adjacency_graphs.json */; };
+		FC5D636F188D63990074764D /* frequency_lists.json in Resources */ = {isa = PBXBuildFile; fileRef = FC5D636D188D63990074764D /* frequency_lists.json */; };
+		FC5D637B188D63F10074764D /* BBFullURLMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = FC5D6372188D63F10074764D /* BBFullURLMatcher.m */; };
+		FC5D637C188D63F10074764D /* BBURLDetection.m in Sources */ = {isa = PBXBuildFile; fileRef = FC5D6374188D63F10074764D /* BBURLDetection.m */; };
+		FC5D637D188D63F10074764D /* BBURLDictionaryMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = FC5D6376188D63F10074764D /* BBURLDictionaryMatcher.m */; };
+		FC5D637E188D63F10074764D /* BBURLMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = FC5D6378188D63F10074764D /* BBURLMatch.m */; };
+		FC5D6381188D640C0074764D /* website_dictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = FC5D6380188D640C0074764D /* website_dictionary.json */; };
 		FC64C61C182F95F800AB6C5C /* CPPassEditorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC64C61B182F95F800AB6C5C /* CPPassEditorManager.m */; };
 		FC69F5F9186B1CCB000DE63F /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC69F5F8186B1CCB000DE63F /* iAd.framework */; };
 		FC69F753187848270033D3DB /* CPInteractiveViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC69F752187848270033D3DB /* CPInteractiveViewManager.m */; };
@@ -110,8 +115,6 @@
 		FC282898182F37800030B1AE /* BBYearMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBYearMatcher.m; sourceTree = "<group>"; };
 		FC2828A6182F381B0030B1AE /* BBEntropyCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBEntropyCenter.h; sourceTree = "<group>"; };
 		FC2828A7182F381B0030B1AE /* BBEntropyCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBEntropyCenter.m; sourceTree = "<group>"; };
-		FC2828A9182F48C40030B1AE /* adjacency_graphs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = adjacency_graphs.json; sourceTree = "<group>"; };
-		FC2828AA182F48C40030B1AE /* frequency_lists.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = frequency_lists.json; sourceTree = "<group>"; };
 		FC48FCB41839028000172B35 /* CPMemoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPMemoCell.h; sourceTree = "<group>"; };
 		FC48FCB51839028000172B35 /* CPMemoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPMemoCell.m; sourceTree = "<group>"; };
 		FC4DF5CA18667EE20049BE46 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -123,6 +126,18 @@
 		FC553FE31838C93400065628 /* CPMemoEdittingProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPMemoEdittingProcess.m; sourceTree = "<group>"; };
 		FC553FE51838C95D00065628 /* CPRemovingMemoCellProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRemovingMemoCellProcess.h; sourceTree = "<group>"; };
 		FC553FE61838C95D00065628 /* CPRemovingMemoCellProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRemovingMemoCellProcess.m; sourceTree = "<group>"; };
+		FC5D636C188D63990074764D /* adjacency_graphs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = adjacency_graphs.json; path = ZXCVBN/adjacency_graphs.json; sourceTree = "<group>"; };
+		FC5D636D188D63990074764D /* frequency_lists.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = frequency_lists.json; path = ZXCVBN/frequency_lists.json; sourceTree = "<group>"; };
+		FC5D6371188D63F10074764D /* BBFullURLMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBFullURLMatcher.h; sourceTree = "<group>"; };
+		FC5D6372188D63F10074764D /* BBFullURLMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBFullURLMatcher.m; sourceTree = "<group>"; };
+		FC5D6373188D63F10074764D /* BBURLDetection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBURLDetection.h; sourceTree = "<group>"; };
+		FC5D6374188D63F10074764D /* BBURLDetection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBURLDetection.m; sourceTree = "<group>"; };
+		FC5D6375188D63F10074764D /* BBURLDictionaryMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBURLDictionaryMatcher.h; sourceTree = "<group>"; };
+		FC5D6376188D63F10074764D /* BBURLDictionaryMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBURLDictionaryMatcher.m; sourceTree = "<group>"; };
+		FC5D6377188D63F10074764D /* BBURLMatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBURLMatch.h; sourceTree = "<group>"; };
+		FC5D6378188D63F10074764D /* BBURLMatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBURLMatch.m; sourceTree = "<group>"; };
+		FC5D6379188D63F10074764D /* BBURLMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBURLMatcher.h; sourceTree = "<group>"; };
+		FC5D6380188D640C0074764D /* website_dictionary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = website_dictionary.json; path = "URL Detection/website_dictionary.json"; sourceTree = "<group>"; };
 		FC64C61A182F95F800AB6C5C /* CPPassEditorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPassEditorManager.h; sourceTree = "<group>"; };
 		FC64C61B182F95F800AB6C5C /* CPPassEditorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPassEditorManager.m; sourceTree = "<group>"; };
 		FC69F5F8186B1CCB000DE63F /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
@@ -276,6 +291,23 @@
 			path = ZXCVBN;
 			sourceTree = "<group>";
 		};
+		FC5D6370188D63C30074764D /* URL Detector */ = {
+			isa = PBXGroup;
+			children = (
+				FC5D6371188D63F10074764D /* BBFullURLMatcher.h */,
+				FC5D6372188D63F10074764D /* BBFullURLMatcher.m */,
+				FC5D6373188D63F10074764D /* BBURLDetection.h */,
+				FC5D6374188D63F10074764D /* BBURLDetection.m */,
+				FC5D6375188D63F10074764D /* BBURLDictionaryMatcher.h */,
+				FC5D6376188D63F10074764D /* BBURLDictionaryMatcher.m */,
+				FC5D6377188D63F10074764D /* BBURLMatch.h */,
+				FC5D6378188D63F10074764D /* BBURLMatch.m */,
+				FC5D6379188D63F10074764D /* BBURLMatcher.h */,
+			);
+			name = "URL Detector";
+			path = "URL Detection";
+			sourceTree = "<group>";
+		};
 		FC6A6CBC188C0E2F00982965 /* Color Tables */ = {
 			isa = PBXGroup;
 			children = (
@@ -345,6 +377,7 @@
 				FCDF1FF1182FDA9C00D7BEF2 /* PassPalette.xcdatamodel */,
 				FCA3ADBF1836610D00759D1A /* Processes */,
 				FC8E7D611824ECC100B3BE52 /* Supporting Files */,
+				FC5D6370188D63C30074764D /* URL Detector */,
 				FCEBD9FE1873A92100F1D553 /* Utilities */,
 				FC8E7D951824F65100B3BE52 /* View Managers */,
 				FC1BD7771834FD8B00E348F4 /* Views */,
@@ -356,12 +389,13 @@
 		FC8E7D611824ECC100B3BE52 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				FC2828A9182F48C40030B1AE /* adjacency_graphs.json */,
-				FC2828AA182F48C40030B1AE /* frequency_lists.json */,
+				FC5D636C188D63990074764D /* adjacency_graphs.json */,
+				FC5D636D188D63990074764D /* frequency_lists.json */,
 				FC8E7D631824ECC100B3BE52 /* InfoPlist.strings */,
 				FC8E7D661824ECC100B3BE52 /* main.m */,
 				FC8E7D621824ECC100B3BE52 /* PassPalette-Info.plist */,
 				FC8E7D681824ECC100B3BE52 /* PassPalette-Prefix.pch */,
+				FC5D6380188D640C0074764D /* website_dictionary.json */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -531,9 +565,10 @@
 			files = (
 				FC8E7D651824ECC100B3BE52 /* InfoPlist.strings in Resources */,
 				FC8E7D701824ECC100B3BE52 /* Images.xcassets in Resources */,
-				FC2828AC182F48C40030B1AE /* frequency_lists.json in Resources */,
+				FC5D636F188D63990074764D /* frequency_lists.json in Resources */,
+				FC5D6381188D640C0074764D /* website_dictionary.json in Resources */,
 				FC8E7D8E1824EE4000B3BE52 /* PassPalette.storyboard in Resources */,
-				FC2828AB182F48C40030B1AE /* adjacency_graphs.json in Resources */,
+				FC5D636E188D63990074764D /* adjacency_graphs.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -555,6 +590,9 @@
 				FC8E7D941824F4DA00B3BE52 /* CPViewManager.m in Sources */,
 				FC8E7D931824F4DA00B3BE52 /* CPMainViewController.m in Sources */,
 				FC553FE71838C95D00065628 /* CPRemovingMemoCellProcess.m in Sources */,
+				FC5D637B188D63F10074764D /* BBFullURLMatcher.m in Sources */,
+				FC5D637D188D63F10074764D /* BBURLDictionaryMatcher.m in Sources */,
+				FC5D637E188D63F10074764D /* BBURLMatch.m in Sources */,
 				FC2828A8182F381B0030B1AE /* BBEntropyCenter.m in Sources */,
 				FC2828A4182F37800030B1AE /* BBSpatialMatcher.m in Sources */,
 				FC28289B182F37800030B1AE /* BBDictionaryMatcher.m in Sources */,
@@ -563,6 +601,7 @@
 				FC702F5F187911960011E51D /* CPImageHelper.m in Sources */,
 				FC28289C182F37800030B1AE /* BBDigitsMatcher.m in Sources */,
 				FC8130DD1838571900D345E3 /* CPApplicationProcess.m in Sources */,
+				FC5D637C188D63F10074764D /* BBURLDetection.m in Sources */,
 				FC8E7DB81824FD1F00B3BE52 /* CPMemo.m in Sources */,
 				FC2828A5182F37800030B1AE /* BBYearMatcher.m in Sources */,
 				FCBBAF2A18759C4A002B2C83 /* CPSearchManager.m in Sources */,
