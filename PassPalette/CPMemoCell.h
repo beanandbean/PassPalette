@@ -8,6 +8,7 @@
 
 @interface CPMemoCell : UICollectionViewCell
 
+@property (nonatomic) BOOL showBackgroundColor;
 @property (strong, nonatomic) UILabel *label;
 
 + (NSString *)reuseIdentifier;

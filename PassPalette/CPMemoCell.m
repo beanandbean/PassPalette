@@ -12,6 +12,8 @@
 
 @interface CPMemoCell ()
 
+@property (strong, nonatomic) UIView *line;
+
 @end
 
 @implementation CPMemoCell
@@ -24,20 +26,24 @@
         [self addConstraint:[CPUIKitHelper constraintWithView:self.label alignToView:self attribute:NSLayoutAttributeLeft constant:8.0]];
         [self addConstraint:[CPUIKitHelper constraintWithView:self.label alignToView:self attribute:NSLayoutAttributeRight constant:-8.0]];
         
-        UIView *line = [[UIView alloc] init];
-        line.backgroundColor = [UIColor lightTextColor];
-        line.translatesAutoresizingMaskIntoConstraints = NO;
-        [self addSubview:line];
-        [self addConstraint:[CPUIKitHelper constraintWithView:line alignToView:self attribute:NSLayoutAttributeLeft constant:8.0]];
-        [self addConstraint:[CPUIKitHelper constraintWithView:line alignToView:self attribute:NSLayoutAttributeRight]];
-        [self addConstraint:[CPUIKitHelper constraintWithView:line alignToView:self attribute:NSLayoutAttributeBottom]];
-        [line addConstraint:[CPUIKitHelper constraintWithView:line height:1.0]];
+        [self addSubview:self.line];
+        [self addConstraint:[CPUIKitHelper constraintWithView:self.line alignToView:self attribute:NSLayoutAttributeLeft constant:8.0]];
+        [self addConstraint:[CPUIKitHelper constraintWithView:self.line alignToView:self attribute:NSLayoutAttributeRight]];
+        [self addConstraint:[CPUIKitHelper constraintWithView:self.line alignToView:self attribute:NSLayoutAttributeBottom]];
+        [self.line addConstraint:[CPUIKitHelper constraintWithView:self.line height:1.0]];
     }
     return self;
 }
 
 + (NSString *)reuseIdentifier {
     return @"CPMemoCell";
+}
+
+- (void)setShowBackgroundColor:(BOOL)showBackgroundColor {
+    _showBackgroundColor = showBackgroundColor;
+    if (_showBackgroundColor) {
+        [self.line removeFromSuperview];
+    }
 }
 
 #pragma mark - lazy init
@@ -48,6 +54,15 @@
         _label.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _label;
+}
+
+- (UIView *)line {
+    if (!_line) {
+        _line = [[UIView alloc] init];
+        _line.backgroundColor = [UIColor lightGrayColor];
+        _line.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _line;
 }
 
 @end

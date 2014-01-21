@@ -8,11 +8,13 @@
 
 #import "CPSearchManager.h"
 
+#import "CPAppearenceManager.h"
 #import "CPMainViewController.h"
 #import "CPMemo.h"
 #import "CPMemoCell.h"
 #import "CPPassContainerManager.h"
 #import "CPPassDataManager.h"
+#import "CPPassword.h"
 #import "CPProcessManager.h"
 #import "CPUIKitHelper.h"
 
@@ -118,7 +120,9 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CPMemoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[CPMemoCell reuseIdentifier] forIndexPath:indexPath];
+    cell.showBackgroundColor = YES;
     CPMemo *memo = [self.resultMemos objectAtIndex:indexPath.row];
+    cell.contentView.backgroundColor = [[CPAppearenceManager defaultManager].colorTable colorOfPassStrength:memo.password.strength.floatValue];
     cell.label.text = memo.text;
     return cell;
 }
